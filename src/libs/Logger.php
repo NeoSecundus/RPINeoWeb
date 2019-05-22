@@ -10,21 +10,21 @@ class Logger {
     }
 
     public function warn($msg) {
-        if (CONFIG['loglevel'] < 1)
+        if (config['loglevel'] < 1)
             return;
 
         $this->writeLog('[[WARN]]> ' . $msg);
     }
 
     public function info($msg) {
-        if (CONFIG['loglevel'] < 2)
+        if (config['loglevel'] < 2)
             return;
 
         $this->writeLog('[INFO]> ' . $msg);
     }
 
     public function fine($msg) {
-        if (CONFIG['loglevel'] < 3)
+        if (config['loglevel'] < 3)
             return;
 
         $this->writeLog('[FINE]> ' . $msg);
@@ -32,13 +32,13 @@ class Logger {
 
     private function writeLog($msg) {
         $msg = date('d/m H:i:s ---') . $msg;
-        
+
         $this->writeToFile($msg);
         $this->writeToConsole($msg);
     }
 
     private function writeToFile($msg) {
-        $logFile = fopen(CONFIG['logfile'], 'a') or $this->writeToConsole("Write to file Failed!");
+        $logFile = fopen(config['logfile'], 'a') or $this->writeToConsole("Write to file Failed!");
         fwrite($logFile, $msg);
         fclose($logFile);
     }
