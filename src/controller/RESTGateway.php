@@ -8,38 +8,18 @@ function RESTGateway() {
 
     if (explode("/", $url)[1] == "resources") {
         if (is_file(BASEPATH . $url)) {
-            includeResource($url);
+            $view->sendResource($url);
         } else {
             echo "File Not Found!";
         }
         die();
     }
 
-    switch($url) {
-        case '/':
-            $logger->info("Loading Home-Page");
-            $view->buildPage("home.html");
-            break;
-
-        default:
-            $logger->info("Unknown Page");
-            $view->buildPage("404.html");
+    if ($url == "/") {
+        $logger->info("Loading Home-Page");
+        $view->buildPage();
+    } else {
+        $logger->info("Requesting page " . $url);
+        $view->sendPageJson($url);
     }
-}
-
-function includeResource($url) {
-    $fileType = explode(".", $url);
-    $fileType = $fileType[sizeof($fileType)-1];
-
-    $contentHeader = "text/plain";
-
-    foreach (array_keys(config['resourceTypes']) as $key) {
-        if ($key == $fileType) {
-            $contentHeader = config['resourceTypes'][$key];
-            break;
-        }
-    }
-
-    header('Content-Type: ' . $contentHeader);
-    include(BASEPATH . $url);
 }

@@ -4,9 +4,9 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 class Logger {
 
     public function error($msg) {
-        $this->writeLog(' ERROR ---\n' .
-            $msg . '\n' .
-            '--- ERROR ---');
+        $this->writeLog(" ERROR ---\n" .
+            $msg . "\n" .
+            "--- ERROR ---");
     }
 
     public function warn($msg) {
@@ -31,7 +31,7 @@ class Logger {
     }
 
     private function writeLog($msg) {
-        $msg = date('d/m H:i:s ---') . $msg;
+        $msg = date('d/m H:i:s ---') . $msg . "\n";
 
         $this->writeToFile($msg);
         $this->writeToConsole($msg);

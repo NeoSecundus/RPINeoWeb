@@ -6,11 +6,14 @@
     <title>RaspiControl</title>
     <link rel="icon" href="/resources/images/Logo.png" type="image/png" >
     <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
+    <script type="text/javascript" src="/resources/js/pageLoader.js" ></script>
 </head>
 <body>
-<header>
-    <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
-</header>
-<nav>
-    <a href="/"><img src="/resources/images/Logo.png" alt="Logo"/></a>
-</nav>
+<main>
+    <header>
+        <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
+    </header>
+    <nav>
+        <button onclick="requestPage('/home.html')"><img src="/resources/images/Logo.png" alt="Logo"/></button>
+    </nav>
+    <div id="main">
