@@ -9,7 +9,7 @@
 #### Critical:
  - login cookie
  - login page
- - JSON data transfer instead of page reload
+ - check login cookie
 #### Short-Term:
 
 #### Mid-Term:

@@ -1,3 +1,5 @@
+"use strict";
+
 function requestPage(page) {
     const main = document.getElementById("main");
 

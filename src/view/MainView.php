@@ -18,7 +18,7 @@ class MainView {
         include_once($this->htmlPath . "footer.html");
     }
 
-    public function sendPageJson($pageName) {
+    public function sendPage($pageName) {
         if (!is_file($this->htmlPath . "pages/" . $pageName)) {
             $this->logger->error("Page does not exist: '" . $this->htmlPath . "pages/" . $pageName . "'!");
             $pageName = "/404.html";
