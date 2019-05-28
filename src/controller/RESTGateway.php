@@ -30,10 +30,16 @@ function RESTGateway() {
         die();
     }
 
-    if ($url == "/") {
-        $logger->info("Loading Home-Page");
-        $view->buildPage();
-    } else {
+    switch($url) {
+        case "/":
+            $logger->info("Loading Home-Page");
+            $view->buildPage();
+            break;
+        case "/getUsers":
+            $logger-> info("Requesting users!");
+            echo json_encode(getUsers());
+            break;
+        default:
             $logger->info("Requesting page " . $url);
             $view->sendPage($url);
     }

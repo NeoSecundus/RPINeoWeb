@@ -24,7 +24,7 @@ class MainView {
             $pageName = "/404.html";
         }
 
-        echo file_get_contents($this->htmlPath . "pages" . $pageName);
+        include($this->htmlPath . "pages" . $pageName);
     }
 
     function sendResource($url) {

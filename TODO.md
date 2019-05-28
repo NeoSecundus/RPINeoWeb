@@ -7,10 +7,14 @@
  
 ### TODO:
 #### Critical:
- - login cookie
- - login page
- - check login cookie
+- User-management page <<<
+- Register, Delete, Update user
 #### Short-Term:
+- User-Rights
+- Access denied page
+- Documentation
+    - Sequence
+    - Interface-Definition
 
 #### Mid-Term:
 
