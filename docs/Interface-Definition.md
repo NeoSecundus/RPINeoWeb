@@ -61,7 +61,7 @@ Statuscodes:
 URL: /adduser
 Send:
 ```json
-{"user":"username", "pass":''} #Empty password
+{"user":"username"}
 ```
 Receive:
 ```json
@@ -77,7 +77,7 @@ Statuscodes:
 URL: /removeuser
 Send:
 ```json
-{"user":"username", "pass":''} #Empty password
+{"user":"username"}
 ```
 Receive:
 ```json

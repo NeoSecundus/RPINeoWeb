@@ -31,7 +31,11 @@ function RESTGateway() {
             die();
         }
     } else {
-        include_once("src/includes/html/login.html");
+        if ($url == "/register") {
+            include_once("src/includes/html/register.html");
+        } else {
+            include_once("src/includes/html/login.html");
+        }
         die();
     }
 

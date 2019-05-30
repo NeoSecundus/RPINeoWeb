@@ -14,12 +14,14 @@
         <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
     </header>
     <nav>
-        <button id="icon" onclick="requestPage('/home.html')">
+        <button onclick="requestPage('/home.html')">
             <img src="/resources/images/Logo.png" alt="Logo" />
+            Home
         </button>
         <button onclick="
             requestPage('/users.html');
             requestScript('/resources/js/userManagement.js');
-        ">Manage Users</button>
+        ">Users</button>
+        <button onclick="logout()">Logout</button>
     </nav>
     <div id="main">

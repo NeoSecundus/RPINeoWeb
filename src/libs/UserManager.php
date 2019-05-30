@@ -24,21 +24,31 @@ class UserManager {
 
             echo json_encode(["status" => "true"]);
         } else {
-            echo json_encode(["status" => "false"]);
+            echo json_encode(["status" => "false", "msg" => "Username or password wrong!"]);
         }
     }
 
     public function register() {
         $users = $this->getUsers();
+        $this->DATA = getPostData();
+        $this->checkDataValidity();
 
         $this->checkUserExists($users);
 
         if (strlen($users[$this->DATA["user"]]) == 0) {
             $users[$this->DATA["user"]] = $this->DATA["pass"];
             $this->setUsers($users);
+
+            setcookie("raspiControl_login",
+                '{"user":"' .
+                $this->DATA["user"] .
+                '","pass":"' .
+                $this->DATA["pass"] .
+                '"}');
+
             echo json_encode(["status" => "true"]);
         } else {
-            echo json_encode(["status" => "false"]);
+            echo json_encode(["status" => "false", "msg" => "User already exists!"]);
         }
     }
 
@@ -71,7 +81,7 @@ class UserManager {
             if ($username == $this->DATA["user"])
                 return;
         }
-        echo json_encode(["status" => "false"]);
+        echo json_encode(["status" => "false", "msg" => "User does not exist! User must be pre-created by Admin!"]);
         die();
     }
 

@@ -1,5 +1,5 @@
 * {
-    font-size: 2.5vw;
+    font-size: calc(6px + 2vw);
 }
 
 body {
@@ -28,6 +28,16 @@ header {
     height: 100%;
 }
 
+#load {
+    width: 100%;
+    text-align: center;
+}
+
+#load > img {
+    width: 4rem;
+    height: 4rem;
+}
+
 h1 {
     font-size: 2.5rem;
     color: #22bb22dd;
@@ -41,6 +51,7 @@ h1 {
 
 button {
     background-image: linear-gradient( -30deg, skyblue -33%, white 66%);
+    font-size: 1em;
 }
 
 nav {
@@ -64,7 +75,7 @@ nav > button {
 }
 
 nav > button > img {
-    height: calc(1.6rem + 16px);
+    height: 1.6rem;
     margin-bottom: -0.2rem;
 }
 
@@ -91,20 +102,13 @@ footer {
     nav {
         grid-row: 2;
         grid-column: 1 / 4;
-        height: calc(16px + 2.75rem);
     }
 
     nav > button {
         text-shadow: none;
         display: inline;
-        width: 15%;
-        margin: 0.4rem;
-        position: relative;
-        top: calc(-10px - 0.8rem);
-    }
-
-    #icon {
-        top: -1px;
+        width: 4.5rem;
+        margin: 0.2rem;
     }
 
     #main {
