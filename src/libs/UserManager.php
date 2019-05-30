@@ -1,59 +1,93 @@
 <?php
-function login() {
-    global $logger;
-    $DATA = getPostData();
+if (!defined("BASEPATH")) die("No direct access allowed!");
 
-    if (!isset($DATA["user"]) || !isset($DATA["pass"])) {
-        echo json_encode(["status" => "false", "info" => "User or Pass not set in POST!"]);
-        die();
+class UserManager {
+    private $DATA;
+    private $logger;
+
+    public function __construct() {
+        global $logger;
+        $this->logger = $logger;
     }
 
-    if (checkUser($DATA)) {
-        setcookie("raspiControl_login",
-            '{"user":"' . $DATA["user"] . '","pass":"' . $DATA["pass"] . '"}');
-        echo json_encode(["status"=> "true"]);
-    } else {
-        echo json_encode(["status" => "false"]);
-    }
-}
+    public function login() {
+        $this->DATA = getPostData();
+        $this->checkDataValidity();
 
-function checkUser($DATA) {
-    $users = getUsers();
-    if (isset($users[$DATA["user"]])) {
-        if (strlen($users[$DATA["user"]]) == 0) {
-            $users[$DATA["user"]] = $DATA["pass"];
-            setUsers($users);
+        if ($this->checkUser($this->DATA)) {
+            setcookie("raspiControl_login",
+                '{"user":"' .
+                $this->DATA["user"] .
+                '","pass":"' .
+                $this->DATA["pass"] .
+                '"}');
+
+            echo json_encode(["status" => "true"]);
+        } else {
+            echo json_encode(["status" => "false"]);
+        }
+    }
+
+    public function register() {
+        $users = $this->getUsers();
+
+        $this->checkUserExists($users);
+
+        if (strlen($users[$this->DATA["user"]]) == 0) {
+            $users[$this->DATA["user"]] = $this->DATA["pass"];
+            $this->setUsers($users);
+            echo json_encode(["status" => "true"]);
+        } else {
+            echo json_encode(["status" => "false"]);
+        }
+    }
+
+    public function checkUser($DATA) {
+        $this->DATA = $DATA;
+
+        $users = $this->getUsers();
+        if (!isset($users[$this->DATA["user"]])) {
+            return false;
+        }
+
+        if ($users[$this->DATA["user"]] == $this->DATA["pass"] && strlen($users[$this->DATA["user"]]) != 0) {
             return true;
         }
-    } else {
         return false;
     }
 
-    if ($users[$DATA["user"]] == $DATA["pass"]) {
-        return true;
+    public function getUsers() {
+        if (is_file("/data/users.txt")) {
+            $this->logger->error("User-File not found!");
+            die();
+        }
+
+        $contents = file_get_contents(BASEPATH . "/data/users.txt");
+        return json_decode($contents, true);
     }
-    return false;
-}
 
-function getUsers() {
-    global $logger;
-
-    if (is_file("/data/users.txt")) {
-        $logger->error("User-File not found!");
+    private function checkUserExists($users) {
+        foreach (array_keys($users) as $username) {
+            if ($username == $this->DATA["user"])
+                return;
+        }
+        echo json_encode(["status" => "false"]);
         die();
     }
 
-    $contents = file_get_contents(BASEPATH . "/data/users.txt");
-    return json_decode($contents, true);
-}
-
-function setUsers($users) {
-    global $logger;
-
-    if (is_file("/data/users.txt")) {
-        $logger->error("User-File not found!");
-        die();
+    private function checkDataValidity() {
+        if (!isset($this->DATA["user"]) || !isset($this->DATA["pass"])) {
+            echo json_encode(["status" => "false", "info" => "User or Pass not set in POST!"]);
+            die();
+        }
     }
 
-    file_put_contents(BASEPATH . "/data/users.txt", json_encode($users));
+    private function setUsers($users) {
+        if (is_file("/data/users.txt")) {
+            $this->logger->error("User-File not found!");
+            die();
+        }
+
+        file_put_contents(BASEPATH . "/data/users.txt", json_encode($users));
+    }
 }

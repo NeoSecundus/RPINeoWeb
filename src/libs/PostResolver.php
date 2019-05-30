@@ -1,4 +1,6 @@
 <?php
+if (!defined("BASEPATH")) die("No direct access allowed!");
+
 function getPostData() {
     global $logger;
     $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
@@ -14,5 +16,6 @@ function getPostData() {
         }
     } else {
         $logger->error("Content-Type is not 'application/json'!");
+        return null;
     }
 }

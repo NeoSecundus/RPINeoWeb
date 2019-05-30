@@ -5,6 +5,7 @@ function RESTGateway() {
     global $logger;
     $url = $_SERVER['REQUEST_URI'];
     $view = new MainView();
+    $uManager = new UserManager();
 
     if (explode("/", $url)[1] == "resources") {
         if (is_file(BASEPATH . $url)) {
@@ -16,12 +17,16 @@ function RESTGateway() {
     }
 
     if ($url == "/trylogin") {
-        login();
+        $uManager->login();
+        die();
+    }
+    if ($url == "/tryregister") {
+        $uManager->register();
         die();
     }
 
     if (isset($_COOKIE['raspiControl_login'])) {
-        if (!checkUser(json_decode($_COOKIE['raspiControl_login'], true))) {
+        if (!$uManager->checkUser(json_decode($_COOKIE['raspiControl_login'], true))) {
             $view->sendPage('/404.html');
             die();
         }
@@ -37,7 +42,7 @@ function RESTGateway() {
             break;
         case "/getUsers":
             $logger-> info("Requesting users!");
-            echo json_encode(getUsers());
+            echo json_encode($uManager->getUsers());
             break;
         default:
             $logger->info("Requesting page " . $url);

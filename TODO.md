@@ -4,11 +4,17 @@
  - Control Page (LAMP, RESTART)
  - Info Page (WHERE IS WHAT, VERSION, etc.)
 
+### Bugs:
+#### Critical:
+
+#### Later:
  
 ### TODO:
 #### Critical:
 - User-management page <<<
 - Register, Delete, Update user
+- Loading Animation
+- Register Page
 #### Short-Term:
 - User-Rights
 - Access denied page

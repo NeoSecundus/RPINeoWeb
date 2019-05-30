@@ -17,9 +17,12 @@ function getUserList() {
     });
 }
 
-getUserList();
 document.getElementsByTagName("button")[1].addEventListener("click", () => {
     setTimeout( () => {
         getUserList();
-    }, 400);
+    }, 1000);
 });
+
+setTimeout( () => {
+    getUserList();
+}, 1000);
