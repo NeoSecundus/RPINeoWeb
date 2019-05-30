@@ -1,10 +1,10 @@
 function getUserList() {
     const uList = document.getElementById("userList");
+    uList.innerHTML = "";
     document.getElementById("load").style.display = "block";
 
-    fetch("getUsers").then( (res) => {
+    fetch("getusers").then( (res) => {
         res.text().then( (text) => {
-            uList.innerHTML = "";
             const json = JSON.parse(text);
 
             for (let user in json) {
@@ -19,7 +19,45 @@ function getUserList() {
     });
 }
 
+function changeUser(action) {
+    const status = document.getElementById("status");
+    status.innerHTML = "";
+    const user = document.getElementById("user").value;
 
+    const options = {
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+            "content-type":"application/json"
+        },
+        body: JSON.stringify({"user": user}),
+        method:"POST"
+    };
+
+    fetch(action, options).then( (data) => {
+        data.text().then( (text) => {
+            const json = JSON.parse(text);
+
+            if (json.status === "true") {
+                getUserList();
+            } else {
+                status.innerHTML = json.msg;
+            }
+        }).catch( (err) => {
+            console.log("Could not parse JSON! " + err)
+        })
+    }).catch( (err) => {
+        console.log("Could not fetch! " + err);
+    })
+}
+
+function removeUser() {
+    changeUser("removeuser");
+}
+
+function addUser() {
+    changeUser("adduser");
+}
 
 document.getElementsByTagName("button")[1].addEventListener("click", () => {
     setTimeout( () => {

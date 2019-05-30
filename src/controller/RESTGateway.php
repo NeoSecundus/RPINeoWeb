@@ -27,7 +27,7 @@ function RESTGateway() {
 
     if (isset($_COOKIE['raspiControl_login'])) {
         if (!$uManager->checkUser(json_decode($_COOKIE['raspiControl_login'], true))) {
-            $view->sendPage('/404.html');
+            $view->sendPage('/denied.html');
             die();
         }
     } else {
@@ -44,9 +44,17 @@ function RESTGateway() {
             $logger->info("Loading Home-Page");
             $view->buildPage();
             break;
-        case "/getUsers":
+        case "/getusers":
             $logger-> info("Requesting users!");
             echo json_encode($uManager->getUsers());
+            break;
+        case "/adduser":
+            $logger->info("Adding new User!");
+            $uManager->addUser();
+            break;
+        case "/removeuser":
+            $logger->info("Removing User!");
+            $uManager->removeUser();
             break;
         default:
             $logger->info("Requesting page " . $url);

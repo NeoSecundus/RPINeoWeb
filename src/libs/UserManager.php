@@ -33,7 +33,10 @@ class UserManager {
         $this->DATA = getPostData();
         $this->checkDataValidity();
 
-        $this->checkUserExists($users);
+        if (!$this->checkUserExists($users)) {
+            echo json_encode(["status" => "false", "msg" => "User does not exist! User must be pre-created by Admin!"]);
+            die();
+        };
 
         if (strlen($users[$this->DATA["user"]]) == 0) {
             $users[$this->DATA["user"]] = $this->DATA["pass"];
@@ -50,6 +53,44 @@ class UserManager {
         } else {
             echo json_encode(["status" => "false", "msg" => "User already exists!"]);
         }
+    }
+
+    public function removeUser() {
+        $this->DATA = getPostData();
+        $users = $this->getUsers();
+
+        if (!isset($this->DATA["user"])) {
+            echo json_encode(["status" => "false", "msg" => "User not set in Post!"]);
+            die();
+        }
+        if (!$this->checkUserExists($users)) {
+            echo json_encode(["status" => "false", "msg" => "User does not exist!"]);
+            die();
+        };
+
+        unset($users[$this->DATA["user"]]);
+        $this->setUsers($users);
+
+        echo json_encode(["status" => "true"]);
+    }
+
+    public function addUser() {
+        $this->DATA = getPostData();
+        $users = $this->getUsers();
+
+        if (!isset($this->DATA["user"])) {
+            echo json_encode(["status" => "false", "msg" => "User not set in Post!"]);
+            die();
+        }
+        if ($this->checkUserExists($users)) {
+            echo json_encode(["status" => "false", "msg" => "User already exists!"]);
+            die();
+        };
+
+        $users[$this->DATA["user"]] = "";
+        $this->setUsers($users);
+
+        echo json_encode(["status" => "true"]);
     }
 
     public function checkUser($DATA) {
@@ -79,10 +120,9 @@ class UserManager {
     private function checkUserExists($users) {
         foreach (array_keys($users) as $username) {
             if ($username == $this->DATA["user"])
-                return;
+                return true;
         }
-        echo json_encode(["status" => "false", "msg" => "User does not exist! User must be pre-created by Admin!"]);
-        die();
+        return false;
     }
 
     private function checkDataValidity() {
