@@ -6,6 +6,7 @@
     <title>RaspiControl</title>
     <link rel="icon" href="/resources/images/Logo.png" type="image/png" >
     <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/defaultButtons.css" >
     <script type="text/javascript" src="/resources/js/register.js" defer></script>
     <script type="text/javascript" src="/resources/js/sha.js" ></script>
 </head>
@@ -18,8 +19,8 @@
         <label>Password: <input type="password" id="password"></label><br/><br/>
         <label>Re-type Pass: <input type="password" id="password2"></label><br/><br/>
     </form>
-    <button onclick="window.location.href = '/'" style="margin-right: 25vw;">Back</button>
-    <button onclick="requestRegister()">Register</button>
+    <button onclick="window.location.href = '/'" style="margin-right: 25vw;">Back<span></span></button>
+    <button onclick="requestRegister()">Register<span></span></button>
     <p style="color: red" id="status"></p>
 </main>
 

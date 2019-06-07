@@ -7,6 +7,7 @@
  2.2. [Register](#register)
  2.3. [AddUser](#add-user)
  2.4. [RemoveUser](#remove-user)
+ 2.5. [Get Users](#get-users)
 
 ## GET Interfaces
 ---
@@ -86,3 +87,15 @@ Receive:
 Statuscodes:
 - true = ok
 - false = failed
+
+---
+### Get Users
+**Needs admin rights!**
+URL: /getusers
+Will request a list of users from the Server.
+**Does not need data to be sent!**
+
+Receive:
+```json
+{"user1":"pass1", "user2":"pass2", ...}
+```

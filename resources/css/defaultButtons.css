@@ -1,0 +1,68 @@
+button {
+    color: white;
+    background-color: darkturquoise;
+    border-style: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.15rem;
+    font-size: 1em;
+    transition: 0.6s;
+}
+
+button:hover {
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.20), 0 13px 40px 0 rgba(0,0,0,0.16);
+    transition: 0.6s;
+}
+
+button span {
+    cursor: pointer;
+    display: inline;
+    position: relative;
+    transition: 0.5s;
+}
+
+button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -0.6rem;
+    transition: 0.5s;
+}
+
+button:hover span {
+    padding-right: 0.8rem;
+}
+
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+nav > button {
+    display: block;
+    width: 90%;
+    min-width: calc(16px + 2.75rem);
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0.08rem 0.08rem #00000033;
+    margin: 0.2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav > button > img {
+    display: block;
+    margin: -0.4rem auto -0.4rem auto;
+    height: 1.5rem;
+    background: radial-gradient(circle, white 50%, transparent 65%);
+    padding: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+    nav > button {
+        text-shadow: none;
+        display: inline;
+        width: 6rem;
+        margin: 0.2rem;
+    }
+}

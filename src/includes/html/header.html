@@ -6,6 +6,7 @@
     <title>RaspiControl</title>
     <link rel="icon" href="/resources/images/Logo.png" type="image/png" >
     <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/defaultButtons.css" >
     <script type="text/javascript" src="/resources/js/pageLoader.js" ></script>
 </head>
 <body>
@@ -15,13 +16,21 @@
     </header>
     <nav>
         <button onclick="requestPage('/home.html')">
-            <img src="/resources/images/Logo.png" alt="Logo" />
-            Home
+            <img src="/resources/images/icons/logo.png" alt="Logo" />
+            Home <span></span>
         </button>
+
         <button onclick="
             requestPage('/users.html');
             requestScript('/resources/js/userManagement.js');
-        ">Users</button>
-        <button onclick="logout()">Logout</button>
+            ">
+            <img src="/resources/images/icons/user.png" alt="User Icon" />
+            Users<span></span>
+        </button>
+
+        <button onclick="logout()">
+            <img src="/resources/images/icons/logout.png" alt="Logout Icon" />
+            Logout<span></span>
+        </button>
     </nav>
     <div id="main">
