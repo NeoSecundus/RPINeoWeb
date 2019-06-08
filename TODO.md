@@ -1,6 +1,5 @@
 ## IDEAS:
  - Monitoring Page (CPU, TEMP)
- - Start Page
  - Control Page (LAMP, RESTART)
  - Info Page (WHERE IS WHAT, VERSION, etc.)
 
@@ -12,7 +11,6 @@
 ## TODO:
 ### Critical:
 - Update user (Reset Password)
-- CSS Restyling
 ### Short-Term:
 - User-Rights
 - Documentation
