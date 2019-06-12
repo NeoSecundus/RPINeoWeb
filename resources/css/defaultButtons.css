@@ -2,9 +2,9 @@ button {
     color: white;
     background-color: #44aa44;
     border-style: none;
-    padding: 0.3rem 0.5rem;
+    padding: 0.33rem 0.5rem;
     border-radius: 0.15rem;
-    font-size: 1em;
+    font-size: 1rem;
     transition: 0.3s;
 }
 
@@ -59,7 +59,12 @@ nav > button > img {
     nav > button {
         text-shadow: none;
         display: inline;
-        width: 7rem;
+        width: 6rem;
         margin: 0.1rem;
+    }
+    
+    nav > button > img {
+        display: block;
+        margin: -0.35rem auto -0.3rem auto
     }
 }

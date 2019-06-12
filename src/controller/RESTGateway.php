@@ -56,6 +56,10 @@ function RESTGateway() {
             $logger->info("Removing User!");
             $uManager->removeUser();
             break;
+        case "/resetpassword":
+            $logger->info("Resetting user password!");
+            $uManager->resetUser();
+            break;
         default:
             $logger->info("Requesting page " . $url);
             $view->sendPage($url);

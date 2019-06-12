@@ -7,6 +7,7 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          'png' => 'image/png',
          'jpg' => 'image/jpg',
          'ico' => 'image/x-icon',
+         'svg' => 'image/svg+xml',
 
          // Others
          'css' => 'text/css',

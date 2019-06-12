@@ -8,7 +8,11 @@ function getUserList() {
             const json = JSON.parse(text);
 
             for (let user in json) {
-                uList.innerHTML += `<li>User: ${user}</li>`;
+                uList.innerHTML += `<li>User: ${user}
+                    <button onclick="document.getElementById('user').value = '${user}'" style="height: 1.2rem; position: relative; top: 0.1rem; padding-top: 0.1rem">
+                        <img src="/resources/images/icons/edit.png" alt="Edit" style="height: 1rem"/>
+                    </button>
+                </li>`;
             }
             document.getElementById("load").style.display = "none";
         }).catch( (err) => {
@@ -24,15 +28,7 @@ function changeUser(action) {
     status.innerHTML = "";
     const user = document.getElementById("user").value;
 
-    const options = {
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-            "content-type":"application/json"
-        },
-        body: JSON.stringify({"user": user}),
-        method:"POST"
-    };
+    const options = createHeader({"user": user});
 
     fetch(action, options).then( (data) => {
         data.text().then( (text) => {
@@ -40,6 +36,7 @@ function changeUser(action) {
 
             if (json.status === "true") {
                 getUserList();
+                status.innerHTML = "Operation successful!";
             } else {
                 status.innerHTML = json.msg;
             }
@@ -48,7 +45,12 @@ function changeUser(action) {
         })
     }).catch( (err) => {
         console.log("Could not fetch! " + err);
-    })
+    });
+    resetStatus();
+}
+
+function resetPassword() {
+    changeUser("resetpassword");
 }
 
 function removeUser() {

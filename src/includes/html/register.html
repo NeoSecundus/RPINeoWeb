@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title>RaspiControl</title>
-    <link rel="icon" href="/resources/images/Logo.png" type="image/png" >
+    <link rel="icon" href="/resources/images/icons/logo.png" type="image/png" >
     <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
     <link rel="stylesheet" type="text/css" href="/resources/css/defaultButtons.css" >
     <script type="text/javascript" src="/resources/js/register.js" defer></script>
-    <script type="text/javascript" src="/resources/js/sha.js" ></script>
+    <script type="text/javascript" src="/resources/js/libs/sha.js" ></script>
 </head>
 <body>
 <main style="width: 99.7%; display: block; text-align: center;">
     <h1>Register</h1>
     <hr/>
-    <form style="margin-left: 24vw; text-align: left;">
+    <form style="margin: 0 auto 0 auto; text-align: center;">
         <label>UserName: <input type="text" id="username"></label><br/><br/>
         <label>Password: <input type="password" id="password"></label><br/><br/>
         <label>Re-type Pass: <input type="password" id="password2"></label><br/><br/>
     </form>
-    <button onclick="window.location.href = '/'" style="margin-right: 25vw;">Back<span></span></button>
+    <button onclick="window.location.href = '/'" style="margin-right: 15vw;">Back<span></span></button>
     <button onclick="requestRegister()">Register<span></span></button>
     <p style="color: red" id="status"></p>
 

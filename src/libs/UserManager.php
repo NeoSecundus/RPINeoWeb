@@ -93,6 +93,24 @@ class UserManager {
         echo json_encode(["status" => "true"]);
     }
 
+    public function resetUser() {
+        $this->DATA = getPostData();
+
+        $users = $this->getUsers();
+        if (!isset($users[$this->DATA["user"]])) {
+            return false;
+        }
+
+        if (isset($users[$this->DATA["user"]])) {
+            $users[$this->DATA["user"]] = "";
+            $this->setUsers($users);
+
+            echo json_encode(["status" => "true"]);
+        } else {
+            echo json_encode(["status" => "false", "msg" => "User not found!"]);
+        }
+    }
+
     public function checkUser($DATA) {
         $this->DATA = $DATA;
 

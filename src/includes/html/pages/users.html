@@ -9,10 +9,12 @@
 <label>User to edit:<input id="user" style="color: #189918;"/></label><br/>
 <style>
     .ub {
-    margin: 2vw 3vw 2vw 0;
+        margin: 0.1rem 0.25rem .1rem 0;
+        font-size: 0.9rem;
     }
 </style>
-<button class="ub" onclick="removeUser()">Remove User</button>
 <button class="ub" onclick="addUser()">Add User</button>
-<button onclick="getUserList()">Refresh</button>
+<button class="ub" onclick="removeUser()">Remove User</button>
+<button class="ub" onclick="resetPassword()">Reset Password</button>
+<button class="ub" onclick="getUserList()">Refresh</button>
 <p style="color: red" id="status"></p>
