@@ -20,18 +20,10 @@ function requestLogin() {
 
     const data = {
         user: user,
-        pass: pass
+        password: pass
     };
 
-    const options = {
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-            "content-type":"application/json"
-        },
-        body: JSON.stringify(data),
-        method:"POST"
-    };
+    const options = createHeader(data);
 
     fetch("trylogin", options).then( (res) => {
         res.text().then( (text) => {

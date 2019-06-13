@@ -6,15 +6,22 @@
 <ul id="userList">
 </ul>
 <hr/>
-<label>User to edit:<input id="user" style="color: #189918;"/></label><br/>
+<label>User to edit: <input id="user" style="font-weight: bold"/></label><br/>
 <style>
     .ub {
-        margin: 0.1rem 0.25rem .1rem 0;
-        font-size: 0.9rem;
+        margin: 0.2rem 0.2rem 0.2rem 0;
+        font-size: 0.8rem;
     }
 </style>
 <button class="ub" onclick="addUser()">Add User</button>
 <button class="ub" onclick="removeUser()">Remove User</button>
 <button class="ub" onclick="resetPassword()">Reset Password</button>
 <button class="ub" onclick="getUserList()">Refresh</button>
+<hr/>
+<label>User privileges: <select id="privileges">
+    <option>Admin</option>
+    <option>Member</option>
+    <option>Guest</option>
+</select></label><br/>
+<button class="ub" onclick="changePrivileges()">Change Privileges</button>
 <p style="color: red" id="status"></p>

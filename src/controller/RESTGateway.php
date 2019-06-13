@@ -60,6 +60,10 @@ function RESTGateway() {
             $logger->info("Resetting user password!");
             $uManager->resetUser();
             break;
+        case "/changeprivileges":
+            $logger->info("Changing privileges!");
+            $uManager->changePrivileges();
+            break;
         default:
             $logger->info("Requesting page " . $url);
             $view->sendPage($url);

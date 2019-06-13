@@ -4,34 +4,34 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 class Logger {
 
     public function error($msg) {
-        $this->writeLog(" ERROR ---\n" .
+        $this->writeLog("\n--- ERROR ---\n" .
             $msg . "\n" .
-            "--- ERROR ---");
+            "--- ERROR END ---");
     }
 
     public function warn($msg) {
         if (config['loglevel'] < 1)
             return;
 
-        $this->writeLog('[[WARN]]> ' . $msg);
+        $this->writeLog("[[WARN]]> " . $msg);
     }
 
     public function info($msg) {
         if (config['loglevel'] < 2)
             return;
 
-        $this->writeLog('[INFO]> ' . $msg);
+        $this->writeLog("[INFO]> " . $msg);
     }
 
     public function fine($msg) {
         if (config['loglevel'] < 3)
             return;
 
-        $this->writeLog('[FINE]> ' . $msg);
+        $this->writeLog("[FINE]> " . $msg);
     }
 
     private function writeLog($msg) {
-        $msg = date('d/m H:i:s ---') . $msg . "\n";
+        $msg = date('d/m H:i:s ') . $msg . "\n";
 
         $this->writeToFile($msg);
         $this->writeToConsole($msg);

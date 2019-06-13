@@ -12,14 +12,14 @@ class UserManager {
 
     public function login() {
         $this->DATA = getPostData();
-        $this->checkDataValidity();
+        $this->checkDataValidity(["user", "password"]);
 
         if ($this->checkUser($this->DATA)) {
             setcookie("raspiControl_login",
                 '{"user":"' .
                 $this->DATA["user"] .
-                '","pass":"' .
-                $this->DATA["pass"] .
+                '","password":"' .
+                $this->DATA["password"] .
                 '"}');
 
             echo json_encode(["status" => "true"]);
@@ -31,22 +31,19 @@ class UserManager {
     public function register() {
         $users = $this->getUsers();
         $this->DATA = getPostData();
-        $this->checkDataValidity();
+        $this->checkDataValidity(["user", "password"]);
 
-        if (!$this->checkUserExists($users)) {
-            echo json_encode(["status" => "false", "msg" => "User does not exist! User must be pre-created by Admin!"]);
-            die();
-        };
+        $this->checkUserExists($users);
 
         if (strlen($users[$this->DATA["user"]]) == 0) {
-            $users[$this->DATA["user"]] = $this->DATA["pass"];
+            $users[$this->DATA["user"]]["password"] = $this->DATA["password"];
             $this->setUsers($users);
 
             setcookie("raspiControl_login",
                 '{"user":"' .
                 $this->DATA["user"] .
-                '","pass":"' .
-                $this->DATA["pass"] .
+                '","password":"' .
+                $this->DATA["password"] .
                 '"}');
 
             echo json_encode(["status" => "true"]);
@@ -58,15 +55,9 @@ class UserManager {
     public function removeUser() {
         $this->DATA = getPostData();
         $users = $this->getUsers();
+        $this->checkDataValidity(["user"]);
 
-        if (!isset($this->DATA["user"])) {
-            echo json_encode(["status" => "false", "msg" => "User not set in Post!"]);
-            die();
-        }
-        if (!$this->checkUserExists($users)) {
-            echo json_encode(["status" => "false", "msg" => "User does not exist!"]);
-            die();
-        };
+        $this->checkUserExists($users);
 
         unset($users[$this->DATA["user"]]);
         $this->setUsers($users);
@@ -77,32 +68,40 @@ class UserManager {
     public function addUser() {
         $this->DATA = getPostData();
         $users = $this->getUsers();
+        $this->checkDataValidity(["user", "privileges"]);
 
-        if (!isset($this->DATA["user"])) {
-            echo json_encode(["status" => "false", "msg" => "User not set in Post!"]);
-            die();
-        }
-        if ($this->checkUserExists($users)) {
-            echo json_encode(["status" => "false", "msg" => "User already exists!"]);
-            die();
-        };
+        $this->checkUserExists($users);
 
-        $users[$this->DATA["user"]] = "";
+        $users[$this->DATA["user"]] = [
+            "password" => "",
+            "privileges" => $this->DATA["privileges"]
+        ];
         $this->setUsers($users);
 
         echo json_encode(["status" => "true"]);
     }
 
-    public function resetUser() {
+    public function changePrivileges() {
         $this->DATA = getPostData();
+        $this->checkDataValidity(["user", "privileges"]);
 
         $users = $this->getUsers();
-        if (!isset($users[$this->DATA["user"]])) {
-            return false;
-        }
+        $this->checkUserExists($users);
+
+        $users[$this->DATA["user"]]["privileges"] = $this->DATA["privileges"];
+        $this->setUsers($users);
+
+        echo json_encode(["status" => true, "msg" => "Operation Successful"]);
+    }
+
+    public function resetUser() {
+        $this->DATA = getPostData();
+        $this->checkDataValidity(["user"]);
+
+        $users = $this->getUsers();
 
         if (isset($users[$this->DATA["user"]])) {
-            $users[$this->DATA["user"]] = "";
+            $users[$this->DATA["user"]]["password"] = "";
             $this->setUsers($users);
 
             echo json_encode(["status" => "true"]);
@@ -111,7 +110,7 @@ class UserManager {
         }
     }
 
-    public function checkUser($DATA) {
+    public function checkUser($DATA): bool {
         $this->DATA = $DATA;
 
         $users = $this->getUsers();
@@ -119,7 +118,7 @@ class UserManager {
             return false;
         }
 
-        if ($users[$this->DATA["user"]] == $this->DATA["pass"] && strlen($users[$this->DATA["user"]]) != 0) {
+        if ($users[$this->DATA["user"]]["password"] == $this->DATA["password"] && strlen($users[$this->DATA["user"]]["password"]) != 0) {
             return true;
         }
         return false;
@@ -138,15 +137,18 @@ class UserManager {
     private function checkUserExists($users) {
         foreach (array_keys($users) as $username) {
             if ($username == $this->DATA["user"])
-                return true;
+                return;
         }
-        return false;
+        echo json_encode(["status" => false, "msg" => "User already exists!"]);
+        die();
     }
 
-    private function checkDataValidity() {
-        if (!isset($this->DATA["user"]) || !isset($this->DATA["pass"])) {
-            echo json_encode(["status" => "false", "info" => "User or Pass not set in POST!"]);
-            die();
+    private function checkDataValidity($keys) {
+        foreach ($keys as $key) {
+            if (!isset($this->DATA[$key])) {
+                echo json_encode(["status" => "false", "info" => $key . " not set in POST!"]);
+                die();
+            }
         }
     }
 

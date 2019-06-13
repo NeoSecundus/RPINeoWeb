@@ -11,7 +11,8 @@ function getUserList() {
                 uList.innerHTML += `<li>User: ${user}
                     <button onclick="document.getElementById('user').value = '${user}'" style="height: 1.2rem; position: relative; top: 0.1rem; padding-top: 0.1rem">
                         <img src="/resources/images/icons/edit.png" alt="Edit" style="height: 1rem"/>
-                    </button>
+                    </button> <br/>
+                    Privileges: ${json[user]["privileges"]}
                 </li>`;
             }
             document.getElementById("load").style.display = "none";
@@ -23,12 +24,11 @@ function getUserList() {
     });
 }
 
-function changeUser(action) {
+function changeUser(action, data) {
     const status = document.getElementById("status");
     status.innerHTML = "";
-    const user = document.getElementById("user").value;
 
-    const options = createHeader({"user": user});
+    const options = createHeader(data);
 
     fetch(action, options).then( (data) => {
         data.text().then( (text) => {
@@ -49,16 +49,31 @@ function changeUser(action) {
     resetStatus();
 }
 
+function changePrivileges() {
+    const user = document.getElementById("user").value;
+    const privilege = document.getElementById("privileges").value;
+
+    changeUser("changeprivileges", {"user":user, "privileges":privilege});
+}
+
 function resetPassword() {
-    changeUser("resetpassword");
+    const user = document.getElementById("user").value;
+    const privilege = document.getElementById("privileges").value;
+
+    changeUser("resetpassword", {"user":user, "privileges":privilege});
 }
 
 function removeUser() {
-    changeUser("removeuser");
+    const user = document.getElementById("user").value;
+
+    changeUser("removeuser", {"user":user});
 }
 
 function addUser() {
-    changeUser("adduser");
+    const user = document.getElementById("user").value;
+    const privilege = document.getElementById("privileges").value;
+
+    changeUser("adduser", {"user":user, "privileges":privilege});
 }
 
 document.getElementsByTagName("button")[1].addEventListener("click", () => {

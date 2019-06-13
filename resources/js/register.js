@@ -35,18 +35,10 @@ function requestRegister() {
     pass = sha3_256(pass);
     const data = {
         user: user,
-        pass: pass
+        password: pass
     };
 
-    const options = {
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-            "content-type":"application/json"
-        },
-        body: JSON.stringify(data),
-        method:"POST"
-    };
+    const options = createHeader(data);
 
     fetch("tryregister", options).then( (res) => {
         res.text().then( (text) => {
