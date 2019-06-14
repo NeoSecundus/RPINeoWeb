@@ -3,16 +3,12 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 
 class UserManager {
     private $DATA;
-    private $logger;
-
-    public function __construct() {
-        global $logger;
-        $this->logger = $logger;
-    }
 
     public function login() {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "password"]);
+
+        $this->checkUserDoesExist();
 
         if ($this->checkUser($this->DATA)) {
             setcookie("raspiControl_login",
@@ -29,11 +25,11 @@ class UserManager {
     }
 
     public function register() {
-        $users = $this->getUsers();
+        $users = UserManager::getUSers();
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "password"]);
 
-        $this->checkUserExists($users);
+        $this->checkUserDoesExist();
 
         if (strlen($users[$this->DATA["user"]]) == 0) {
             $users[$this->DATA["user"]]["password"] = $this->DATA["password"];
@@ -54,10 +50,10 @@ class UserManager {
 
     public function removeUser() {
         $this->DATA = getPostData();
-        $users = $this->getUsers();
+        $users = UserManager::getUSers();
         $this->checkDataValidity(["user"]);
 
-        $this->checkUserExists($users);
+        $this->checkUserDoesExist();
 
         unset($users[$this->DATA["user"]]);
         $this->setUsers($users);
@@ -67,10 +63,13 @@ class UserManager {
 
     public function addUser() {
         $this->DATA = getPostData();
-        $users = $this->getUsers();
+        $users = UserManager::getUSers();
         $this->checkDataValidity(["user", "privileges"]);
 
-        $this->checkUserExists($users);
+        if (isset($users[$this->DATA["user"]])) {
+            echo json_encode(["status" => false, "msg" => "User already exists!"]);
+            die();
+        }
 
         $users[$this->DATA["user"]] = [
             "password" => "",
@@ -85,35 +84,64 @@ class UserManager {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "privileges"]);
 
-        $users = $this->getUsers();
-        $this->checkUserExists($users);
+        $users = UserManager::getUSers();
+
+        $this->checkUserDoesExist();
 
         $users[$this->DATA["user"]]["privileges"] = $this->DATA["privileges"];
         $this->setUsers($users);
 
-        echo json_encode(["status" => true, "msg" => "Operation Successful"]);
+        echo json_encode(["status" => "true"]);
     }
 
     public function resetUser() {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user"]);
 
-        $users = $this->getUsers();
+        $users = UserManager::getUSers();
+        $this->checkUserDoesExist();
 
-        if (isset($users[$this->DATA["user"]])) {
-            $users[$this->DATA["user"]]["password"] = "";
-            $this->setUsers($users);
+        $users[$this->DATA["user"]]["password"] = "";
+        $this->setUsers($users);
 
-            echo json_encode(["status" => "true"]);
+        echo json_encode(["status" => "true"]);
+    }
+
+    public static function checkPrivileges(string $privilege, bool $operation = false) {
+        $users = UserManager::getUsers();
+        $curUser = json_decode($_COOKIE["raspiControl_login"], true);
+
+        $necessary = UserManager::privilegesToInt($privilege);
+        $userPrivilege = UserManager::privilegesToInt($users[$curUser["user"]]["privileges"]);
+
+        $hasPrivileges = ($userPrivilege >= $necessary);
+
+        if ($operation && !$hasPrivileges) {
+            echo json_encode(["status" => "false", "msg" => "Not high enough rights!"]);
+            die();
+        }
+
+        if (!$hasPrivileges) {
+            $view = new MainView();
+            $view->sendPage("/denied.html");
+            die();
+        }
+    }
+
+    private static function privilegesToInt(string $privilege): int {
+        if ($privilege == "Admin") {
+            return 2;
+        } elseif ($privilege == "Member") {
+            return 1;
         } else {
-            echo json_encode(["status" => "false", "msg" => "User not found!"]);
+            return 0;
         }
     }
 
     public function checkUser($DATA): bool {
         $this->DATA = $DATA;
 
-        $users = $this->getUsers();
+        $users = UserManager::getUSers();
         if (!isset($users[$this->DATA["user"]])) {
             return false;
         }
@@ -124,9 +152,11 @@ class UserManager {
         return false;
     }
 
-    public function getUsers() {
+    public static function getUsers() {
+        global $logger;
+        
         if (is_file("/data/users.txt")) {
-            $this->logger->error("User-File not found!");
+            Logger::error("User-File not found!");
             die();
         }
 
@@ -134,7 +164,9 @@ class UserManager {
         return json_decode($contents, true);
     }
 
-    private function checkUserExists($users) {
+    private function checkUserDoesExist() {
+        $users = UserManager::getUSers();
+
         foreach (array_keys($users) as $username) {
             if ($username == $this->DATA["user"])
                 return;
@@ -154,7 +186,7 @@ class UserManager {
 
     private function setUsers($users) {
         if (is_file("/data/users.txt")) {
-            $this->logger->error("User-File not found!");
+            Logger::error("User-File not found!");
             die();
         }
 

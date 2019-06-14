@@ -3,47 +3,47 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 
 class Logger {
 
-    public function error($msg) {
-        $this->writeLog("\n--- ERROR ---\n" .
+    public static function error($msg) {
+        Logger::writeLog("\n--- ERROR ---\n" .
             $msg . "\n" .
             "--- ERROR END ---");
     }
 
-    public function warn($msg) {
+    public static function warn($msg) {
         if (config['loglevel'] < 1)
             return;
 
-        $this->writeLog("[[WARN]]> " . $msg);
+        Logger::writeLog("[[WARN]]> " . $msg);
     }
 
-    public function info($msg) {
+    public static function info($msg) {
         if (config['loglevel'] < 2)
             return;
 
-        $this->writeLog("[INFO]> " . $msg);
+        Logger::writeLog("[INFO]> " . $msg);
     }
 
-    public function fine($msg) {
+    public static function fine($msg) {
         if (config['loglevel'] < 3)
             return;
 
-        $this->writeLog("[FINE]> " . $msg);
+        Logger::writeLog("[FINE]> " . $msg);
     }
 
-    private function writeLog($msg) {
+    private static function writeLog($msg) {
         $msg = date('d/m H:i:s ') . $msg . "\n";
 
-        $this->writeToFile($msg);
-        $this->writeToConsole($msg);
+        Logger::writeToFile($msg);
+        Logger::writeToConsole($msg);
     }
 
-    private function writeToFile($msg) {
-        $logFile = fopen(config['logfile'], 'a') or $this->writeToConsole("Write to file Failed!");
+    private static function writeToFile($msg) {
+        $logFile = fopen(config['logfile'], 'a') or Logger::writeToConsole("Write to file Failed!");
         fwrite($logFile, $msg);
         fclose($logFile);
     }
 
-    private function writeToConsole($msg) {
+    private static function writeToConsole($msg) {
         $output = $msg;
         if ( is_array( $output ) )
             $output = implode( ',', $output);

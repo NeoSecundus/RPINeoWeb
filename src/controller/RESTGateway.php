@@ -2,10 +2,9 @@
 if (!defined("BASEPATH")) die("No direct access allowed!");
 
 function RESTGateway() {
-    global $logger;
     $url = $_SERVER['REQUEST_URI'];
-    $view = new MainView();
     $uManager = new UserManager();
+    $view = new MainView();
 
     if (explode("/", $url)[1] == "resources") {
         if (is_file(BASEPATH . $url)) {
@@ -41,31 +40,36 @@ function RESTGateway() {
 
     switch($url) {
         case "/":
-            $logger->info("Loading Home-Page");
+            LOGGER::info("Loading Home-Page");
             $view->buildPage();
             break;
         case "/getusers":
-            $logger-> info("Requesting users!");
+            Logger::info("Requesting users!");
+            $uManager->checkPrivileges("Admin", true);
             echo json_encode($uManager->getUsers());
             break;
         case "/adduser":
-            $logger->info("Adding new User!");
+            Logger::info("Adding new User!");
+            $uManager->checkPrivileges("Admin", true);
             $uManager->addUser();
             break;
         case "/removeuser":
-            $logger->info("Removing User!");
+            Logger::info("Removing User!");
+            $uManager->checkPrivileges("Admin", true);
             $uManager->removeUser();
             break;
         case "/resetpassword":
-            $logger->info("Resetting user password!");
+            Logger::info("Resetting user password!");
+            $uManager->checkPrivileges("Admin", true);
             $uManager->resetUser();
             break;
         case "/changeprivileges":
-            $logger->info("Changing privileges!");
+            Logger::info("Changing privileges!");
+            $uManager->checkPrivileges("Admin", true);
             $uManager->changePrivileges();
             break;
         default:
-            $logger->info("Requesting page " . $url);
+            Logger::info("Requesting page " . $url);
             $view->sendPage($url);
     }
 }

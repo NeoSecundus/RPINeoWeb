@@ -2,10 +2,16 @@ function getUserList() {
     const uList = document.getElementById("userList");
     uList.innerHTML = "";
     document.getElementById("load").style.display = "block";
+    const status = document.getElementById("status");
 
     fetch("getusers").then( (res) => {
         res.text().then( (text) => {
             const json = JSON.parse(text);
+
+            if (json["status"] != null) {
+                status.innerHTML = json["msg"];
+                return;
+            }
 
             for (let user in json) {
                 uList.innerHTML += `<li>User: ${user}

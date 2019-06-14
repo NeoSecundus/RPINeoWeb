@@ -1,0 +1,43 @@
+@startuml
+
+package libs{
+    class Logger {
+        + {static} fine(msg)
+        + {static} info(msg)
+        + {static} warning(msg)
+        + {static} error(msg)
+        - {static} writeLog(msg)
+        - {static} writeToFile(msg)
+        - {static} writeToConsole(msg)
+    }
+
+    class UserManager {
+        - mixed DATA
+
+        + login()
+        + register()
+        + removeUser()
+        + addUser()
+        + changePrivileges()
+        + resetUser()
+        + {static} checkPrivileges(string privilege, bool operation = false)
+        - {static} int privilegesToInt(string privilege)
+        + bool checkUser(mixed DATA)
+        + {static} getUsers()
+        - checkUserDoesExist()
+        - checkDataValidity(string[] keys)
+        - setUsers(mixed users)
+    }
+}
+
+package view{
+    class MainView {
+        - string htmlPath
+
+        + buildPage()
+        + sendPage(string pageName)
+        + sendResource(string url)
+    }
+}
+
+@enduml

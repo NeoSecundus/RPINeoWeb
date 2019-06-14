@@ -14,13 +14,12 @@ body {
 main {
     display: grid;
     grid-template-columns: 22% 78%;
-    border: 0.2rem outset #44aa44;
 }
 
 header {
     grid-row: 1;
     grid-column: 1 / 3;
-    background: linear-gradient(#ddf5ff 10%, #e0f0e0 90%);
+    background: linear-gradient(#ddf5ff 10%, #f8f8f8 90%);
 }
 
 #banner {
@@ -40,7 +39,7 @@ header {
 
 h1 {
     font-size: 2.5rem;
-    color: #22bb22dd;
+    color: #44cc44ee;
     font-family: sans-serif;
     letter-spacing: 0.1rem;
     text-shadow: 0.04rem 0.15rem 0.25rem #def,
@@ -52,20 +51,22 @@ h1 {
 nav {
     grid-row: 2;
     grid-column: 1;
-    background-color: #e0f0e0;
+    background-color: #f8f8f8;
 }
 
 #main {
     grid-row: 2;
     grid-column: 2 / 3;
-    margin-top: -0.3rem;
+    border: 0.1rem solid darkgrey;
+    border-right: none;
+    border-radius: 0.25rem;
 }
 
 footer {
     grid-row: 3;
     grid-column: 1 / 3;
     text-align: center;
-    background-color: lightgray;
+    background-color: #f8f8f8;
 }
 
 @media screen and (max-width: 640px) {
@@ -82,6 +83,8 @@ footer {
     #main {
         grid-row: 3;
         grid-column: 1 / 3;
+        border-left: none;
+        border-radius: 0;
     }
 
     footer {

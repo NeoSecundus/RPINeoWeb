@@ -2,6 +2,12 @@
 if (!defined("BASEPATH")) die("No direct access allowed!");
 
  define('config', [
+     'pagePrivileges' => [
+        '/users.html' => 'Admin',
+         '/404.html' => 'Guest',
+         '/home.html' => 'Guest',
+         '/denied.html' => 'Guest'
+     ],
      'resourceTypes' => [
          // Images
          'png' => 'image/png',
