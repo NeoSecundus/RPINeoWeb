@@ -31,7 +31,7 @@ class UserManager {
 
         $this->checkUserDoesExist();
 
-        if (strlen($users[$this->DATA["user"]]) == 0) {
+        if (strlen($users[$this->DATA["user"]["password"]]) == 0) {
             $users[$this->DATA["user"]]["password"] = $this->DATA["password"];
             $this->setUsers($users);
 

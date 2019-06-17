@@ -15,7 +15,7 @@ function getUserList() {
 
             for (let user in json) {
                 uList.innerHTML += `<li>User: ${user}
-                    <button onclick="document.getElementById('user').value = '${user}'" style="height: 1.2rem; position: relative; top: 0.1rem; padding-top: 0.1rem">
+                    <button onclick="document.getElementById('user').value = '${user}'" style="height: 1.1rem; position: relative; top: 0.1rem; padding: 0.05rem 0.2rem">
                         <img src="/resources/images/icons/edit.png" alt="Edit" style="height: 1rem"/>
                     </button> <br/>
                     Privileges: ${json[user]["privileges"]}
@@ -57,6 +57,9 @@ function changeUser(action, data) {
 
 function changePrivileges() {
     const user = document.getElementById("user").value;
+    if (!confirm("Really change privileges of user: " + user + "?"))
+        return;
+
     const privilege = document.getElementById("privileges").value;
 
     changeUser("changeprivileges", {"user":user, "privileges":privilege});
@@ -64,6 +67,9 @@ function changePrivileges() {
 
 function resetPassword() {
     const user = document.getElementById("user").value;
+    if (!confirm("Really reset password of user: " + user + "?"))
+        return;
+
     const privilege = document.getElementById("privileges").value;
 
     changeUser("resetpassword", {"user":user, "privileges":privilege});
@@ -71,12 +77,17 @@ function resetPassword() {
 
 function removeUser() {
     const user = document.getElementById("user").value;
+    if (!confirm("Really remove user: " + user + "?"))
+        return;
 
     changeUser("removeuser", {"user":user});
 }
 
 function addUser() {
     const user = document.getElementById("user").value;
+    if (!confirm("Really add user: " + user + "?"))
+        return;
+
     const privilege = document.getElementById("privileges").value;
 
     changeUser("adduser", {"user":user, "privileges":privilege});

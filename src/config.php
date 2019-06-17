@@ -4,6 +4,7 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
  define('config', [
      'pagePrivileges' => [
         '/users.html' => 'Admin',
+         '/monitoring.html' => 'Member',
          '/404.html' => 'Guest',
          '/home.html' => 'Guest',
          '/denied.html' => 'Guest'

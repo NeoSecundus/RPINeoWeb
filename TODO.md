@@ -23,10 +23,10 @@
  
 ## TODO:
 ### Short-Term:
-- Status page
+- Monitoring page
 	- Write Python Scripts to read-out data
 	- Think about way to save and manage data
-	- Create Status page
+	- Create monitoring page
 	- Implement graphs
 
 ### Mid-Term:
