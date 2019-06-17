@@ -10,7 +10,7 @@ function createHeader(data, content_type = "application/json") {
     };
 }
 
-function resetStatus(time = 2000) {
+function resetStatus(time = 3000) {
     setTimeout(() => {
         document.getElementById("status").innerHTML = "";
     }, time)

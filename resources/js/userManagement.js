@@ -93,9 +93,9 @@ function addUser() {
     changeUser("adduser", {"user":user, "privileges":privilege});
 }
 
-document.getElementsByTagName("button")[1].addEventListener("click", () => {
+document.getElementsByTagName("button")[2].addEventListener("click", () => {
     setTimeout( () => {
         getUserList();
-    }, 1000);
+    }, 2000);
 });
 getUserList();

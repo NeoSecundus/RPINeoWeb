@@ -25,7 +25,7 @@ class UserManager {
     }
 
     public function register() {
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "password"]);
 
@@ -50,7 +50,7 @@ class UserManager {
 
     public function removeUser() {
         $this->DATA = getPostData();
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
         $this->checkDataValidity(["user"]);
 
         $this->checkUserDoesExist();
@@ -63,7 +63,7 @@ class UserManager {
 
     public function addUser() {
         $this->DATA = getPostData();
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
         $this->checkDataValidity(["user", "privileges"]);
 
         if (isset($users[$this->DATA["user"]])) {
@@ -84,7 +84,7 @@ class UserManager {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "privileges"]);
 
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
 
         $this->checkUserDoesExist();
 
@@ -98,7 +98,7 @@ class UserManager {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user"]);
 
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
         $this->checkUserDoesExist();
 
         $users[$this->DATA["user"]]["password"] = "";
@@ -141,7 +141,7 @@ class UserManager {
     public function checkUser($DATA): bool {
         $this->DATA = $DATA;
 
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
         if (!isset($users[$this->DATA["user"]])) {
             return false;
         }
@@ -153,19 +153,17 @@ class UserManager {
     }
 
     public static function getUsers() {
-        global $logger;
-        
-        if (is_file("/data/users.txt")) {
+        if (is_file("/data/users.ndb")) {
             Logger::error("User-File not found!");
             die();
         }
 
-        $contents = file_get_contents(BASEPATH . "/data/users.txt");
+        $contents = file_get_contents(BASEPATH . "/data/users.ndb");
         return json_decode($contents, true);
     }
 
     private function checkUserDoesExist() {
-        $users = UserManager::getUSers();
+        $users = UserManager::getUsers();
 
         foreach (array_keys($users) as $username) {
             if ($username == $this->DATA["user"])
@@ -185,11 +183,11 @@ class UserManager {
     }
 
     private function setUsers($users) {
-        if (is_file("/data/users.txt")) {
+        if (is_file("/data/users.ndb")) {
             Logger::error("User-File not found!");
             die();
         }
 
-        file_put_contents(BASEPATH . "/data/users.txt", json_encode($users));
+        file_put_contents(BASEPATH . "/data/users.ndb", json_encode($users));
     }
 }
