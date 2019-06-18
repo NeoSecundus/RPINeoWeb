@@ -16,7 +16,7 @@ maxTableSize = 0
 # Here you can set the database encryption to be active or not
 # You also have to provide a key with which the data gets encrypted
 encryption = False
-encryptionKey = 'Key'
+encryptionKey = 'StrongKey'
 
 # -----------------------INDEXING----------------------------------
 # Here you can set the type of indexing you want to use

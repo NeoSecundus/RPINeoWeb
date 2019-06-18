@@ -31,7 +31,7 @@ class UserManager {
 
         $this->checkUserDoesExist();
 
-        if (strlen($users[$this->DATA["user"]["password"]]) == 0) {
+        if (strlen($users[$this->DATA["user"]]["password"]) == 0) {
             $users[$this->DATA["user"]]["password"] = $this->DATA["password"];
             $this->setUsers($users);
 
@@ -153,7 +153,7 @@ class UserManager {
     }
 
     public static function getUsers() {
-        if (is_file("/data/users.ndb")) {
+        if (!is_file(BASEPATH . "/data/users.ndb")) {
             Logger::error("User-File not found!");
             die();
         }
@@ -183,7 +183,7 @@ class UserManager {
     }
 
     private function setUsers($users) {
-        if (is_file("/data/users.ndb")) {
+        if (!is_file(BASEPATH . "/data/users.ndb")) {
             Logger::error("User-File not found!");
             die();
         }
