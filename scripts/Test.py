@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
-from NeoLogic import NeoCrypt
+import sqlite3
+import time
 
-encoded = NeoCrypt.encode("Hello Darling!", "Sweet")
-print(encoded)
-print(NeoCrypt.decode(encoded, "Sweet"))
+conn = sqlite3.connect("../data/sqdb.db")
+curse = conn.cursor()
+
+data = [time.time(), 50.241, 0.2, 1800, 0.1, 29000]
+curse.execute("INSERT INTO raspi_monitoring VALUES (?, ?, ?, ?, ?, ?)", data)
+
+curse.close()
+conn.close()

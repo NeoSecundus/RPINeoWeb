@@ -154,7 +154,7 @@ class UserManager {
 
     public static function getUsers() {
         if (!is_file(BASEPATH . "/data/users.ndb")) {
-            Logger::error("User-File not found!");
+            Logger::error("Users not found!");
             die();
         }
 

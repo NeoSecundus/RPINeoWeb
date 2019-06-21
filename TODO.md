@@ -12,7 +12,6 @@
 **RESET THIS LIST >> COMMIT >> PUSH**
 
 ## IDEAS:
- - Monitoring Page (CPU, TEMP)
  - Control Page (LAMP, RESTART)
  - Info Page (WHERE IS WHAT, VERSION, etc.)
 
@@ -23,19 +22,20 @@
  
 ## TODO:
 ### Short-Term:
-- Write NeoDB (Python)
-	- Tables Split in Files
-	- JSON Format
-	- Config File
-	- Table Columns are Fixed, once they are defined they cannot be changed (for now)
-	- Table rows are indexed (0, 1, 2, 3, 4, 5, ...)
+- Monitoring page
+	- Create monitoring page
+	- JS, PHP Scripts
+	- Write Python Scripts to read-out data:
+		- Temp
+		- cpu_usage
+		- cpu_capacity
+		- storage_usage
+		- storage_capacity
+		- ram_usage
+		- ram_capacity
+	- Implement graphs
 
 ### Mid-Term:
-- Monitoring page
-	- Write Python Scripts to read-out data
-	- Think about way to save and manage data
-	- Create monitoring page
-	- Implement graphs
 
 - Info Page (About page)
 
