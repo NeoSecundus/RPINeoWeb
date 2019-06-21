@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-from NeoDB.NeoCrypt import *
+from NeoLogic import NeoCrypt
 
-crypt = encode("Hello! Fancy Müting yö#_. How is it going?!? ;-)")
-print(crypt)
-
-print("Decrypted:")
-print(decode(crypt))
+encoded = NeoCrypt.encode("Hello Darling!", "Sweet")
+print(encoded)
+print(NeoCrypt.decode(encoded, "Sweet"))
