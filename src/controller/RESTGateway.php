@@ -68,6 +68,10 @@ function RESTGateway() {
             $uManager->checkPrivileges("Admin", true);
             $uManager->changePrivileges();
             break;
+        case "/getrpidata":
+            Logger::info("Requesting Raspi data!");
+            echo Monitoring::getRPIData();
+            break;
         default:
             Logger::info("Requesting page " . $url);
             $view->sendPage($url);

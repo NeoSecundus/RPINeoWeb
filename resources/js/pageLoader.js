@@ -1,5 +1,7 @@
 "use strict";
 
+var __PAGE__ = "home";
+
 function requestPage(page) {
     const main = document.getElementById("main");
 
@@ -8,10 +10,10 @@ function requestPage(page) {
         return;
     }
 
-
     fetch(page).then( (res) => {
         res.text().then( (text) => {
             main.innerHTML = text;
+            __PAGE__ = page;
         });
     }).catch( (err) => {
         console.log("Fetch page failed! Err: " + err);
@@ -30,6 +32,7 @@ function requestScript(scriptPath) {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = scriptPath;
+    script.defer = true;
     head.appendChild(script);
 }
 

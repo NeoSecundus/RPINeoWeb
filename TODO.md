@@ -23,17 +23,17 @@
 ## TODO:
 ### Short-Term:
 - Monitoring page
-	- Create monitoring page
-	- JS, PHP Scripts
+	- Make monitoring page responsive
+	- Enable usage of timespans (30days, 7days, 1day, 1hour)
 	- Write Python Scripts to read-out data:
 		- Temp
 		- cpu_usage
-		- cpu_capacity
 		- storage_usage
-		- storage_capacity
 		- ram_usage
-		- ram_capacity
-	- Implement graphs
+	- Create documentation for:
+	    - myTools.js -> createTable
+	    - Monitoring.php
+	    - monitoring.js
 
 ### Mid-Term:
 

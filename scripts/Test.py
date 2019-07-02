@@ -6,8 +6,11 @@ import time
 conn = sqlite3.connect("../data/sqdb.db")
 curse = conn.cursor()
 
-data = [time.time(), 50.241, 0.2, 1800, 0.1, 29000]
-curse.execute("INSERT INTO raspi_monitoring VALUES (?, ?, ?, ?, ?, ?)", data)
+data = [int(time.time()), 50.241, 0.2, 0.6, 0.85]
+curse.execute("INSERT INTO raspi_monitoring VALUES (?, ?, ?, ?, ?)", data)
+conn.commit()
+# res = curse.execute("SELECT * FROM raspi_monitoring WHERE id == (SELECT max(id) FROM raspi_monitoring)")
+# print(res.fetchall())
 
 curse.close()
 conn.close()

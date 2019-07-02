@@ -7,6 +7,7 @@
     <link rel="icon" href="/resources/images/icons/logo.png" type="image/png" >
     <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
     <link rel="stylesheet" type="text/css" href="/resources/css/defaultButtons.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/js/external/chartjs/Chart.min.css" >
     <script type="text/javascript" src="/resources/js/pageLoader.js" ></script>
     <script type="text/javascript" src="/resources/js/libs/myTools.js"></script>
 </head>
@@ -21,7 +22,12 @@
             Home <span></span>
         </button>
 
-        <button onclick="requestPage('/monitoring.html')">
+        <button onclick="
+            requestPage('/monitoring.html');
+            requestScript('/resources/js/external/chartjs/Chart.min.js');
+            requestScript('/resources/js/monitoring.js');
+            beginExecution('startRPICharts');
+            ">
             <img src="/resources/images/icons/monitoring.png" alt="Monitoring"/>
             Monitor <span></span>
         </button>
