@@ -17,32 +17,34 @@
         <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
     </header>
     <nav>
-        <button onclick="requestPage('/home.html')">
-            <img src="/resources/images/icons/logo.png" alt="Logo" />
-            Home <span></span>
-        </button>
+        <div id="stickynav">
+            <button onclick="requestPage('/home.html')">
+                <img src="/resources/images/icons/logo.png" alt="Logo" />
+                Home <span></span>
+            </button>
 
-        <button onclick="
-            requestPage('/monitoring.html');
-            requestScript('/resources/js/external/chartjs/Chart.min.js');
-            requestScript('/resources/js/monitoring.js');
-            beginExecution('startRPICharts');
-            ">
-            <img src="/resources/images/icons/monitoring.png" alt="Monitoring"/>
-            Monitor <span></span>
-        </button>
+            <button onclick="
+                requestPage('/monitoring.html');
+                requestScript('/resources/js/external/chartjs/Chart.min.js');
+                requestScript('/resources/js/monitoring.js');
+                beginExecution('startRPICharts');
+                ">
+                <img src="/resources/images/icons/monitoring.png" alt="Monitoring"/>
+                Monitor <span></span>
+            </button>
 
-        <button onclick="
-            requestPage('/users.html');
-            requestScript('/resources/js/userManagement.js');
-            ">
-            <img src="/resources/images/icons/user.png" alt="User Icon" />
-            Users<span></span>
-        </button>
+            <button onclick="
+                requestPage('/users.html');
+                requestScript('/resources/js/userManagement.js');
+                ">
+                <img src="/resources/images/icons/user.png" alt="User Icon" />
+                Users<span></span>
+            </button>
 
-        <button onclick="logout()">
-            <img src="/resources/images/icons/logout.png" alt="Logout Icon" />
-            Logout<span></span>
-        </button>
+            <button onclick="logout()">
+                <img src="/resources/images/icons/logout.png" alt="Logout Icon" />
+                Logout<span></span>
+            </button>
+        </div>
     </nav>
     <div id="main">

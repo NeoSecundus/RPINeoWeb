@@ -21,18 +21,48 @@ function beginExecution(func) {
     }, 500)
 }
 
-function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
-    myOptions.aspectRatio = 1;
+function __prepareChartOptions(options, rem, type, infotext) {
+    options.aspectRatio = 1;
+    options.legend = {
+        labels: {
+            fontSize: 0.6 * rem
+        }
+    };
+
     if (infotext !== "") {
-        myOptions.title = {
+        options.title = {
             display: true,
-            text: infotext
+            text: infotext,
+            fontSize: 0.8 * rem
         }
     }
 
-    if (type === "bar" || type === "radar") {
-        myOptions.legend = false;
+    if (type === "radar" || type === "bar")  {
+        options.legend = false;
+        if (type === "radar") {
+            if (options.scale !== undefined) {
+                options.scale.pointLabels = {
+                    fontSize: 0.5 * rem
+                }
+            } else {
+                options.scale = {
+                    pointLabels: {
+                        fontSize: 0.5 * rem
+                    }
+                }
+            }
+        }
+    }
 
+    return options;
+}
+
+function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
+    let rem = parseInt(getComputedStyle(document.body).fontSize);
+
+    myOptions = __prepareChartOptions(myOptions, rem, type, infotext);
+
+    if (type === "bar" || type === "radar") {
         return new Chart(document.getElementById(canvasId), {
                 type: type,
                 data: {
@@ -40,6 +70,8 @@ function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
                     datasets: [{
                         data: [],
                         pointBackgroundColor: colors,
+                        pointRadius: 0.3 * rem,
+                        pointHoverRadius: 0.4 * rem,
                         backgroundColor: colors,
                         borderColor: "gray",
                         fill: false
@@ -56,6 +88,8 @@ function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
                 label: labels[i],
                 data: [],
                 pointBackgroundColor: colors[i],
+                pointRadius: 0.25 * rem,
+                pointHoverRadius: 0.35 * rem,
                 backgroundColor: colors[i],
                 borderColor: colors[i],
                 fill: false

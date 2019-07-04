@@ -23,7 +23,6 @@
 ## TODO:
 ### Short-Term:
 - Monitoring page
-	- Make monitoring page responsive
 	- Enable usage of timespans (30days, 7days, 1day, 1hour)
 	- Write Python Scripts to read-out data:
 		- Temp

@@ -38,7 +38,7 @@ button:hover span:after {
     right: 0;
 }
 
-nav > button {
+#stickynav > button {
     display: block;
     color: black;
     width: 100%;
@@ -50,15 +50,15 @@ nav > button {
     padding-left: 1.6rem;
 }
 
-nav > button:hover {
+#stickynav > button:hover {
     background-color: skyblue;
     transition: 0.3s;
 }
 
-nav > button > img {
+#stickynav > button > img {
     display: inline;
     position: absolute;
-    left: 1rem;
+    left: 0;
     margin: -0.4rem 0 -0.6rem 0;
     height: 1.2rem;
     background: radial-gradient(circle, #f8f8f8 52%, transparent 58%);
@@ -66,7 +66,7 @@ nav > button > img {
 }
 
 @media screen and (max-width: 640px) {
-    nav > button {
+    #stickynav > button {
         text-shadow: none;
         display: inline;
         width: 6rem;
@@ -74,7 +74,7 @@ nav > button > img {
         padding-left: 0.5rem;
     }
 
-    nav > button > img {
+    #stickynav > button > img {
         display: none;
     }
 }

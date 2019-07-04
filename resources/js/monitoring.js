@@ -11,6 +11,8 @@ function getCurrentRPIData(frames, labels) {
                     let data = [];
                     for (let j = 0; j < labels[i].length; j++) {
                          data[j] = json[0][labels[i][j]];
+                        if (data[j] <= 1 && data[j] >= 0)
+                            data[j] *= 100;
                     }
                     frames[i].data.datasets[0].data = data;
 
@@ -38,7 +40,7 @@ function getRPIData(frames, labels) {
                     let xLabels = [];
                     for (let e = 0; e < json.length; e++) {
                         let time = new Date(json[e]["id"]*1000);
-                        xLabels[e] = `${time.getDay()}.${time.getMonth()+1}`;
+                        xLabels[e] = `${time.getDay()}.${time.getMonth()+1} ${time.getHours()}:${time.getMinutes()}`;
                     }
                     frames[i].data.labels = xLabels;
 
@@ -46,6 +48,8 @@ function getRPIData(frames, labels) {
                         let data = [];
                         for (let e = 0; e < json.length; e++) {
                             data[e] = json[e][labels[i][l]];
+                            if (data[e] <= 1 && data[e] >= 0)
+                                data[e] *= 100;
                         }
                         frames[i].data.datasets[l].data = data;
                         e++;
@@ -92,8 +96,8 @@ function startRPICharts() {
             scale: {
                 ticks: {
                     min: 0,
-                    max: 1,
-                    stepSize: 0.2
+                    max: 100,
+                    stepSize: 20
                 }
             }
         }, {
@@ -101,13 +105,23 @@ function startRPICharts() {
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        max: 1,
-                        stepSize: 0.2
+                        max: 100,
+                        stepSize: 20
                     }
                 }]
             }
-        }, {}, {}];
-    let texts=["usage in %", "", "Temperature in °C", ""];
+        }, {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 20
+                    }
+                }]
+            }
+        }, {}];
+    let texts=["Resource usage in %", "", "Temperature in °C", ""];
 
     for (let i = 0; i < frameIds.length; i++) {
         frames[i] = createChart(frameIds[i], type[i], labels[i], colors[i], options[i], texts[i]);
