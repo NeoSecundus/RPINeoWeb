@@ -3,7 +3,7 @@
 import os
 
 # DB Setup scripts
-DBSCRIPTS = os.listdir("./DatabaseSetup")
+DBSCRIPTS = list(map(lambda file: "./DatabaseSetup/" + file, os.listdir("./DatabaseSetup")))
 
 # DB File Path
 DBFILE = "../data/sqdb.db"
