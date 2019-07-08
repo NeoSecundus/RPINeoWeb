@@ -8,7 +8,7 @@ from config import LOOPTIME, SCHEDULEPROCS, SCHEDULEROOT
 
 modules = []
 for proc in SCHEDULEPROCS:
-    modules.append(import_module(f"{SCHEDULEROOT}.{proc}"))
+    modules.append(import_module("{}.{}".format(SCHEDULEROOT, proc)))
 
 while True:
     for module in modules:
