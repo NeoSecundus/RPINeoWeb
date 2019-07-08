@@ -1,5 +1,6 @@
 * {
     font-size: calc(10px + 1.5vw);
+    font-family: sans-serif;
 }
 
 body {
@@ -13,7 +14,7 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 22% 78%;
+    grid-template-columns: 23% 77%;
 }
 
 header {
@@ -48,12 +49,19 @@ input {
 h1 {
     font-size: 2.5rem;
     color: #30aa30e0;
-    font-family: sans-serif;
     letter-spacing: 0.1rem;
     text-shadow: 0.04rem 0.15rem 0.25rem #def,
         0 0 0 #000000,
         0.04rem 0.15rem 0.25rem #def;
     text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #30aa30e0;
+    font-family: sans-serif;
 }
 
 nav {
@@ -76,11 +84,19 @@ nav {
 }
 
 .graph {
-    width: 49%;
+    position: relative;
+    width: 48.5%;
     padding: 0;
     margin: 0;
     display: inline-block;
     border: 1px solid lightgray;
+    transition: 0.3s;
+}
+
+.graph:focus {
+    width: 99%;
+    height: auto;
+    transition: 0.3s;
 }
 
 footer {

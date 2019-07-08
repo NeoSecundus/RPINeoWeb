@@ -1,15 +1,24 @@
 <h1>Monitoring</h1>
 <hr/>
-<div class="graph">
+<h2>Current Status</h2>
+<div class="graph" tabindex="-1">
     <canvas id="curUsage"></canvas>
 </div>
-<div class="graph">
-    <canvas id="timeUsage"></canvas>
-</div>
-<div class="graph">
+<div class="graph" tabindex="-1">
     <canvas id="curTemp"></canvas>
 </div>
-<div class="graph">
+<hr/>
+<h2>History</h2>
+<label style="display: block; margin: 0.33rem;"> History timespan: <select id="timespan">
+    <option value="hour">One Hour</option>
+    <option value="day">One Day</option>
+    <option value="week">One Week</option>
+    <option value="month">One Month</option>
+</select></label>
+<div class="graph" tabindex="-1">
+    <canvas id="timeUsage"></canvas>
+</div>
+<div class="graph" tabindex="-1">
     <canvas id="timeTemp"></canvas>
 </div>
 

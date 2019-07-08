@@ -1,7 +1,7 @@
 "use strict";
 function getCurrentRPIData(frames, labels) {
     const status = document.getElementById("status");
-    let header = createHeader({});
+    let header = createHeader({"view":"now"});
     let json;
 
     fetch("/getrpidata", header).then( (res) => {
@@ -28,8 +28,8 @@ function getCurrentRPIData(frames, labels) {
 
 function getRPIData(frames, labels) {
     const status = document.getElementById("status");
-    let timestamp = Date.now() - (1000*60*60*24*30);
-    let header = createHeader({"timestamp": timestamp});
+    const timespan = document.getElementById("timespan").value;
+    let header = createHeader({"view":timespan});
     let json;
 
     fetch("/getrpidata", header).then( (res) => {
@@ -78,16 +78,12 @@ function startRPICharts() {
 
     let colors = [(context) => {
         let val = context.dataset.data[context.dataIndex];
-        return val < 1 ?
-            val < 0.5 ? "#33cc33bb" : val < 0.8 ? "#bb8833bb" : "#cc3333bb" :
-            val < 50 ? "#33cc33bb" : val < 65 ? "#bb8833bb" : "#cc3333bb";
+        return val < 50 ? "#33cc33bb" : val < 75 ? "#cc9944bb" : "#cc3333bb";
     },
         ["#3333cccc", "#cc3333cc", "#33cc33cc"],
         (context) => {
         let val = context.dataset.data[context.dataIndex];
-        return val < 1 ?
-            val < 0.5 ? "#33cc33bb" : val < 0.8 ? "#bb8833bb" : "#cc3333bb" :
-            val < 50 ? "#33cc33bb" : val < 65 ? "#bb8833bb" : "#cc3333bb";
+        return val < 50 ? "#33cc33bb" : val < 75 ? "#cc9944bb" : "#cc3333bb";
     },
         ["#cc3333cc"]];
 
@@ -102,11 +98,9 @@ function startRPICharts() {
             }
         }, {
             scales: {
-                yAxes: [{
+                xAxes: [{
                     ticks: {
-                        min: 0,
-                        max: 100,
-                        stepSize: 20
+                        maxTicksLimit: 8
                     }
                 }]
             }
@@ -120,8 +114,15 @@ function startRPICharts() {
                     }
                 }]
             }
-        }, {}];
-    let texts=["Resource usage in %", "", "Temperature in °C", ""];
+        }, {
+        scales: {
+            xAxes: [{
+                ticks: {
+                    maxTicksLimit: 8
+                }
+            }]
+        }}];
+    let texts=["Resource usage in %", "Resource usage in %", "Temperature in °C", "Temperature in °C"];
 
     for (let i = 0; i < frameIds.length; i++) {
         frames[i] = createChart(frameIds[i], type[i], labels[i], colors[i], options[i], texts[i]);
@@ -133,11 +134,11 @@ function startRPICharts() {
 }
 
 function rpiLoop(frames, labels) {
-    let loop = setInterval((id) => {
+    let loop = setInterval(() => {
         if (__PAGE__ !== "/monitoring.html")
             clearInterval(loop);
         
         getRPIData(frames, labels);
         getCurrentRPIData(frames, labels);
-    }, 5000)
+    }, 3000)
 }

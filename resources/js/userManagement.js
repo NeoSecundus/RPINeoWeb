@@ -92,10 +92,3 @@ function addUser() {
 
     changeUser("adduser", {"user":user, "privileges":privilege});
 }
-
-document.getElementsByTagName("button")[2].addEventListener("click", () => {
-    setTimeout( () => {
-        getUserList();
-    }, 2000);
-});
-getUserList();

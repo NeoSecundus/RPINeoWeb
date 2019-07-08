@@ -87,9 +87,10 @@ function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
             mydatasets.push({
                 label: labels[i],
                 data: [],
+                lineTension: 0.2,
                 pointBackgroundColor: colors[i],
-                pointRadius: 0.25 * rem,
-                pointHoverRadius: 0.35 * rem,
+                pointRadius: 0.2 * rem,
+                pointHoverRadius: 0.3 * rem,
                 backgroundColor: colors[i],
                 borderColor: colors[i],
                 fill: false
