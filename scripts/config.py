@@ -2,17 +2,20 @@
 
 import os
 
+#Current directory
+ROOTDIR = os.path.dirname(os.path.abspath(__file__))
+
 # DB Setup scripts
-DBSCRIPTS = list(map(lambda file: "./DatabaseSetup/" + file, os.listdir("./DatabaseSetup")))
+DBSCRIPTS = list(map(lambda file: ROOTDIR + "/DatabaseSetup/" + file, os.listdir(ROOTDIR + "/DatabaseSetup")))
 
 # DB File Path
-DBFILE = "../data/sqdb.db"
+DBFILE = ROOTDIR + "/../data/sqdb.db"
 
 # In seconds
 LOOPTIME = 3
 
 # Scheduler Process Files
 # (Must implement a run method)
-SCHEDULEROOT = "NeoLogic"
+SCHEDULEROOT = ROOTDIR + "NeoLogic"
 SCHEDULEPROCS = ["RaspiReadout"]
 
