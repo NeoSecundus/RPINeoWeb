@@ -16,6 +16,6 @@ LOOPTIME = 3
 
 # Scheduler Process Files
 # (Must implement a run method)
-SCHEDULEROOT = ROOTDIR + "NeoLogic"
+SCHEDULEROOT = ROOTDIR + "/NeoLogic"
 SCHEDULEPROCS = ["RaspiReadout"]
 
