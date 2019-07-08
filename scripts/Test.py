@@ -17,7 +17,7 @@ with open("./DatabaseSetup/raspi_monitoring_setup.sql") as sqlFile:
 
 
 # Insert Data
-for i in range(0, 200):
+for i in range(0, 10):
     data = [int(time.time()), randint(40, 80), randint(20, 90)/100, randint(20, 90)/100, randint(20, 90)/100]
     curse.execute("INSERT INTO raspi_monitoring VALUES (?, ?, ?, ?, ?)", data)
     conn.commit()

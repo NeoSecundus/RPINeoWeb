@@ -11,12 +11,16 @@ function createHeader(data, content_type = "application/json") {
 }
 
 function beginExecution(func) {
+    let tries = 0;
     let tryExec = setInterval( () => {
         try {
             window[func]();
             clearInterval(tryExec);
         } catch (re) {
             console.log("Waiting for script...");
+            tries++;
+            if (tries >= 10)
+                clearInterval(tryExec);
         }
     }, 500)
 }
