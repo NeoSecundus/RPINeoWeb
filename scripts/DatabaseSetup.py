@@ -2,15 +2,17 @@
 
 import sqlite3
 
+from config import DBSCRIPTS, DBFILE
+
 print("Setup started...")
-connection = sqlite3.connect("../data/sqdb.db")
+connection = sqlite3.connect(DBFILE)
 db = connection.cursor()
 
-file = open("./setup.sql", "r")
-script = file.read()
-file.close()
+for scriptFile in DBSCRIPTS:
+    with open(scriptFile, "r") as file:
+        script = file.read()
 
-db.executescript(script)
+    db.executescript(script)
 
 db.close()
 connection.close()

@@ -23,17 +23,15 @@
 ## TODO:
 ### Short-Term:
 - Monitoring page
-	- Enable usage of timespans (30days, 7days, 1day, 1hour)
-	- Write Python Scripts to read-out data:
-		- Temp
-		- cpu_usage
-		- storage_usage
-		- ram_usage
 	- Create documentation for:
 	    - myTools.js -> createTable
 	    - Monitoring.php
 	    - monitoring.js
-
+	    - python scripts
+- Setup Script
+    - Create a bash setup script for:
+        - database
+        - scheduler.service
 ### Mid-Term:
 
 - Info Page (About page)

@@ -1,0 +1,10 @@
+[Unit]
+Description=Scheduler service for RaspiWebControl sensors
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /var/web/scripts/Scheduler.py
+
+[Install]
+WantedBy=multi-user.target
