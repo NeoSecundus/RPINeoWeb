@@ -41,12 +41,13 @@ class Monitoring {
             for ($i = 0; $i < $iterations; $i++) {
                 $collector = $data[$dataPos];
 
-                for ($ai = 0; $ai < $averageIterator; $ai++) {
+                for ($ai = 1; $ai < $averageIterator; $ai++) {
                     $dataPos++;
                     foreach (array_keys($collector) as $key) {
                         $collector[$key] += $data[$dataPos][$key];
                     }
                 }
+                $dataPos++;
 
                 foreach (array_keys($collector) as $key) {
                     $collector[$key] /= $averageIterator;
