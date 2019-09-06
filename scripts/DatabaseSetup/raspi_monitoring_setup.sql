@@ -11,15 +11,15 @@ CREATE TABLE raspi_monitoring (
 -- Views
 DROP VIEW IF EXISTS raspiHourView;
 CREATE VIEW raspiHourView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-3600;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-3600 and id < strftime('%s', 'now')-60;
 
 DROP VIEW IF EXISTS raspiDayView;
 CREATE VIEW raspiDayView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-86400;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-86400 and id < strftime('%s', 'now')-60;;
 
 DROP VIEW IF EXISTS raspiMonthView;
 CREATE VIEW raspiMonthView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-2592000;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-2592000 and id < strftime('%s', 'now')-60;;
 --Views END
 
 DROP VIEW IF EXISTS raspiMinHelper;
