@@ -122,7 +122,7 @@ function startRPICharts() {
                 }
             }]
         }}];
-    let texts=["Resource usage in %", "Resource usage in %", "Temperature in °C", "Temperature in °C"];
+    let texts=["Resource usage in %", "Resource usage in %", "CPU Temperature in °C", "CPU Temperature in °C"];
 
     for (let i = 0; i < frameIds.length; i++) {
         frames[i] = createChart(frameIds[i], type[i], labels[i], colors[i], options[i], texts[i]);

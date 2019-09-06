@@ -23,17 +23,16 @@
 ## TODO:
 ### Short-Term:
 - Monitoring page
-	- Create documentation for:
-	    - myTools.js -> createTable
-	    - Monitoring.php
-	    - monitoring.js
-	    - python scripts
+	- Change:
+	    - Chart.js -> plotly
+	    - Monitoring Page
 - Setup Script
     - Create a bash setup script for:
         - database
         - scheduler.service
 ### Mid-Term:
 
+- Notice Page
 - Info Page (About page)
 
 ### Long-Term:
