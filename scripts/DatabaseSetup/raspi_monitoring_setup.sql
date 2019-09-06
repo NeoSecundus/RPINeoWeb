@@ -26,6 +26,10 @@ DROP VIEW IF EXISTS raspiMinHelper;
 CREATE VIEW raspiMinHelper AS
     SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-60;
 
+DROP VIEW IF EXISTS raspiGarbageHelper;
+CREATE VIEW raspiGarbageHelper AS
+    SELECT * FROM raspi_monitoring WHERE id < strftime('%s', 'now')-2592000;
+
 --Timestamp triggers
 DROP TRIGGER IF EXISTS raspiMinuteTrigger;
 CREATE TRIGGER raspiMinuteTrigger
@@ -41,3 +45,10 @@ CREATE TRIGGER raspiMinuteTrigger
     DELETE FROM raspi_monitoring WHERE id > (SELECT min(id) FROM raspiMinHelper);
   END;
 
+DROP TRIGGER IF EXISTS raspiGarbageCollector;
+CREATE TRIGGER raspiGarbageCollector
+  AFTER INSERT ON raspi_monitoring
+  BEGIN
+    DELETE FROM raspi_monitoring
+    WHERE id == (SELECT id FROM raspiGarbageHelper);
+  END;

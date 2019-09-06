@@ -23,17 +23,21 @@
 ## TODO:
 ### Short-Term:
 - Monitoring page
-	- Change:
-	    - Chart.js -> plotly
-	    - Monitoring Page
-- Setup Script
-    - Create a bash setup script for:
-        - database
-        - scheduler.service
+	- Create Documentation for:
+	    - Data Grabber
+	    - Database
+	    - Python Scripts
+
+---
 ### Mid-Term:
 
 - Notice Page
 - Info Page (About page)
+- Setup Script
+    - Create a bash setup script for:
+        - database
+        - scheduler.service
 
+---
 ### Long-Term:
 
