@@ -22,16 +22,14 @@
  
 ## TODO:
 ### Short-Term:
-- Monitoring page
-	- Create Documentation for:
-	    - Data Grabber
-	    - Database
-	    - Python Scripts
+- Notice Page
+    - Create Page
+    - Create Database php functions
+    - Create js load scripts
 
 ---
 ### Mid-Term:
 
-- Notice Page
 - Info Page (About page)
 - Setup Script
     - Create a bash setup script for:

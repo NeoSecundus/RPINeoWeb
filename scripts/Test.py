@@ -1,34 +1,51 @@
 #!/usr/bin/env python3
 
 import sqlite3
-import time
-from random import randint
 from time import sleep
 
-from config import LOOPTIME, DBFILE
+from config import DBFILE
+from NeoLogic.RaspiNoteManager import run as runNoteManager
 
 conn = sqlite3.connect(DBFILE)
 curse = conn.cursor()
 
 
 # setup database
-with open("./DatabaseSetup/raspi_monitoring_setup.sql") as sqlFile:
-    curse.executescript(sqlFile.read())
+import DatabaseSetup
 
 
 # Insert Data
-for i in range(0, 10):
-    data = [int(time.time()), randint(40, 80), randint(20, 90)/100, randint(20, 90)/100, randint(20, 90)/100]
-    curse.execute("INSERT INTO raspi_monitoring VALUES (?, ?, ?, ?, ?)", data)
-    conn.commit()
-    print(f"\rStatus: {i}", end="")
-    sleep(LOOPTIME)
+curse.execute(f"INSERT INTO raspi_notes VALUES('TEST', "
+              f"NULL, "
+              f"'This is a test!', "
+              f"strftime('%s', 'now'), "
+              f"strftime('%s', 'now')+20);")
 
+curse.execute(f"INSERT INTO raspi_notes VALUES('TEST2', "
+              f"NULL, "
+              f"'This is a test! Delete me...', "
+              f"strftime('%s', 'now'), "
+              f"strftime('%s', 'now')+5);")
 
-# Print result
-res = curse.execute("SELECT * FROM raspi_monitoring")
+res = curse.execute("SELECT * FROM raspi_notes")
 for fetched in res.fetchall():
     print(fetched)
+
+print("sleeping...")
+sleep(10)
+
+curse.close()
+conn.commit()
+conn.close()
+runNoteManager()
+
+conn = sqlite3.connect(DBFILE)
+curse = conn.cursor()
+res = curse.execute("SELECT * FROM raspi_notes")
+data = res.fetchall()
+for fetched in data:
+    print(fetched)
+print(len(data))
 
 curse.close()
 conn.close()
