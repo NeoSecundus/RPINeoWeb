@@ -72,6 +72,22 @@ function RESTGateway() {
             Logger::info("Requesting Raspi data!");
             echo Monitoring::getRPIData();
             break;
+        case "/addnote":
+            Logger::info("Requesting to add new note!");
+            echo NoteManager::addNote();
+            break;
+        case "/updatenote":
+            Logger::info("Requesting to update note!");
+            echo NoteManager::updateNote();
+            break;
+        case "/getnotes":
+            Logger::info("Requesting to get notes!");
+            echo NoteManager::getNotes();
+            break;
+        case "/deletenote":
+            Logger::info("Requesting to delete note!");
+            echo NoteManager::deleteNote();
+            break;
         default:
             Logger::info("Requesting page " . $url);
             $view->sendPage($url);

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title>RaspiControl</title>
     <link rel="icon" href="/resources/images/icons/logo.png" type="image/png" >
-    <link rel="stylesheet" type="text/css" href="/resources/css/default.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/default640.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/default0.css" >
     <link rel="stylesheet" type="text/css" href="/resources/css/defaultButtons.css" >
     <link rel="stylesheet" type="text/css" href="/resources/js/external/chartjs/Chart.min.css" >
     <script type="text/javascript" src="/resources/js/pageLoader.js" ></script>
@@ -31,6 +32,14 @@
                 ">
                 <img src="/resources/images/icons/monitoring.png" alt="Monitoring"/>
                 Monitor <span></span>
+            </button>
+
+            <button onclick="
+                requestPage('/notes.html');
+                requestScript('/resources/js/notes.js');
+            ">
+                <img src="/resources/images/icons/notes.png" alt="Notes"/>
+                Notes <span></span>
             </button>
 
             <button onclick="
