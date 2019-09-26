@@ -15,11 +15,13 @@ function RESTGateway() {
         die();
     }
 
-    if ($url == "/trylogin") {
+    $rootUrl = explode("/", $url)[1];
+
+    if ($rootUrl == "trylogin") {
         $uManager->login();
         die();
     }
-    if ($url == "/tryregister") {
+    if ($rootUrl == "tryregister") {
         $uManager->register();
         die();
     }
@@ -30,7 +32,7 @@ function RESTGateway() {
             die();
         }
     } else {
-        if ($url == "/register") {
+        if ($rootUrl == "register") {
             include_once("src/includes/html/register.html");
         } else {
             include_once("src/includes/html/login.html");
@@ -38,55 +40,43 @@ function RESTGateway() {
         die();
     }
 
-    switch($url) {
-        case "/":
+    switch($rootUrl) {
+        case "":
             LOGGER::info("Loading Home-Page");
             $view->buildPage();
             break;
-        case "/getusers":
+        case "getusers":
             Logger::info("Requesting users!");
             $uManager->checkPrivileges("Admin", true);
             echo json_encode($uManager->getUsers());
             break;
-        case "/adduser":
+        case "adduser":
             Logger::info("Adding new User!");
             $uManager->checkPrivileges("Admin", true);
             $uManager->addUser();
             break;
-        case "/removeuser":
+        case "removeuser":
             Logger::info("Removing User!");
             $uManager->checkPrivileges("Admin", true);
             $uManager->removeUser();
             break;
-        case "/resetpassword":
+        case "resetpassword":
             Logger::info("Resetting user password!");
             $uManager->checkPrivileges("Admin", true);
             $uManager->resetUser();
             break;
-        case "/changeprivileges":
+        case "changeprivileges":
             Logger::info("Changing privileges!");
             $uManager->checkPrivileges("Admin", true);
             $uManager->changePrivileges();
             break;
-        case "/getrpidata":
+        case "getrpidata":
             Logger::info("Requesting Raspi data!");
             echo Monitoring::getRPIData();
             break;
-        case "/addnote":
-            Logger::info("Requesting to add new note!");
-            echo NoteManager::addNote();
-            break;
-        case "/updatenote":
-            Logger::info("Requesting to update note!");
-            echo NoteManager::updateNote();
-            break;
-        case "/getnotes":
-            Logger::info("Requesting to get notes!");
-            echo NoteManager::getNotes();
-            break;
-        case "/deletenote":
-            Logger::info("Requesting to delete note!");
-            echo NoteManager::deleteNote();
+        case "notes":
+            Logger::info("Requesting note-manager! ->");
+            echo NoteManager::checkRequest($url);
             break;
         default:
             Logger::info("Requesting page " . $url);

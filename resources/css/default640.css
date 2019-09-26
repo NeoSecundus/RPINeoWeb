@@ -108,7 +108,7 @@ footer {
 
 #notegroups {
     width: 92%;
-    background-color: #fad677;
+    background-color: #d0fffa;
     margin: 1%;
     border-radius: 1rem;
     padding: 3%;
@@ -133,7 +133,7 @@ footer {
 }
 
 #notes > details {
-    background-color: #fad677;
+    background-color: #d0fffa;
     padding: 1%;
     margin: 2% 1%;
     width: 96%;
@@ -143,6 +143,7 @@ footer {
 
 #notes > details > summary {
     color: royalblue;
+    font-weight: bold;
 }
 
 #notes > details[open] > summary {

@@ -12,8 +12,8 @@
 **RESET THIS LIST >> COMMIT >> PUSH**
 
 ## IDEAS:
- - Control Page (LAMP, RESTART)
  - Info Page (WHERE IS WHAT, VERSION, etc.)
+ - Built-In Terminal
 
 ## Bugs:
 ### Critical:
@@ -23,8 +23,6 @@
 ## TODO:
 ### Short-Term:
 - Notice Page
-    - Create Page
-    - Create Database php functions
     - Create js load scripts
 
 ---
