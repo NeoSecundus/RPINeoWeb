@@ -51,8 +51,8 @@ class NoteManager {
         }
 
         return self::sendDBRequest("SELECT * FROM raspi_notes 
-WHERE group_title == $DATA[group] and 
-\"user\" == $USER");
+WHERE group_title == '$DATA[group]' and 
+\"user\" == '$USER'");
     }
 
 
@@ -64,15 +64,12 @@ WHERE group_title == $DATA[group] and
             return json_encode(["status" => false, "msg" => "Note-Data missing!"]);
         }
 
-        $clear_date = isset($DATA["clear_date"]) ? $DATA["clear_date"] : NULL;
-
-        return self::sendDBRequest("INSERT INTO raspi_notes
-VALUES($DATA[title], 
-$USER, 
-$USER, 
-$DATA[text], 
-$DATA[create_date], 
-$clear_date)");
+        return self::sendDBRequest("INSERT INTO raspi_notes 
+VALUES('$DATA[title]', 
+'$USER', 
+'$DATA[group]', 
+'$DATA[text]', 
+$DATA[create_date])");
     }
 
 
@@ -82,7 +79,7 @@ $clear_date)");
         }
 
         return self::sendDBRequest("DELETE FROM raspi_notes 
-WHERE title == $DATA[title] and \"user\" == $USER and group_title == $DATA[group]");
+WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
     }
 
 
@@ -94,12 +91,12 @@ WHERE title == $DATA[title] and \"user\" == $USER and group_title == $DATA[group
         $res = '{"status":"false", "msg":"Notes: Nothing to update!"}';
 
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET title = $DATA[new_title] 
-WHERE title == $DATA[title] and \"user\" == $USER and group_title == $DATA[group]");
+            $res = self::sendDBRequest("UPDATE raspi_notes SET title = '$DATA[new_title]' 
+WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
         }
         if (isset($DATA["new_text"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = $DATA[new_text] 
-            WHERE title == $DATA[title] and \"user\" == $USER and group_title == $DATA[group]");
+            $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = '$DATA[new_text]' 
+            WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
         }
         return $res;
     }
@@ -111,7 +108,7 @@ WHERE title == $DATA[title] and \"user\" == $USER and group_title == $DATA[group
         }
 
         return self::sendDBRequest("INSERT INTO raspi_note_groups 
-VALUES($DATA[title], $USER, $DATA[color])");
+VALUES('$DATA[title]', '$USER', '$DATA[color]')");
     }
 
 
@@ -120,15 +117,16 @@ VALUES($DATA[title], $USER, $DATA[color])");
             return json_encode(["status" => false, "msg" => "Title not set!"]);
         }
 
+        self::sendDBRequest("DELETE FROM raspi_notes WHERE group_title = '$DATA[title]'");
         return self::sendDBRequest("DELETE FROM raspi_note_groups 
-WHERE \"user\" == $USER and title == $DATA[title]");
+WHERE \"user\" == '$USER' and title == '$DATA[title]'");
     }
 
 
     private static function getGroups($DATA, $USER): string {
         return self::sendDBRequest("SELECT * FROM raspi_note_group_view 
 WHERE \"user\" == '$USER'");
-    } // TODO: Change all database inputs to 'string'
+    }
 
 
     private static function updateGroup($DATA, $USER): string {
@@ -139,12 +137,12 @@ WHERE \"user\" == '$USER'");
         $res = '{"status":"false", "msg":"Note-Groups: Nothing to update!"}';
 
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = $DATA[new_title] 
-WHERE title == $DATA[title] and \"user\" == $USER");
+            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = '$DATA[new_title]' 
+WHERE title == '$DATA[title]' and \"user\" == '$USER'");
         }
         if (isset($DATA["new_color"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = $DATA[new_color] 
-            WHERE title == $DATA[title] and \"user\" == $USER and title == $DATA[group]");
+            $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = '$DATA[new_color]' 
+            WHERE title == '$DATA[title]' and \"user\" == '$USER'");
         }
         return $res;
     }

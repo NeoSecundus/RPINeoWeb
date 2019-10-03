@@ -21,5 +21,5 @@ LOOPTIME = 3
 # Scheduler Process Files
 # (Must implement a run method)
 SCHEDULEROOT = "NeoLogic"
-SCHEDULEPROCS = ["RaspiReadout", "RaspiNoteManager"]
+SCHEDULEPROCS = ["RaspiReadout"]
 

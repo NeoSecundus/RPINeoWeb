@@ -22,14 +22,11 @@
  
 ## TODO:
 ### Short-Term:
-- Notice Page
-    - Create js load scripts
+- Living-Web Background :)
 
 ---
 ### Mid-Term:
 
-- Google Cal embed
-- Living-Web Background :)
 - Info Page (About page)
 - Setup Script
     - Create a bash setup script for:

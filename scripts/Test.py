@@ -26,8 +26,7 @@ for i in range(0, 30):
                   f"'{users[i%3]}',"
                   f"'{groups[i % 6]}', "
                   f"'This is a test!', "
-                  f"strftime('%s', 'now'), "
-                  f"strftime('%s', 'now')+10000);")
+                  f"strftime('%s', 'now')*1000)")
 
 curse.close()
 conn.commit()
