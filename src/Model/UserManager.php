@@ -4,19 +4,28 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 class UserManager {
     private $DATA;
 
-    public function login() {
+    public function login(bool $remember) {
         $this->DATA = getPostData();
         $this->checkDataValidity(["user", "password"]);
 
         $this->checkUserDoesExist();
 
         if ($this->checkUser($this->DATA)) {
-            setcookie("raspiControl_login",
-                '{"user":"' .
-                $this->DATA["user"] .
-                '","password":"' .
-                $this->DATA["password"] .
-                '"}');
+            if ($remember) {
+                setcookie("raspiControl_login",
+                    '{"user":"' .
+                    $this->DATA["user"] .
+                    '","password":"' .
+                    $this->DATA["password"] .
+                    '"}', time()+604800);
+            } else {
+                setcookie("raspiControl_login",
+                    '{"user":"' .
+                    $this->DATA["user"] .
+                    '","password":"' .
+                    $this->DATA["password"] .
+                    '"}');
+            }
 
             echo json_encode(["status" => "true"]);
         } else {

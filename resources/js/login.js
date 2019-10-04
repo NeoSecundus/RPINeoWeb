@@ -16,6 +16,7 @@ function requestLogin() {
     const passInput = document.getElementById("password");
     let pass = passInput.value;
     pass = sha3_256(pass);
+    const rememberLogin = document.getElementById("loginCheckbox").checked;
     const status = document.getElementById("status");
 
     const data = {
@@ -23,9 +24,12 @@ function requestLogin() {
         password: pass
     };
 
-    const options = createHeader(data);
+    let mode = "trylogin";
+    if (rememberLogin === true) {
+        mode = "tryremlogin";
+    }
 
-    fetch("trylogin", options).then( (res) => {
+    fetch(mode, createHeader(data)).then( (res) => {
         res.text().then( (text) => {
             console.log(text);
             let json = JSON.parse(text);

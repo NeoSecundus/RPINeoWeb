@@ -18,7 +18,11 @@ function RESTGateway() {
     $rootUrl = explode("/", $url)[1];
 
     if ($rootUrl == "trylogin") {
-        $uManager->login();
+        $uManager->login(false);
+        die();
+    }
+    if ($rootUrl == "tryremlogin") {
+        $uManager->login(true);
         die();
     }
     if ($rootUrl == "tryregister") {
