@@ -23,6 +23,7 @@
 ## TODO:
 ### Short-Term:
 - Living-Web Background :)
+- Remember Me Button
 
 ---
 ### Mid-Term:

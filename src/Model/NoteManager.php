@@ -90,13 +90,13 @@ WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[
 
         $res = '{"status":"false", "msg":"Notes: Nothing to update!"}';
 
-        if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET title = '$DATA[new_title]' 
-WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
-        }
         if (isset($DATA["new_text"])) {
             $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = '$DATA[new_text]' 
             WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
+        }
+        if (isset($DATA["new_title"])) {
+            $res = self::sendDBRequest("UPDATE raspi_notes SET title = '$DATA[new_title]' 
+WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
         }
         return $res;
     }
@@ -136,13 +136,13 @@ WHERE \"user\" == '$USER'");
 
         $res = '{"status":"false", "msg":"Note-Groups: Nothing to update!"}';
 
-        if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = '$DATA[new_title]' 
-WHERE title == '$DATA[title]' and \"user\" == '$USER'");
-        }
         if (isset($DATA["new_color"])) {
             $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = '$DATA[new_color]' 
             WHERE title == '$DATA[title]' and \"user\" == '$USER'");
+        }
+        if (isset($DATA["new_title"])) {
+            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = '$DATA[new_title]' 
+WHERE title == '$DATA[title]' and \"user\" == '$USER'");
         }
         return $res;
     }
