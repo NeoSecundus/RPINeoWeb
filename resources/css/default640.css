@@ -148,6 +148,10 @@ footer {
     height: 0.8rem;"
 }
 
+#notegroups > button > div:focus {
+    outline: none;
+}
+
 #notes {
     width: 98%;
     margin: 1%;
@@ -169,6 +173,14 @@ footer {
 
 #notes > details[open] > summary {
     border-bottom: 0.05rem solid black;
+}
+
+#notes > details > summary > span:focus {
+    outline: none;
+}
+
+#notes > details > span:focus {
+    outline: none;
 }
 
 #bgCanvas {

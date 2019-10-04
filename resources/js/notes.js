@@ -19,8 +19,8 @@ function getNotes(group, color) {
                         <span contenteditable="true" style="width: 100%;">${json[i]["text"]}</span><br/>
                         <span style="font-size: 0.75rem;">Added: ${formatDate(json[i]["create_date"])}</span>
                         <span style="margin: 0 0 0 40%">
-                            <button onclick="updateNote('${json[i]["title"]}', '${json[i]["group_title"]}', ${i}, '${color}');">Save</button>
-                            <button onclick="deleteNote('${json[i]["title"]}', '${json[i]["group_title"]}', '${color}');">
+                            <button onclick="updateNote('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["group_title"].replace(/'/g, "\\'")}', ${i}, '${color}');">Save</button>
+                            <button onclick="deleteNote('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["group_title"].replace(/'/g, "\\'")}', '${color}');">
                                 <img style="height: 1.5rem; margin: -0.15rem 0 -0.45rem 0;" alt="Delete" src="/resources/images/icons/trash.png">
                             </button>
                         </span>
@@ -87,11 +87,11 @@ function getNoteGroups() {
 
             for (let i in json) {
                 insert += `<button style="background-color: ${json[i]["color"]};" 
-onclick="getNotes('${json[i]["title"]}', '${json[i]["color"]}')">
+onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}')">
 <div class="ngt" contenteditable="true">${json[i]["title"]}</div><br/>
 <input type="color" value="${json[i]["color"]}" />
-<div onclick="updateNoteGroup('${json[i]["title"]}', '${json[i]["color"]}', ${i})">Save</div>
-<div onclick="deleteNoteGroup('${json[i]["title"]}')">Del</div>
+<div onclick="updateNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}', ${i})">Save</div>
+<div onclick="deleteNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}')">Del</div>
 </button>`;
             }
             insert += `<br/><button style="align-self: center; padding: 0; font-size: 3rem; line-height: 3rem;" onclick="addNoteGroup();">+</button>`;

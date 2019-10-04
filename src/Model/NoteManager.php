@@ -51,8 +51,8 @@ class NoteManager {
         }
 
         return self::sendDBRequest("SELECT * FROM raspi_notes 
-WHERE group_title == '$DATA[group]' and 
-\"user\" == '$USER'");
+WHERE group_title == ? and \"user\" == '$USER'",
+            [$DATA['group']]);
     }
 
 
@@ -79,7 +79,8 @@ $DATA[create_date])");
         }
 
         return self::sendDBRequest("DELETE FROM raspi_notes 
-WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
+WHERE title == ? and \"user\" == '$USER' and group_title == ?",
+            [$DATA["title"], $DATA["group"]]);
     }
 
 
@@ -91,12 +92,14 @@ WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[
         $res = '{"status":"false", "msg":"Notes: Nothing to update!"}';
 
         if (isset($DATA["new_text"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = '$DATA[new_text]' 
-            WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
+            $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = ? 
+            WHERE title == ? and \"user\" == '$USER' and group_title == ?",
+                [$DATA['new_text'], $DATA['title'], $DATA['group']]);
         }
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET title = '$DATA[new_title]' 
-WHERE title == '$DATA[title]' and \"user\" == '$USER' and group_title == '$DATA[group]'");
+            $res = self::sendDBRequest("UPDATE raspi_notes SET title = ?
+WHERE title == ? and \"user\" == '$USER' and group_title == ?",
+                [$DATA['new_title'], $DATA["title"], $DATA["group"]]);
         }
         return $res;
     }
@@ -117,9 +120,9 @@ VALUES('$DATA[title]', '$USER', '$DATA[color]')");
             return json_encode(["status" => false, "msg" => "Title not set!"]);
         }
 
-        self::sendDBRequest("DELETE FROM raspi_notes WHERE group_title = '$DATA[title]'");
         return self::sendDBRequest("DELETE FROM raspi_note_groups 
-WHERE \"user\" == '$USER' and title == '$DATA[title]'");
+WHERE \"user\" == '$USER' and title == ?",
+            [$DATA["title"]]);
     }
 
 
@@ -137,21 +140,27 @@ WHERE \"user\" == '$USER'");
         $res = '{"status":"false", "msg":"Note-Groups: Nothing to update!"}';
 
         if (isset($DATA["new_color"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = '$DATA[new_color]' 
-            WHERE title == '$DATA[title]' and \"user\" == '$USER'");
+            $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = ? 
+            WHERE title == ? and \"user\" == '$USER'",
+                [$DATA["new_color"], $DATA["title"]]);
         }
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = '$DATA[new_title]' 
-WHERE title == '$DATA[title]' and \"user\" == '$USER'");
+            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = ? 
+WHERE title == ? and \"user\" == '$USER'",
+                [$DATA["new_title"], $DATA["title"]]);
         }
         return $res;
     }
 
-    private static function sendDBRequest($query): string {
+    private static function sendDBRequest($query, $data = []): string {
         $db = new SQLite3("data/sqdb.db");
         $db->busyTimeout(500);
         $db->query("PRAGMA foreign_keys = ON;");
-        $result = $db->query($query);
+        $stmt = $db->prepare($query);
+        for ($pos = 0; $pos < count($data); $pos++) {
+            $stmt->bindParam($pos+1,$data[$pos]);
+        }
+        $result = $stmt->execute();
         $data = [];
 
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {

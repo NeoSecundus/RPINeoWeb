@@ -36,3 +36,11 @@ button {
         left: 50%;
     }
 }
+
+@media screen and (max-width: 640px) {
+    #form {
+        margin: 1rem 0;
+        width: 100%;
+        border: none;
+    }
+}
