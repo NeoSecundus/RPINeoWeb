@@ -22,16 +22,15 @@
  
 ## TODO:
 ### Short-Term:
-- Living-Web Background :)
+- Info Page
 
 ---
 ### Mid-Term:
 
-- Info Page (About page)
 - Setup Script
     - Create a bash setup script for:
-        - database
-        - scheduler.service
+        - database + scheduler.service
+        - apache server + network setup
 
 ---
 ### Long-Term:
