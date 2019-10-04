@@ -19,7 +19,6 @@ function nodeGen() {
     for (let i = 0; i < nodeNum; i++) {
         nodes.push(new Node(canvas, Math.random() * canvas.width, Math.random() * canvas.height));
     }
-    console.log(nodes.length);
 }
 
 const livingWebLoop = setInterval(() => {
@@ -44,10 +43,8 @@ window.onresize = () => {
         nodeGen();
 
         if (window.innerWidth < widthLimit && oldWidth > widthLimit) {
-            console.log("stopped...");
             clearInterval(livingWebLoop);
         } else if (oldWidth < widthLimit) {
-            console.log("restarted...");
             setInterval(livingWebLoop);
         }
 
