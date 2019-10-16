@@ -6,5 +6,6 @@ function getTerminalSrc() {
 
     setTimeout( () => {
         tm.style.height = '80vh';
-    }, 5000);
+	tm.style.width = '99%';
+    }, 4000);
 }
