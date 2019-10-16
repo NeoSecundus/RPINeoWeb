@@ -22,11 +22,16 @@
  
 ## TODO:
 ### Short-Term:
-- Info Page
+
+- Terminal
+    - Create new git branch
+    - Create Icon
+    - Create terminal page
 
 ---
 ### Mid-Term:
 
+- Info Page
 - Setup Script
     - Create a bash setup script for:
         - database + scheduler.service

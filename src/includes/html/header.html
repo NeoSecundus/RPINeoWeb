@@ -47,6 +47,15 @@
             </button>
 
             <button onclick="
+            requestPage('/terminal.html');
+            requestScript('/resources/js/terminal.js');
+            beginExecution('getTerminalSrc')
+">
+                <img src="/resources/images/icons/bash.png" alt="bash">
+                Terminal <span></span>
+            </button>
+
+            <button onclick="
                 requestPage('/users.html');
                 requestScript('/resources/js/userManagement.js');
                 beginExecution('getUserList');
