@@ -23,10 +23,6 @@
 ## TODO:
 ### Short-Term:
 
-- Terminal
-    - Create new git branch
-    - Create Icon
-    - Create terminal page
 
 ---
 ### Mid-Term:
