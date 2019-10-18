@@ -1,7 +1,7 @@
 button {
-    background-color: #40bb40;
+    background-color: #80d060;
     border-style: none;
-    border-radius: 2px;
+    border-radius: 0.25rem;
     padding: 0.25rem;
     color: white;
     font-size: 1rem;
@@ -9,7 +9,7 @@ button {
 }
 
 button:hover {
-    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.20), 0 13px 40px 0 rgba(0,0,0,0.16);
+    box-shadow: 0 0.1rem 0.3rem 0.1rem #00000044;
     transition: 0.3s;
 }
 
@@ -42,7 +42,7 @@ button:hover span:after {
     display: block;
     color: black;
     width: 100%;
-    border-radius: 0.3rem;
+    border-radius: 0;
     background-color: transparent;
     font-weight: bold;
     text-shadow: 0.1rem 0.1rem #00000033;
@@ -51,7 +51,7 @@ button:hover span:after {
 }
 
 #stickynav > button:hover {
-    background-color: skyblue;
+    background-color: #c0f0a0;
     transition: 0.3s;
 }
 
@@ -69,6 +69,7 @@ button:hover span:after {
     #stickynav > button {
         text-shadow: none;
         display: inline;
+        border-radius: 0.1rem;
         width: 32%;
         font-size: 0.9rem;
         margin: 0.5% 0;

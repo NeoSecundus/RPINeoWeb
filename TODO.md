@@ -23,7 +23,6 @@
 ## TODO:
 ### Short-Term:
 
-
 ---
 ### Mid-Term:
 
