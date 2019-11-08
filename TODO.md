@@ -13,7 +13,6 @@
 
 ## IDEAS:
  - Info Page (WHERE IS WHAT, VERSION, etc.)
- - Built-In Terminal
 
 ## Bugs:
 ### Critical:

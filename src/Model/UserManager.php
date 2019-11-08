@@ -17,7 +17,7 @@ class UserManager {
                     $this->DATA["user"] .
                     '","password":"' .
                     $this->DATA["password"] .
-                    '"}', time()+604800);
+                    '"}', time()+259200);
             } else {
                 setcookie("raspiControl_login",
                     '{"user":"' .
