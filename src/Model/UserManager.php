@@ -18,6 +18,9 @@ class UserManager {
                     '","password":"' .
                     $this->DATA["password"] .
                     '"}', time()+259200);
+                setcookie("raspiControl_rem",
+                    'NULL',
+                    time()+259200);
             } else {
                 setcookie("raspiControl_login",
                     '{"user":"' .
@@ -178,7 +181,7 @@ class UserManager {
             if ($username == $this->DATA["user"])
                 return;
         }
-        echo json_encode(["status" => false, "msg" => "User already exists!"]);
+        echo json_encode(["status" => false, "msg" => "Username or Password wrong!"]);
         die();
     }
 

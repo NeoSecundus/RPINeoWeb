@@ -40,7 +40,7 @@ function getRPIData(frames, labels) {
                     let xLabels = [];
                     for (let e = 0; e < json.length; e++) {
                         let time = new Date(json[e]["id"]*1000);
-                        xLabels[e] = `${time.getDay()}.${time.getMonth()+1} ${time.getHours()}:${time.getMinutes()}`;
+                        xLabels[e] = `${time.getMonth()}.${time.getDay()+1} ${time.getHours()}:${time.getMinutes()}`;
                     }
                     frames[i].data.labels = xLabels;
 

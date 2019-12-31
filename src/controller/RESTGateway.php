@@ -35,7 +35,10 @@ function RESTGateway() {
             $view->sendPage('/denied.html');
             die();
         }
-        setcookie('raspiControl_login', $_COOKIE['raspiControl_login'], time()+259200);
+        if (isset($_COOKIE['raspiControl_rem'])) {
+            setcookie('raspiControl_login', $_COOKIE['raspiControl_login'], time()+259200);
+            setcookie("raspiControl_rem", 'NULL', time()+259200);
+        }
     } else {
         if ($rootUrl == "register") {
             include_once("src/includes/html/register.html");
