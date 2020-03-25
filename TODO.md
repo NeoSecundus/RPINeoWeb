@@ -12,26 +12,29 @@
 **RESET THIS LIST >> COMMIT >> PUSH**
 
 ## IDEAS:
- - Info Page (WHERE IS WHAT, VERSION, etc.)
 
 ## Bugs:
 
 ### Critical:
+- None
 
-### Later:
- 
+### Minor:
+- None
+
 ## TODO:
-### Short-Term:
-
+### Current:
+- Note Smiley
+    - Use smiley insert library for notes
+    - Because its fun
 ---
-### Mid-Term:
+### Backlog:
+- Git Page
+    - Info about git repos 
+    - Create new repos 
+    - Delete old repos
 
-- Info Page
 - Setup Script
     - Create a bash setup script for:
+        - Installation of NeoWeb under /var/nweb
         - database + scheduler.service
         - apache server + network setup
-
----
-### Long-Term:
-
