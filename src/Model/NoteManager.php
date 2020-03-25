@@ -31,11 +31,11 @@ class NoteManager {
                 Logger::info("Requesting to add Group");
                 return self::addGroup($DATA, $USER);
                 break;
-            case "deletegroups":
+            case "deletegroup":
                 Logger::info("Requesting to delete Group");
                 return self::deleteGroup($DATA, $USER);
                 break;
-            case "updategroups":
+            case "updategroup":
                 Logger::info("Requesting to update Group");
                 return self::updateGroup($DATA, $USER);
                 break;

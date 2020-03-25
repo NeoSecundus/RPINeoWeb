@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import sqlite3
+from random import randint, random
+from time import sleep, time
 
 from config import DBFILE
 
@@ -12,7 +14,7 @@ curse.execute("PRAGMA foreign_keys = ON;")
 import DatabaseSetup
 
 
-# Insert Data
+# Insert Data to Notes
 groups = ["Job", "Hobby", "Company", "Fun", "Clear", "root"]
 users = ["teuschl", "remitz", "hipfl"]
 
@@ -21,14 +23,31 @@ for i in range(0, len(groups)):
 
 conn.commit()
 
-for i in range(0, 30):
+for i in range(30):
     curse.execute(f"INSERT INTO raspi_notes VALUES('TEST{i}', "
                   f"'{users[i%3]}',"
                   f"'{groups[i % 6]}', "
                   f"'This is a test!', "
                   f"strftime('%s', 'now')*1000)")
 
-curse.close()
+print("Done!")
 conn.commit()
+
+# Insert Data to RPIData
+print("Inserting raspi_values...")
+
+for i in range(50):
+    print(f"{(i+1)*100/50}%\r", end="")
+    sleep(3)
+    curse.execute(f"INSERT INTO raspi_monitoring VALUES("
+    f"{int(time())},"
+    f"{randint(50, 80)},"
+    f"{random()},"
+    f"{random()},"
+    f"{random()})")
+    conn.commit()
+
+
+curse.close()
 conn.close()
 print("Done!")

@@ -106,7 +106,7 @@ onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"
 
 function deleteNoteGroup(title) {
     if (confirm("Really delete?") === true) {
-        fetch("notes/deletegroups", createHeader({"title": title})).then(() => {
+        fetch("notes/deletegroup", createHeader({"title": title})).then(() => {
             getNoteGroups();
         }).catch((err) => {
             console.log(err);
@@ -129,7 +129,7 @@ function updateNoteGroup(title, color, pos) {
     let new_title = noteGroupDiv.children[pos].children[0].innerHTML;
     let new_color = noteGroupDiv.children[pos].children[2].value;
 
-    fetch("notes/updategroups", createHeader({
+    fetch("notes/updategroup", createHeader({
         "title": title,
         "new_color": new_color,
         "new_title": new_title

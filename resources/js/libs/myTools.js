@@ -123,6 +123,10 @@ function resetStatus(time = 3000) {
 function formatDate(date = Date.now()) {
     date = new Date(parseInt(date));
 
-    return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    return `${date.getFullYear()}.` +
+        `${date.getMonth()+1}`.padStart(2, '0') +
+        "." + `${date.getDate()}`.padStart(2, '0') +
+        " " + `${date.getHours()}`.padStart(2, '0') +
+        ":" + `${date.getMinutes()}`.padStart(2, '0');
 }
 

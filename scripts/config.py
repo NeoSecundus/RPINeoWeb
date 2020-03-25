@@ -8,7 +8,7 @@ ROOTDIR = os.path.dirname(os.path.abspath(__file__))
 # DB Setup scripts
 DBSCRIPTS = [
     "raspi_notes_setup.sql",
-    # "raspi_monitoring_setup.sql"
+    "raspi_monitoring_setup.sql"
 ]
 DBSCRIPTS = list(map(lambda file: ROOTDIR + "/DatabaseSetup/" + file, DBSCRIPTS))
 
