@@ -1,4 +1,6 @@
-## Check-List
+# TODO Document
+
+## DoD Check-List
 |Task							|Done?	|
 |-------------------------------|:-----:|
 |**Change Code**				|	|
@@ -10,8 +12,6 @@
 |**Reset Logs**					|	|
 
 **RESET THIS LIST >> COMMIT >> PUSH**
-
-## IDEAS:
 
 ## Bugs:
 
