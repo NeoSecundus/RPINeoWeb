@@ -28,7 +28,11 @@ function getCurrentRPIData(frames, labels) {
 
 function getRPIData(frames, labels) {
     const status = document.getElementById("status");
-    const timespan = document.getElementById("timespan").value;
+    try {
+        const timespan = document.getElementById("timespan").value;
+    } catch (e) {
+        return;
+    }
     let header = createHeader({"view":timespan});
     let json;
 
