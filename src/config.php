@@ -18,7 +18,7 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          'ico' => 'image/x-icon',
          'svg' => 'image/svg+xml',
 
-         // Others
+         // Scripts
          'css' => 'text/css',
          'js' => 'text/js'
      ],

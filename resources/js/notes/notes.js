@@ -15,8 +15,8 @@ function getNotes(group, color) {
                 for (let i in json) {
                     insert += `
                     <details style="background-color: ${color}">
-                        <summary><span contenteditable="true" style="width: 100%;">${json[i]["title"]}</span></summary>
-                        <span contenteditable="true" style="width: 100%;">${json[i]["text"]}</span><br/>
+                        <summary><span class="emoji-support" contenteditable="true" style="width: 100%;">${json[i]["title"]}</span></summary>
+                        <span contenteditable="true" class="emoji-support" style="width: 100%;">${json[i]["text"]}</span><br/>
                         <span style="font-size: 0.75rem;">Added: ${formatDate(json[i]["create_date"])}</span>
                         <span style="margin: 0 0 0 40%">
                             <button onclick="updateNote('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["group_title"].replace(/'/g, "\\'")}', ${i}, '${color}');">Save</button>
@@ -29,6 +29,7 @@ function getNotes(group, color) {
             }
             insert += `<button onclick="addNote('${group}', '${color}')">Add Note</button>`;
             noteDiv.innerHTML = insert;
+            checkForEmojiClasses();
         }).catch( (err) => {
             console.log(err)
         })
@@ -88,7 +89,7 @@ function getNoteGroups() {
             for (let i in json) {
                 insert += `<button style="background-color: ${json[i]["color"]};" 
 onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}')">
-<div class="ngt" contenteditable="true">${json[i]["title"]}</div><br/>
+<div class="ngt emoji-support" contenteditable="true">${json[i]["title"]}</div><br/>
 <input type="color" value="${json[i]["color"]}" />
 <div onclick="updateNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}', ${i})">Save</div>
 <div onclick="deleteNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}')">Del</div>
@@ -96,6 +97,7 @@ onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"
             }
             insert += `<br/><button style="align-self: center; padding: 0; font-size: 3rem; line-height: 3rem;" onclick="addNoteGroup();">+</button>`;
             noteGroupDiv.innerHTML = insert;
+            checkForEmojiClasses();
         }).catch( (err) => {
             console.log(err)
         })

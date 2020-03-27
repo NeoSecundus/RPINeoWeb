@@ -10,7 +10,7 @@ class Logger {
     }
 
     public static function warn($msg) {
-        if (config['loglevel'] < 1)
+        if (config['loglevel'] < 10 )
             return;
 
         Logger::writeLog("[[WARN]]> " . $msg);

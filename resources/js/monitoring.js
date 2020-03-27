@@ -38,6 +38,7 @@ function getRPIData(frames, labels) {
 
     fetch("/getrpidata", header).then( (res) => {
         json = res.json().then( (json) => {
+            console.log(json);
             for (let i = 0; i < frames.length; i++) {
                 if (i%2 === 1) {
                     let e = 0;
