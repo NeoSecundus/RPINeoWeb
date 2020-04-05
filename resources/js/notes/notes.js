@@ -89,7 +89,7 @@ function getNoteGroups() {
             for (let i in json) {
                 insert += `<button style="background-color: ${json[i]["color"]};" 
 onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}')">
-<input style="background-color: ${json[i]["color"]}; width: 100%; text-align: center" class="ngt emoji-support" contenteditable="true" value="${json[i]["title"]}" /><br/>
+<input style="background-color: ${json[i]["color"]}; width: 100%; height: 1.2em; text-align: center" class="ngt emoji-support" contenteditable="true" value="${json[i]["title"]}" /><br/>
 <input type="color" value="${json[i]["color"]}" />
 <div onclick="updateNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}', ${i})">Save</div>
 <div onclick="deleteNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}')">Del</div>
