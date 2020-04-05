@@ -15,8 +15,8 @@ function getNotes(group, color) {
                 for (let i in json) {
                     insert += `
                     <details style="background-color: ${color}">
-                        <summary><span class="emoji-support" contenteditable="true" style="width: 100%;">${json[i]["title"]}</span></summary>
-                        <span contenteditable="true" class="emoji-support" style="width: 100%;">${json[i]["text"]}</span><br/>
+                        <summary><input class="emoji-support" style="width: 92%; background-color: ${color}; border: none" value="${json[i]["title"]}"/></summary>
+                        <textarea rows=8 class="emoji-support" style="width: 99%;  background-color: ${color}" >${json[i]["text"]}</textarea><br/>
                         <span style="font-size: 0.75rem;">Added: ${formatDate(json[i]["create_date"])}</span>
                         <span style="margin: 0 0 0 40%">
                             <button onclick="updateNote('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["group_title"].replace(/'/g, "\\'")}', ${i}, '${color}');">Save</button>
@@ -66,8 +66,8 @@ function addNote(group, color) {
 
 function updateNote(title, group, notepos, color) {
     let note = document.getElementsByTagName("details")[notepos];
-    let new_title = note.children[0].children[0].innerHTML;
-    let new_text = note.children[1].innerHTML;
+    let new_title = note.children[0].children[0].value;
+    let new_text = note.children[1].value;
 
     fetch("notes/updatenote", createHeader({"title": title,
         "group": group,
@@ -89,7 +89,7 @@ function getNoteGroups() {
             for (let i in json) {
                 insert += `<button style="background-color: ${json[i]["color"]};" 
 onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}')">
-<div class="ngt emoji-support" contenteditable="true">${json[i]["title"]}</div><br/>
+<input style="background-color: ${json[i]["color"]}; width: 100%; text-align: center" class="ngt emoji-support" contenteditable="true" value="${json[i]["title"]}" /><br/>
 <input type="color" value="${json[i]["color"]}" />
 <div onclick="updateNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"]}', ${i})">Save</div>
 <div onclick="deleteNoteGroup('${json[i]["title"].replace(/'/g, "\\'")}')">Del</div>
@@ -128,7 +128,7 @@ function addNoteGroup() {
 }
 
 function updateNoteGroup(title, color, pos) {
-    let new_title = noteGroupDiv.children[pos].children[0].innerHTML;
+    let new_title = noteGroupDiv.children[pos].children[0].value;
     let new_color = noteGroupDiv.children[pos].children[2].value;
 
     fetch("notes/updategroup", createHeader({

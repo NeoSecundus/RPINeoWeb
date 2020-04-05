@@ -66,12 +66,13 @@ function getMatchedEmoji(offset = 0) {
 }
 
 function insertText(field, val) {
-    let curPos = getCursorPos(field);
-    field.innerText = field.innerText.substring(0, curPos - (emojiString.length + 1))
+    let curPos = field.selectionStart;
+    field.value = field.value.substring(0, curPos - (emojiString.length + 1))
         + val
-        + field.innerText.substring(curPos, field.innerText.length);
+        + field.value.substring(curPos, field.value.length);
 
-    setCursorPos(field, curPos - emojiString.length - 1);
+    field.selectionEnd = field.selectionStart = curPos - emojiString.length;
+    //setCursorPos(field, curPos - emojiString.length - 1);
 }
 
 function setCursorPos(element, pos) {
@@ -83,29 +84,6 @@ function setCursorPos(element, pos) {
     sel.addRange(range);
 }
 
-function getCursorPos(element) {
-    let caretOffset = 0;
-    let doc = element.ownerDocument || element.document;
-    let win = doc.defaultView || doc.parentWindow;
-    let sel;
-    if (typeof win.getSelection != "undefined") {
-        sel = win.getSelection();
-        if (sel.rangeCount > 0) {
-            let range = win.getSelection().getRangeAt(0);
-            let preCaretRange = range.cloneRange();
-            preCaretRange.selectNodeContents(element);
-            preCaretRange.setEnd(range.endContainer, range.endOffset);
-            caretOffset = preCaretRange.toString().length;
-        }
-    } else if ( (sel = doc.selection) && sel.type !== "Control") {
-        let textRange = sel.createRange();
-        let preCaretTextRange = doc.body.createTextRange();
-        preCaretTextRange.moveToElementText(element);
-        preCaretTextRange.setEndPoint("EndToEnd", textRange);
-        caretOffset = preCaretTextRange.text.length;
-    }
-    return caretOffset;
-}
 
 const emojiTable = [
     ["\u00A9", ["copyright"]],
