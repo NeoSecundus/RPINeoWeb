@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 /var/web/scripts/Scheduler.py
+ExecStart=/usr/bin/python3 /var/nweb/scripts/Scheduler.py
 
 [Install]
 WantedBy=multi-user.target

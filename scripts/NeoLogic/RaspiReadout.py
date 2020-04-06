@@ -24,7 +24,7 @@ def __getTemp():
     try:
         with open("/sys/class/thermal/thermal_zone0/temp") as file:
             temp = int(file.read())/1000
-    except FileNotFoundError:
+    except Error:
         print("Tmp File not found! Set to 0!")
         temp = 0
 

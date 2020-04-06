@@ -1,0 +1,14 @@
+[Unit]
+Description=Starts the ttyd (Web-Terminal) Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/ttyd -p 3636 -t fontSize=14 -S -C /etc/apache2/ssl/server.crt -K /etc/apache2/ssl/server.key login
+Restart=on-failure
+RestartSec=5
+KillMode=process
+
+[Install]
+WantedBy=network.target
+
