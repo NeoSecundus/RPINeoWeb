@@ -9,11 +9,11 @@ class Monitoring {
         if (isset($DATA["view"])) {
             switch ($DATA["view"]) {
                 case "hour":
-                    return self::queryData("SELECT * FROM raspiHourView", 2);
+			return self::queryData("SELECT * FROM raspiHourView", 1);
                 case "day":
-                    return self::queryData("SELECT * FROM raspiDayView", 60);
+                    return self::queryData("SELECT * FROM raspiDayView", 30);
                 case "month":
-                    return self::queryData("SELECT * FROM raspiMonthView", 1440);
+                    return self::queryData("SELECT * FROM raspiMonthView", 720);
                 default:
                     return self::queryData("SELECT * FROM raspi_monitoring WHERE id == (SELECT max(id) FROM raspi_monitoring)", 0);
             }

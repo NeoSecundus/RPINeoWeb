@@ -11,20 +11,20 @@ CREATE TABLE raspi_monitoring (
 -- Views
 DROP VIEW IF EXISTS raspiHourView;
 CREATE VIEW raspiHourView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-3600 and id < strftime('%s', 'now')-60;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-3600 and id < strftime('%s', 'now')-120;
 
 DROP VIEW IF EXISTS raspiDayView;
 CREATE VIEW raspiDayView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-86400 and id < strftime('%s', 'now')-60;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-86400 and id < strftime('%s', 'now')-120;
 
 DROP VIEW IF EXISTS raspiMonthView;
 CREATE VIEW raspiMonthView AS
-  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-2592000 and id < strftime('%s', 'now')-60;
+  SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-2592000 and id < strftime('%s', 'now')-120;
 --Views END
 
 DROP VIEW IF EXISTS raspiMinHelper;
 CREATE VIEW raspiMinHelper AS
-    SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-60;
+    SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-120;
 
 DROP VIEW IF EXISTS raspiGarbageHelper;
 CREATE VIEW raspiGarbageHelper AS
@@ -34,7 +34,7 @@ CREATE VIEW raspiGarbageHelper AS
 DROP TRIGGER IF EXISTS raspiMinuteTrigger;
 CREATE TRIGGER raspiMinuteTrigger
   AFTER INSERT ON raspi_monitoring
-  WHEN (SELECT COUNT(*) FROM raspiMinHelper) >= 18
+  WHEN (SELECT COUNT(*) FROM raspiMinHelper) >= 38
   BEGIN
     UPDATE raspi_monitoring SET
                                 temp = (SELECT avg(temp) FROM raspiMinHelper),
