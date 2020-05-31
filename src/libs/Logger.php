@@ -34,7 +34,7 @@ class Logger {
         $msg = date('d/m H:i:s ') . $msg . "\n";
 
         Logger::writeToFile($msg);
-        Logger::writeToConsole($msg);
+        # Logger::writeToConsole($msg);
     }
 
     private static function writeToFile($msg) {
