@@ -22,6 +22,10 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          'css' => 'text/css',
          'js' => 'text/js'
      ],
+     'themes' => [
+         "default",
+         "dark"
+     ],
     'logfile' => BASEPATH . '/log/server.log',
     'loglevel' => 1 //Error: 0, Warn: 1, Info: 2, Fine: 3
  ]);

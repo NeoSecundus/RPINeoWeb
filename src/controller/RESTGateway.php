@@ -6,7 +6,9 @@ function RESTGateway() {
     $uManager = new UserManager();
     $view = new MainView();
 
-    if (explode("/", $url)[1] == "resources") {
+    $rootUrl = explode("/", $url)[1];
+
+    if ($rootUrl == "resources") {
         if (is_file(BASEPATH . $url)) {
             $view->sendResource($url);
         } else {
@@ -14,8 +16,6 @@ function RESTGateway() {
         }
         die();
     }
-
-    $rootUrl = explode("/", $url)[1];
 
     if ($rootUrl == "trylogin") {
         $uManager->login(false);
@@ -86,6 +86,9 @@ function RESTGateway() {
             Logger::info("Requesting note-manager! ->");
             echo NoteManager::checkRequest($url);
             break;
+        case "nexttheme":
+            Logger::info("Setting new Theme!");
+            echo $view->nextTheme();
         default:
             Logger::info("Requesting page " . $url);
             $view->sendPage($url);

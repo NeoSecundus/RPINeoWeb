@@ -119,7 +119,7 @@ function deleteNoteGroup(title) {
 function addNoteGroup() {
     fetch("notes/addgroup", createHeader({
         "title": "new_group -" + Math.floor(Math.random()*1000) + "-",
-        "color": "#ffffff"
+        "color": "#999999"
     })).then( () => {
         getNoteGroups();
     }).catch( (err) => {

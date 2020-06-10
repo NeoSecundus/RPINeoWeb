@@ -1,0 +1,82 @@
+<?php 
+$theme = "default";
+if (isset($_COOKIE["themeSetting"])) {
+    $theme = $_COOKIE["themeSetting"];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>RaspiControl</title>
+    <link rel="icon" href="/resources/images/icons/logo.png" type="image/png" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/<?php echo $theme; ?>640.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/<?php echo $theme; ?>0.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/css/<?php echo $theme; ?>Buttons.css" >
+    <link rel="stylesheet" type="text/css" href="/resources/js/external/chartjs/Chart.min.css" >
+    <script type="text/javascript" src="/resources/js/pageLoader.js" ></script>
+    <script type="text/javascript" src="/resources/js/libs/myTools.js"></script>
+    <script type="text/javascript" src="/resources/js/livingWeb/node.js"></script>
+    <script type="text/javascript" src="/resources/js/livingWeb/livingWeb.js" defer></script>
+</head>
+<body>
+<main>
+    <canvas id="bgCanvas" ></canvas>
+    <header>
+        <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
+        <button onclick="nextTheme();" style='position: relative; bottom: 3%; left: calc(100% - 8em); font-size: 0.5em;'>Switch Theme</button>
+    </header>
+    <nav>
+        <div id="stickynav">
+            <button onclick="requestPage('/home.html')">
+                <img src="/resources/images/icons/logo.png" alt="Logo" />
+                Home <span></span>
+            </button>
+
+            <button onclick="
+                requestPage('/monitoring.html');
+                requestScript('/resources/js/external/chartjs/Chart.min.js');
+                requestScript('/resources/js/monitoring.js');
+                beginExecution('startRPICharts');
+                ">
+                <img src="/resources/images/icons/monitoring.png" alt="Monitoring"/>
+                Monitor <span></span>
+            </button>
+
+            <button onclick="
+                requestPage('/notes.html');
+                requestScript('/resources/js/notes/notes.js');
+                requestScript('/resources/js/notes/emojis.js');
+                beginExecution('getNoteGroups');
+            ">
+                <img src="/resources/images/icons/notes.png" alt="Notes"/>
+                Notes <span></span>
+            </button>
+
+            <button onclick="
+            requestPage('/terminal.html');
+            requestScript('/resources/js/terminal.js');
+            beginExecution('getTerminalSrc')
+">
+                <img src="/resources/images/icons/bash.png" alt="bash">
+                Terminal <span></span>
+            </button>
+
+            <button onclick="
+                requestPage('/users.html');
+                requestScript('/resources/js/userManagement.js');
+                beginExecution('getUserList');
+                ">
+                <img src="/resources/images/icons/user.png" alt="User Icon" />
+                Users<span></span>
+            </button>
+
+            <button onclick="logout()">
+                <img src="/resources/images/icons/logout.png" alt="Logout Icon" />
+                Logout<span></span>
+            </button>
+        </div>
+    </nav>
+    <div id="main">

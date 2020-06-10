@@ -1,3 +1,5 @@
+"use strict";
+
 function createHeader(data, content_type = "application/json") {
     return {
         mode: "same-origin",
@@ -128,5 +130,15 @@ function formatDate(date = Date.now()) {
         "." + `${date.getDate()}`.padStart(2, '0') +
         " " + `${date.getHours()}`.padStart(2, '0') +
         ":" + `${date.getMinutes()}`.padStart(2, '0');
+}
+
+function nextTheme() {
+    fetch("/nexttheme").then((res) => {}).catch((err) => {
+        console.log(err);
+    });
+
+    setTimeout(() => {
+        location.reload();
+    }, 100);
 }
 

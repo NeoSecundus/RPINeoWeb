@@ -8,8 +8,19 @@ class MainView {
         $this->htmlPath = BASEPATH . "/src/includes/html/";
     }
 
+    public function nextTheme() {
+        if (isset($_COOKIE["themeSetting"])) {
+            $themePos = array_search($_COOKIE["themeSetting"], config["themes"]);
+            $newPos = ($themePos + 1) % count(config["themes"]);
+            setcookie("themeSetting", config["themes"][$newPos]);    
+        } else {
+            setcookie("themeSetting", config["themes"][0]);
+        }
+        return json_encode(["status" => true, "msg" => "Theme set!"]);
+    }
+
     public function buildPage() {
-        include_once($this->htmlPath . "header.html");
+        include_once($this->htmlPath . "header.phtml");
         include_once($this->htmlPath . "pages/home.html");
         include_once($this->htmlPath . "footer.html");
     }
