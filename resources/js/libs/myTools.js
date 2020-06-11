@@ -88,7 +88,7 @@ function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
             }
         );
     } else {
-        mydatasets = [];
+        let mydatasets = [];
         for (let i = 0; i < labels.length; i++) {
             mydatasets.push({
                 label: labels[i],
@@ -139,6 +139,6 @@ function nextTheme() {
 
     setTimeout(() => {
         location.reload();
-    }, 100);
+    }, 300);
 }
 

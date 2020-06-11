@@ -1,54 +1,54 @@
 "use strict";
 
-let radius = 240;
-let density = 60;
+let lwRadius = 240;
+let lwDensity = 60;
 
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-ctx.fillStyle = "#FFF";
-ctx.strokeStyle = "#FFF";
+const lwCanvas = document.getElementById("bgCanvas");
+const lwCtx = lwCanvas.getContext("2d");
+lwCanvas.width = window.innerWidth;
+lwCanvas.height = window.innerHeight;
+lwCtx.fillStyle = "#FFF";
+lwCtx.strokeStyle = "#FFF";
 
-let nodes = [];
-nodeGen();
+let lwNodes = [];
+lwNodeGen();
 
-function nodeGen() {
-    nodes = [];
-    let nodeNum = Math.ceil(canvas.width / density);
+function lwNodeGen() {
+    lwNodes = [];
+    let nodeNum = Math.ceil(lwCanvas.width / lwDensity);
     for (let i = 0; i < nodeNum; i++) {
-        nodes.push(new Node(canvas, Math.random() * canvas.width, Math.random() * canvas.height));
+        lwNodes.push(new Node(lwCanvas, Math.random() * lwCanvas.width, Math.random() * lwCanvas.height));
     }
 }
 
-const livingWebLoop = setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+let lwLoop = setInterval(lwStartLoop, 50);
+function lwStartLoop() {
+    lwCtx.clearRect(0, 0, lwCanvas.width, lwCanvas.height);
 
-    for (let pos = 0; pos < nodes.length; pos++) {
-        nodes[pos].drawPoint();
-        nodes[pos].drawLines(nodes, radius);
+    for (let pos = 0; pos < lwNodes.length; pos++) {
+        lwNodes[pos].drawPoint();
+        lwNodes[pos].drawLines(lwNodes, lwRadius);
     }
-    for (let pos = 0; pos < nodes.length; pos++) {
-        nodes[pos].move();
+    for (let pos = 0; pos < lwNodes.length; pos++) {
+        lwNodes[pos].move();
     }
+};
 
-}, 50);
-
-let oldWidth = window.innerWidth;
+let lwOldWidth = window.innerWidth;
 const widthLimit = 1080;
 window.onresize = () => {
-    if (Math.abs(oldWidth - window.innerWidth) > 24) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        nodeGen();
+    if (Math.abs(lwOldWidth - window.innerWidth) > 24) {
+        lwCanvas.width = window.innerWidth;
+        lwCanvas.height = window.innerHeight;
+        lwNodeGen();
 
-        if (window.innerWidth < widthLimit && oldWidth > widthLimit) {
-            clearInterval(livingWebLoop);
-        } else if (oldWidth < widthLimit) {
-            setInterval(livingWebLoop);
+        if (window.innerWidth < widthLimit && lwOldWidth > widthLimit) {
+            clearInterval(lwLoop);
+        } else if (window.innerWidth > widthLimit && lwOldWidth < widthLimit) {
+            lwLoop = setInterval(lwStartLoop, 50);
         }
 
-        oldWidth = window.innerWidth;
+        lwOldWidth = window.innerWidth;
     }
 };
 

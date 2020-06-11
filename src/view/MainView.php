@@ -12,9 +12,9 @@ class MainView {
         if (isset($_COOKIE["themeSetting"])) {
             $themePos = array_search($_COOKIE["themeSetting"], config["themes"]);
             $newPos = ($themePos + 1) % count(config["themes"]);
-            setcookie("themeSetting", config["themes"][$newPos]);    
+            setcookie("themeSetting", config["themes"][$newPos], time() + 31536000);    
         } else {
-            setcookie("themeSetting", config["themes"][0]);
+            setcookie("themeSetting", config["themes"][1], time() + 31536000);
         }
         return json_encode(["status" => true, "msg" => "Theme set!"]);
     }
