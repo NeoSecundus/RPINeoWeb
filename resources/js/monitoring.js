@@ -91,7 +91,7 @@ function startRPICharts() {
         ["#3333cccc", "#cc3333cc", "#33cc33cc"],
         (context) => {
         let val = context.dataset.data[context.dataIndex];
-        return val < 50 ? "#33cc33bb" : val < 75 ? "#cc9944bb" : "#cc3333bb";
+        return val < 50 ? "#33cc33bb" : val < 60 ? "#cc9944bb" : "#cc3333bb";
     },
         ["#cc3333cc"]];
 
@@ -116,9 +116,9 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,
-                        max: 100,
-                        stepSize: 20
+                        min: 20,
+                        max: 80,
+                        stepSize: 10
                     }
                 }]
             }

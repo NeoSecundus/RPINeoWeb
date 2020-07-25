@@ -1,12 +1,20 @@
 let noteDiv;
 let noteGroupDiv;
+let loadNotes;
+let loadGroups;
 
 function getNoteDocElements() {
     noteDiv = document.getElementById("notes");
     noteGroupDiv = document.getElementById("notegroups");
+    loadNotes = document.getElementById("load_notes");
+    loadNotes.style.display = "none";
+    loadGroups = document.getElementById("load_groups");
+    loadGroups.style.display = "none";
 }
 
 function getNotes(group, color) {
+    loadNotes.style.display = "block";
+
     fetch("notes/getnotes", createHeader({"group": group})).then( (res) => {
         res.json().then( (json) => {
             let insert = "";
@@ -29,6 +37,7 @@ function getNotes(group, color) {
             }
             insert += `<button onclick="addNote('${group}', '${color}')">Add Note</button>`;
             noteDiv.innerHTML = insert;
+            loadNotes.style.display = "none";
             checkForEmojiClasses();
         }).catch( (err) => {
             console.log(err)
@@ -81,6 +90,7 @@ function updateNote(title, group, notepos, color) {
 
 function getNoteGroups() {
     getNoteDocElements();
+    loadGroups.style.display = "block";
 
     fetch("notes/getgroups", createHeader({})).then( (res) => {
         res.json().then( (json) => {
@@ -97,6 +107,7 @@ onclick="getNotes('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["color"
             }
             insert += `<br/><button style="align-self: center; padding: 0; font-size: 3rem; line-height: 3rem;" onclick="addNoteGroup();">+</button>`;
             noteGroupDiv.innerHTML = insert;
+            loadGroups.style.display = "none";
             checkForEmojiClasses();
         }).catch( (err) => {
             console.log(err)
