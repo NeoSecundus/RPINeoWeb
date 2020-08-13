@@ -11,32 +11,30 @@ curse = conn.cursor()
 curse.execute("PRAGMA foreign_keys = ON;")
 
 # setup database
-import DatabaseSetup
+#import DatabaseSetup
 
 
 # Insert Data to Notes
-groups = ["Job", "Hobby", "Company", "Fun", "Clear", "root"]
-users = ["teuschl", "remitz", "hipfl"]
+#groups = ["Job", "Hobby", "Company", "Fun", "Clear", "root"]
+#users = ["teuschl", "remitz", "hipfl"]
 
-for i in range(0, len(groups)):
-    curse.execute(f"INSERT INTO raspi_note_groups VALUES('{groups[i]}', '{users[i%3]}', '#{(i+1)*111111}');")
+#for i in range(0, len(groups)):
+#    curse.execute(f"INSERT INTO raspi_note_groups VALUES('{groups[i]}', '{users[i%3]}', '#{(i+1)*111111}');")
 
-conn.commit()
+#conn.commit()
 
-for i in range(30):
-    curse.execute(f"INSERT INTO raspi_notes VALUES('TEST{i}', "
-                  f"'{users[i%3]}',"
-                  f"'{groups[i % 6]}', "
-                  f"'This is a test!', "
-                  f"strftime('%s', 'now')*1000)")
-
-print("Done!")
-conn.commit()
+#for i in range(30):
+#    curse.execute(f"INSERT INTO raspi_notes VALUES('TEST{i}', "
+#                  f"'{users[i%3]}',"
+#                  f"'{groups[i % 6]}', "
+#                  f"'This is a test!', "
+#                  f"strftime('%s', 'now')*1000)")
+#conn.commit()
 
 # Insert Data to RPIData
 print("Inserting raspi_values...")
 
-loops = 100
+loops = 1000
 for i in range(loops):
     print(f"{(i+1)*100/loops}%\r", end="")
     sleep(3)
@@ -47,7 +45,7 @@ for i in range(loops):
     f"{random()},"
     f"{random()},"
     f"{random() * 10 + 20:.3f},"
-    f"{randint(40, 60)})")
+    f"{randint(10, 90)})")
     conn.commit()
 
 curse.close()

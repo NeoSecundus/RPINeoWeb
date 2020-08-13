@@ -9,11 +9,11 @@ from config import DBFILE, DHTPIN
 
 
 def _insert(data:dict):
-    keys = ["timestamp", "temp", "cpu_usage", "storage_usage", "ram_usage"]
+    keys = ["timestamp", "cpu_temp", "cpu_usage", "storage_usage", "ram_usage", "room_temp", "room_hum"]
 
     conn = sqlite3.connect(DBFILE)
     db = conn.cursor()
-    db.execute("INSERT INTO raspi_monitoring VALUES(?, ?, ?, ?, ?)",
+    db.execute("INSERT INTO raspi_monitoring VALUES(?, ?, ?, ?, ?, ?, ?)",
                list(map(lambda key: data[key], keys)))
     conn.commit()
 

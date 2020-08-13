@@ -75,14 +75,18 @@ function getRPIData(frames, labels) {
 
 function startRPICharts() {
     let frames = [];
-    let frameIds = ["curUsage", "timeUsage", "curTemp", "timeTemp"];
+    let frameIds = ["curUsage", "timeUsage", "curCpuTemp", "timeCpuTemp", "curRoomTemp", "timeRoomTemp", "curRoomHum", "timeRoomHum"];
     let labels = [
         ["cpu_usage", "storage_usage", "ram_usage"],
         ["cpu_usage", "storage_usage", "ram_usage"],
-        ["temp"],
-        ["temp"]
+        ["cpu_temp"],
+        ["cpu_temp"],
+        ["room_temp"],
+        ["room_temp"],
+        ["room_hum"],
+        ["room_hum"]
     ];
-    let type = ["radar", "line", "bar", "line"];
+    let type = ["radar", "line", "bar", "line", "bar", "line", "bar", "line"];
 
     let colors = [(context) => {
         let val = context.dataset.data[context.dataIndex];
@@ -93,7 +97,21 @@ function startRPICharts() {
         let val = context.dataset.data[context.dataIndex];
         return val < 50 ? "#33cc33bb" : val < 60 ? "#cc9944bb" : "#cc3333bb";
     },
-        ["#cc3333cc"]];
+        ["#cc3333cc"],
+        (context) => {
+            let val = context.dataset.data[context.dataIndex];
+            return val < 15 ? "#3333ccbb" : val < 28 ? "#33cc33bb" : "#cc3333bb";
+    },
+        ["#cc3333cc"],
+        (context) => {
+            let val = context.dataset.data[context.dataIndex];
+            let b = (15 - Math.floor(val / 10)).toString(16);
+            let g = (8 - Math.floor(val / 20)).toString(16);
+            let r = (5 - Math.floor(val / 20)).toString(16);
+            return `#${r+r+g+g+b+b}bb`;
+    },
+        ["#3388cccc"]
+    ];
 
     let options = [
         {
@@ -129,8 +147,55 @@ function startRPICharts() {
                     maxTicksLimit: 8
                 }
             }]
-        }}];
-    let texts=["Resource usage in %", "Resource usage in %", "CPU Temperature in °C", "CPU Temperature in °C"];
+        }}, {
+            scales: {
+                yAxes: [{
+                     ticks: {
+                         min: -10,
+                         max: 50,
+                         stepSize: 10
+                     }
+                }]
+            }
+        }, {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: -10,
+                        max: 50,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }, {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }, {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }];
+    let texts=["Resource usage in %",
+        "Resource usage in %",
+        "CPU Temperature in °C",
+        "CPU Temperature in °C",
+        "Room Temperature in °C",
+        "Room Temperature in °C",
+        "Room Humidity in %",
+        "Room Humidity in %"];
 
     for (let i = 0; i < frameIds.length; i++) {
         frames[i] = createChart(frameIds[i], type[i], labels[i], colors[i], options[i], texts[i]);
