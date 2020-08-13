@@ -15,6 +15,9 @@ DBSCRIPTS = list(map(lambda file: ROOTDIR + "/DatabaseSetup/" + file, DBSCRIPTS)
 # DB File Path
 DBFILE = ROOTDIR + "/../data/sqdb.db"
 
+# Pin for temperature and humidity readout (Sensor data pin)
+DHTPIN = 4
+
 # In seconds
 LOOPTIME = 3
 

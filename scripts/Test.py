@@ -36,17 +36,19 @@ conn.commit()
 # Insert Data to RPIData
 print("Inserting raspi_values...")
 
-for i in range(50):
-    print(f"{(i+1)*100/50}%\r", end="")
+loops = 100
+for i in range(loops):
+    print(f"{(i+1)*100/loops}%\r", end="")
     sleep(3)
     curse.execute(f"INSERT INTO raspi_monitoring VALUES("
     f"{int(time())},"
     f"{randint(50, 80)},"
     f"{random()},"
     f"{random()},"
-    f"{random()})")
+    f"{random()},"
+    f"{random() * 10 + 20:.3f},"
+    f"{randint(40, 60)})")
     conn.commit()
-
 
 curse.close()
 conn.close()

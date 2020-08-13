@@ -2,12 +2,13 @@
 
 import psutil
 import sqlite3
+import Adafruit_DHT
 from time import time
 
-from config import DBFILE
+from config import DBFILE, DHTPIN
 
 
-def __insert(data:dict):
+def _insert(data:dict):
     keys = ["timestamp", "temp", "cpu_usage", "storage_usage", "ram_usage"]
 
     conn = sqlite3.connect(DBFILE)
@@ -20,7 +21,7 @@ def __insert(data:dict):
     conn.close()
 
 
-def __getTemp():
+def _getTemp():
     try:
         with open("/sys/class/thermal/thermal_zone0/temp") as file:
             temp = int(file.read())/1000
@@ -31,12 +32,26 @@ def __getTemp():
     return temp
 
 
+def _collect_dht_data(data: dict) -> None:
+    sensor = Adafruit_DHT.DHT22
+
+    hum, temp = Adafruit_DHT.read_retry(sensor, DHTPIN)
+    if hum is not None and temp is not None:
+        data["room_hum"] = hum
+        data["room_temp"] = temp
+    else:
+        print("Could not read from DHT Sensor! Set to 0!")
+        data["room_hum"] = 0
+        data["room_temp"] = 0
+
+
 def run():
     data = {}
     data["timestamp"] = int(time())
-    data["temp"] = __getTemp()
+    data["temp"] = _getTemp()
     data["cpu_usage"] = psutil.cpu_percent()/100
     data["storage_usage"] = psutil.disk_usage("/").percent/100
     data["ram_usage"] = psutil.virtual_memory().percent/100
-    __insert(data)
+    _collect_dht_data(data)
+    _insert(data)
 
