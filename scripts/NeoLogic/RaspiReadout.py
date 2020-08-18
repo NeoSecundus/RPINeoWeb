@@ -52,7 +52,7 @@ def _collect_bme_data(data: dict) -> None:
 def run():
     data = {}
     data["timestamp"] = int(time())
-    data["temp"] = _getTemp()
+    data["cpu_temp"] = _getTemp()
     data["cpu_usage"] = psutil.cpu_percent()/100
     data["storage_usage"] = psutil.disk_usage("/").percent/100
     data["ram_usage"] = psutil.virtual_memory().percent/100
