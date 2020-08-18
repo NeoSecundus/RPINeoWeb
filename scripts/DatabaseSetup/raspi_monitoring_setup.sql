@@ -26,7 +26,7 @@ CREATE VIEW raspiMonthView AS
 
 DROP VIEW IF EXISTS raspiMinHelper;
 CREATE VIEW raspiMinHelper AS
-    SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-120;
+    SELECT * FROM raspi_monitoring WHERE id > strftime('%s', 'now')-140;
 
 DROP VIEW IF EXISTS raspiGarbageHelper;
 CREATE VIEW raspiGarbageHelper AS
