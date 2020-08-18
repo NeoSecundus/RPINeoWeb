@@ -2,10 +2,12 @@
 
 import psutil
 import sqlite3
-import Adafruit_DHT
+import board
+import busio
+import adafruit_bme280
 from time import time
 
-from config import DBFILE, DHTPIN
+from config import DBFILE, BME_ADDRESS
 
 
 def _insert(data:dict):
@@ -25,22 +27,24 @@ def _getTemp():
     try:
         with open("/sys/class/thermal/thermal_zone0/temp") as file:
             temp = int(file.read())/1000
-    except Error:
+    except FileNotFoundError:
         print("Tmp File not found! Set to 0!")
         temp = 0
 
     return temp
 
 
-def _collect_dht_data(data: dict) -> None:
-    sensor = Adafruit_DHT.DHT22
+def _collect_bme_data(data: dict) -> None:
+    i2c = busio.I2C(board.SCL, board.SDA)
+    bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c, BME_ADDRESS)
 
-    hum, temp = Adafruit_DHT.read_retry(sensor, DHTPIN)
+    temp = bme280.temperature
+    hum = bme280.humidity
     if hum is not None and temp is not None:
         data["room_hum"] = hum
         data["room_temp"] = temp
     else:
-        print("Could not read from DHT Sensor! Set to 0!")
+        print("Could not read from BME280 Sensor! Vakues set to 0!")
         data["room_hum"] = 0
         data["room_temp"] = 0
 
@@ -52,6 +56,6 @@ def run():
     data["cpu_usage"] = psutil.cpu_percent()/100
     data["storage_usage"] = psutil.disk_usage("/").percent/100
     data["ram_usage"] = psutil.virtual_memory().percent/100
-    _collect_dht_data(data)
+    _collect_bme_data(data)
     _insert(data)
 

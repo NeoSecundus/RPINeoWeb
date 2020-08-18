@@ -1,4 +1,4 @@
 psutil==5.6.3
 websocket-client==0.56.0
 urllib3==1.24.1
-Adafruit_Python_DHT==1.4.0
+adafruit-circuitpython-bme280==2.4.3
