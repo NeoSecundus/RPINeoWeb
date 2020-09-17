@@ -65,6 +65,15 @@ if (isset($_COOKIE["themeSetting"])) {
             </button>
 
             <button onclick="
+            requestPage('/seafile.html');
+            requestScript('/resources/js/seafile.js');
+            beginExecution('getSeafileSrc')
+">
+                <img src="/resources/images/icons/seafile.png" alt="Seafile">
+                Seafile <span></span>
+            </button>
+
+            <button onclick="
                 requestPage('/users.html');
                 requestScript('/resources/js/userManagement.js');
                 beginExecution('getUserList');
