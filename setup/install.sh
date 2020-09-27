@@ -169,6 +169,12 @@ if [[ $? -ne "0" ]]; then
 fi
 
 #
+# Downloading npm & sass
+#
+checkForPackage "npm"
+npm install -g sass
+
+#
 # ENDMSG printout
 #
 echo -e "${ENDMSG}"

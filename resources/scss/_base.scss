@@ -1,0 +1,386 @@
+$canvas-bg: #223;
+$font-size: calc(10px + 1.5vw);
+
+* {
+    font-size: $font-size;
+    font-family: sans-serif;
+}
+
+html {
+    background-color: #223;
+}
+
+body {
+    width: 95%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0.2rem 0.4rem 0 rgba(0,0,0,0.24), 0 0.4rem 0.8rem 0 rgba(0,0,0,0.16);
+    transition: 0.3s;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 23% 77%;
+    color: $main-color;
+}
+
+header {
+    grid-row: 1;
+    grid-column: 1 / 3;
+    background: $header-bg;
+}
+
+select {
+    font-size: 0.9rem;
+}
+
+input {
+    font-size: 0.9rem;
+}
+
+#banner {
+    margin: 1% 2%;
+    width: 96%;
+    height: 98%;
+}
+
+#load {
+    width: 100%;
+    text-align: center;
+    img {
+        width: 4rem;
+        height: 4rem;
+    }
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: $h1-color;
+    letter-spacing: 0.1rem;
+    text-shadow: $h1-text-shadow;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $h2-color;
+    font-family: sans-serif;
+}
+
+nav {
+    grid-row: 2;
+    grid-column: 1;
+    background-color: $nav-footer-bg;
+}
+
+#stickynav {
+    position: sticky;
+    top: 0;
+}
+
+#main {
+    grid-row: 2;
+    grid-column: 2 / 3;
+    border: $cmain-border;
+    border-right: none;
+    border-radius: 0.25rem;
+    background-color: $cmain-bg;
+}
+
+.graph {
+    position: relative;
+    width: 48.5%;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    border: $graph-border;
+    background-color: $graph-bg;
+    transition: 0.3s;
+
+    &:focus {
+        width: 99%;
+        height: auto;
+        transition: 0.3s;
+    }
+}
+
+footer {
+    grid-row: 3;
+    grid-column: 1 / 3;
+    text-align: center;
+    background-color:$nav-footer-bg;
+}
+
+#notegroups {
+    width: 92%;
+    background-color: $notegroup-bg;
+    margin: 1%;
+    border-radius: 1rem;
+    padding: 3%;
+    box-shadow: 0.2rem 0.2rem 0.5rem #0004;
+
+    > button {
+        background-color: $notegroup-bg;
+        display: inline;
+        padding: 2% 0.5%;
+        margin: 1%;
+        border-radius: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: $main-color;
+
+        > div {
+            font-size: 0.8rem;
+            padding: 0 .25rem;
+            border-radius: .25rem;
+            display: inline;
+            border: 1px solid dimgray;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        > .ngt{
+            font-size: 1rem;
+            margin-bottom: -1rem;
+            border-radius: 0;
+            color: $main-color;
+            border: none;
+        }
+
+        > input{
+            width: 1.2rem;
+            height: 0.8rem;
+        }
+    }
+}
+
+#notes {
+    width: 98%;
+    margin: 1%;
+
+    > details {
+        background-color: $notegroup-bg;
+        padding: 1%;
+        margin: 2% 1%;
+        width: 96%;
+        border-radius: 0.5rem;
+        box-shadow: 0.2rem 0.2rem 0.5rem #0004;
+
+        > summary {
+            color: $note-bg;
+            font-weight: bold;
+
+            > input {
+                color: $main-color;
+                font-weight: bold;
+            }
+
+            > span:focus {
+                outline: none;
+            }
+        }
+
+        [open] {
+            > summary {
+                border-bottom: 0.05rem solid black;
+            }
+
+            > #notes > details[open] > textarea {
+                color:$main-color;
+            }
+        } 
+
+        > span:focus {
+            outline: none;
+        }
+    }
+}
+
+#bgCanvas {
+    display: none;
+}
+
+iframe {
+    width: 99%;
+    border: none;
+}
+
+ul > li {
+    border-radius: 0.5rem;
+    background-color: $notegroup-bg;
+    margin: 0 1.5rem 0.5rem 0;
+    padding-left: 0.5rem;
+    box-shadow: #0004 0.2rem 0.2rem 0.2rem;
+    color: $list-color;
+}
+
+button {
+    background-color: $h2-color;
+    border-style: none;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    color: white;
+    font-size: 1rem;
+    transition: 0.3s;
+
+    &:hover {
+        box-shadow: 0 0.1rem 0.3rem 0.1rem #00000044;
+        transition: 0.3s;
+
+        > span {
+            padding-right: 0.8rem;
+
+            &:after {
+                opacity: 1;
+                right: 0;
+            }
+        }
+    }
+
+    > span {
+        cursor: pointer;
+        display: inline;
+        position: relative;
+        transition: 0.3s;
+
+        &:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -0.6rem;
+            transition: 0.3s;
+        }
+    }
+}
+
+#stickynav > button {
+    display: block;
+    color: $main-color;
+    width: 100%;
+    border-radius: 0;
+    background-color: transparent;
+    font-weight: bold;
+    text-shadow: 0.1rem 0.1rem #00000033;
+    margin: 0.3rem 0 0.3rem 0;
+    padding-left: 1.6rem;
+
+    &:hover {
+        background-color: $button-hover-bg;
+        transition: 0.3s;
+    }
+
+    > img {
+        display: inline;
+        position: absolute;
+        left: 0;
+        height: 1.25em;
+        margin: -0.4rem 0 -0.6rem 0;
+        background: radial-gradient(circle, $nav-footer-bg 52%, transparent 58%);
+        padding: 0.4rem;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    * {
+        font-size: 27px;
+    }
+
+    #bgCanvas {
+        display: inline;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -100;
+        background-color: $canvas-bg;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    body {
+        width: 100%;
+        margin: 0;
+    }
+
+    nav {
+        grid-row: 2;
+        grid-column: 1 / 3;
+        position: sticky;
+        top: 0;
+        border-bottom: 0.1rem solid darkgrey;
+    }
+
+    #main {
+        grid-row: 3;
+        grid-column: 1 / 3;
+        border-left: none;
+        border-top: none;
+        border-radius: 0;
+    }
+
+    footer {
+        grid-row: 4;
+        grid-column: 1 / 3;
+    }
+
+    .graph {
+        width: 98%;
+        padding: 1%;
+        border: none;
+        border-bottom: 1px lightgray solid;
+    }
+
+    #notegroups {
+        button {
+            padding: 5% 1%;
+            margin: 2%;
+            width: 45%;
+
+            > div {
+                font-size: 1rem;
+                padding: 0 .25rem;
+                border-radius: .25rem;
+                display: inline;
+                border: 1px solid dimgray;
+            }
+
+            > .ngt{
+                font-size: 1.2rem;
+                margin-bottom: -1rem;
+                border-radius: 0;
+                border: none;
+            }
+
+            > input{
+                width: 1.3rem;
+                height: 0.9rem;
+            }
+        }
+    } 
+
+    #stickynav > button {
+        text-shadow: none;
+        display: inline;
+        border-radius: 0.1rem;
+        font-size: 0.9rem;
+        margin: 0.5% 0;
+        padding-left: 0;
+
+        > img {
+            position: relative;
+            height: 1.2rem;
+            padding: 0.3rem;
+        }
+    }
+
+    #notes > details {
+        padding: 3% 2%;
+        margin: 4% 1%;
+    }
+}
+

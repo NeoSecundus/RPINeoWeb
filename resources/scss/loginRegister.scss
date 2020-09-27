@@ -1,3 +1,8 @@
+@mixin input_display() {
+    display: inline-block;
+    position: absolute;
+}
+
 main {
     display: block;
     width: 100%
@@ -9,19 +14,18 @@ main {
     border: 1px lightgray solid;
     border-radius: 1%;
     width: 50%;
-}
 
-#form > label {
-    display: inline-block;
-    margin: 0;
-    width: 100%;
-}
+    label {
+        display: inline-block;
+        margin: 0;
+        width: 100%;
+    }
 
-#form > label > input {
-    display: inline-block;
-    position: absolute;
-    width: 25%;
-    left: 50%;
+    input {
+        @include input_display();
+        width: 25%;
+        left: 50%;
+    }
 }
 
 button {
@@ -30,8 +34,7 @@ button {
 
 @media screen and (min-width: 1080px) {
     #form > label > input {
-        display: inline-block;
-        position: absolute;
+        @include input_display();
         width: 270px;
         left: 50%;
     }
