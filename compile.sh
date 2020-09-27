@@ -1,0 +1,1 @@
+sass --style=compressed --no-source-map resources/scss:resources/css
