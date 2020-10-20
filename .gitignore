@@ -5,5 +5,5 @@
 *.ndb
 *.directory
 *.css
-
+.vscode
 
