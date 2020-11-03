@@ -10,7 +10,7 @@ from time import time
 from config import DBFILE, BME_ADDRESS
 
 
-def _insert(data:dict):
+def _insert(data: dict):
     keys = ["timestamp", "cpu_temp", "cpu_usage", "storage_usage", "ram_usage", "room_temp", "room_hum"]
 
     conn = sqlite3.connect(DBFILE)
@@ -49,12 +49,24 @@ def _collect_bme_data(data: dict) -> None:
         data["room_temp"] = 0
 
 
+def _calc_total_storage() -> float:
+    disks = psutil.disk_partitions()
+    total = 0
+    used = 0
+    for disk in disks:
+        stats = psutil.disk_usage(disk.mountpoint)
+        total += stats.total
+        used += stats.used
+
+    return used / total
+
+
 def run():
     data = {}
     data["timestamp"] = int(time())
     data["cpu_temp"] = _getTemp()
     data["cpu_usage"] = psutil.cpu_percent()/100
-    data["storage_usage"] = psutil.disk_usage("/").percent/100
+    data["storage_usage"] = _calc_total_storage()
     data["ram_usage"] = psutil.virtual_memory().percent/100
     _collect_bme_data(data)
     _insert(data)
