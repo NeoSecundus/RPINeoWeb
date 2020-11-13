@@ -151,9 +151,9 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                      ticks: {
-                         min: -10,
-                         max: 50,
-                         stepSize: 10
+                         min: 0,
+                         max: 40,
+                         stepSize: 5
                      }
                 }]
             }
@@ -161,9 +161,9 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: -10,
-                        max: 50,
-                        stepSize: 10
+                        min: 0,
+                        max: 40,
+                        stepSize: 5
                     }
                 }]
             }
