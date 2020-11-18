@@ -84,6 +84,8 @@ function setCursorPos(element, pos) {
 
 
 const emojiTable = [
+["&#x1F47D", "alien"],
+["&#x1F47E", "alien_monster"],
 ["&#x1F48B","kissmark"],
 ["&#x1F48C","loveletter"],
 ["&#x1F498","heartwitharrow"],
