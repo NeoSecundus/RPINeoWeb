@@ -1,5 +1,8 @@
 'use strict';
 
+const KC_ENTER = 13;
+const KC_BASPC = 8;
+
 function checkForEmojiClasses() {
     const emojiFields = document.getElementsByClassName("emoji-support");
 
@@ -27,11 +30,11 @@ function checkEmojiInput(keyEvent) {
     }
 
     if (checkEmojiString) {
-        if (keyEvent.keyCode === 8) {
+        if (keyEvent.keyCode === KC_BASPC) {
             emojiString = emojiString.substring(0, emojiString.length - 1);
         }
 
-        if (keyEvent.keyCode === 13 || (keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57)) {
+        if (keyEvent.keyCode === KC_ENTER || (keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57)) {
             keyEvent.preventDefault();
             let offset = keyEvent.keyCode - 48;
             offset = offset < 0 ? 0 : offset;

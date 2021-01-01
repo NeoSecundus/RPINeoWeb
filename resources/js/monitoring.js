@@ -100,7 +100,7 @@ function startRPICharts() {
         ["#cc3333cc"],
         (context) => {
             let val = context.dataset.data[context.dataIndex];
-            return val < 15 ? "#3333ccbb" : val < 28 ? "#33cc33bb" : "#cc3333bb";
+            return val < 20 ? "#3333ccbb" : val < 32 ? "#33cc33bb" : "#cc3333bb";
     },
         ["#cc3333cc"],
         (context) => {
@@ -151,9 +151,9 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                      ticks: {
-                         min: 0,
+                         min: 10,
                          max: 40,
-                         stepSize: 5
+                         stepSize: 4
                      }
                 }]
             }
@@ -161,9 +161,9 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,
+                        min: 10,
                         max: 40,
-                        stepSize: 5
+                        stepSize: 4
                     }
                 }]
             }
@@ -171,8 +171,8 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,
-                        max: 100,
+                        min: 10,
+                        max: 90,
                         stepSize: 10
                     }
                 }]
@@ -181,8 +181,8 @@ function startRPICharts() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,
-                        max: 100,
+                        min: 10,
+                        max: 90,
                         stepSize: 10
                     }
                 }]
@@ -192,10 +192,10 @@ function startRPICharts() {
         "Resource usage in %",
         "CPU Temperature in °C",
         "CPU Temperature in °C",
-        "Room Temperature in °C",
-        "Room Temperature in °C",
-        "Room Humidity in %",
-        "Room Humidity in %"];
+        "Case Temperature in °C",
+        "Case Temperature in °C",
+        "Case Humidity in %",
+        "Case Humidity in %"];
 
     for (let i = 0; i < frameIds.length; i++) {
         frames[i] = createChart(frameIds[i], type[i], labels[i], colors[i], options[i], texts[i]);
