@@ -10,7 +10,8 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          '/denied.html' => 'Guest',
          '/notes.html' => 'Member',
          '/terminal.html' => 'Member',
-         '/seafile.html' => 'Member'
+         '/seafile.html' => 'Member',
+         '/habits.html' => 'Member'
      ],
      'resourceTypes' => [
          // Images

@@ -1,6 +1,7 @@
 # Interface-Definition
 
 ## Table of Content
+
 1. [GET Interfaces](#get-interfaces)  
    1. [Get Resources](#get-resources)  
    2. [Get Users](#get-users)  
@@ -15,58 +16,75 @@
    2. [Get RPI Data](#get-rpi-data)  
    3. [Notes](#notes)
       1. [Get Notes](#get-notes)  
-	  2. [Add Note](#add-note)  
-	  3. [Delete Note](#delete-note)  
-	  4. [Update Note](#update-note)  
+      2. [Add Note](#add-note)  
+      3. [Delete Note](#delete-note)  
+      4. [Update Note](#update-note)  
    4. [NoteGroups](#notegroups)
-	  1. [Get Groups](#get-groups)  
-	  2. [Add Group](#add-group)
-	  3. [Delete Group](#delete-group)
-	  4. [Update Group](#update-group)  
-
+      1. [Get Groups](#get-groups)  
+      2. [Add Group](#add-group)
+      3. [Delete Group](#delete-group)
+      4. [Update Group](#update-group)  
 
 ## GET Interfaces
+
 ---
+
 ### Get Resources
+
 URL: /resources/*
 Will get the requested resources from the Server.
 
 Resources include:
+
 - Images _(/resources/images/*)_
 - Stylesheets _(/resources/css/*)_
 - JavaScript _(/resources/js/*)_
 
 Receive:
-```
+
+```text
 Content-Data (Text/Binary)
 ```
 
 ---
+
 ### Get Users
+
 **Needs admin rights!**
 URL: /getusers
 Will request a list of users from the Server.
 **Does not need data to be sent!**
 
 Receive:
+
 ```json
 {"user1":"pass1", "user2":"pass2", ...}
 ```
 
 ## POST Interfaces (JSON)
+
 ---
+
 ## User Section
+
 ### Login
+
 URL: /trylogin
+
 Send:
+
 ```json
 {"user":"string", "password":"string"}
 ```
+
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
+
 Status:
+
 - true = ok
 - false = failed
 
@@ -74,114 +92,155 @@ Status:
 
 URL: /trylogin
 Send:
+
 ```json
 {"user":"string", "password":"string"}
 ```
+
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
+
 Status:
+
 - true = ok
 - false = failed
 
 ---
+
 ### Register
+
 URL: /tryregister
 Send:
+
 ```json
 {"user":"string", "password":"string"}
 ```
+
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
+
 Statuscodes:
+
 - true = ok
 - false = failed
 
 ---
+
 ### Add User
+
 **Needs admin rights!**
 URL: /adduser
 Send:
+
 ```json
 {"user":"string", "privileges":"string"}
 ```
+
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
+
 Privileges:
+
 - *Admin*
 - *Member*
 - *Guest*
 
 Statuscodes:
+
 - true = ok
 - false = failed
 
 ---
+
 ### Remove User
+
 **Needs admin rights!**
 URL: /removeuser
 Send:
+
 ```json
 {"user":"string"}
 ```
+
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
+
 Statuscodes:
+
 - true = ok
 - false = failed
 
 ---
+
 ### Reset User Password
+
 **Needs admin rights!**
 URL: /resetpassword
 Send:
+
 ```json
 {"user":"string"}
 ```
 
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
 ```
 
 Statuscodes:
+
 - true = ok
 - false = failed
 
 ---
+
 ### Change User Rights
+
 **Needs admin rights!**
 URL: /changeprivileges
 Send:
+
 ```json
 {"user":"string", "privileges":"string"}
 ```
 
 Privileges:
+
 - Admin
 - Member
 - Guest
 
 Receive:
+
 ```json
 {"status":"boolean", "msg":"string"}
-``` 
+```
 
 Statuscodes:
+
 - true = ok
 - false = failed
 
 ---
+
 ## Get RPI Data
-URL: /getrpidata
+
+URL: /getrpidata  
 Send:
+
 ```json
 {"view":"string"}
 ```
@@ -193,24 +252,30 @@ View:
 "month" -> returns averaged values of every day within the last month
 
 Receive:
+
 ```json
 [{"id": "int timestamp",
 "cpu_usage": "float 0-1",
 "storage_usage": "float 0-1",
 "ram_usage": "float 0-1"}, ...]
 ```
+
 Returns data in an array.
 
 ## Notes
+
 ### Get Notes
+
 URL: /notes/getnotes
 
 Send:
+
 ```json
 {"group":"string"}
 ```
 
 Receive:
+
 ```json
 [{"title": "string",
 "user": "string",
@@ -219,121 +284,306 @@ Receive:
 "create_date": "timestamp",
 "clear_date": "timestamp"}, ...]
 ```
+
 Return notes in an array.
 
 ---
+
 ### Add Note
+
 URL: /notes/addnote
 
 Send:
+
 ```json
 {"title": "string",
 "group": "string",
 "text": "string",
 "create_date":"timestamp"}
 ```
+
 Adds a note to the database.
 
 Receive:
+
 ```json
 {"DBResponse": "???"}
 ```
 
 ---
+
 ### Delete Note
+
 URL: /notes/deletenote
 
 Send:
+
 ```json
 {"title": "string",
 "group": "string"}
 ```
+
 Removes a note from the database.
 
 Receive:
+
 ```json
 {"DBResponse": "???"}
 ```
 
 ---
+
 ### Update Note
+
 URL: /notes/updatenote
 
 Send:
+
 ```json
 {"title": "string",
 "group": "string",
 "new_title": "string", //optional
 "new_text": "string"} //optional
 ```
+
 Updates the text and title of a given note.
 
 Receive:
+
 ```json
 {"DBResponse": "???"}
 ```
 
 ## NoteGroups
+
 ### Get Groups
+
 URL: /notes/getgroups
 
 Send:
+
 ```json
 {}
 ```
 
 Receive:
+
 ```json
 [{"title": "string",
 "user": "string",
 "color": "string (#ffffff)"}, ...]
 ```
+
 Returns note-groups in an array. User gets checked automatically.
 
 ---
+
 ### Add Group
+
 URL: /notes/addgroup
 
 Send:
+
 ```json
 {"title": "string",
 "color": "string (#ffffff)"}
 ```
+
 Adds new group to database. User gets checked automatically.
 
 Receive:
+
 ```json
 {"DBResponse": "???"}
 ```
 
 ---
+
 ### Delete Group
+
 URL: /notes/deletegroup
 
 Send:
+
 ```json
 {"title": "string"}
 ```
+
 Deletes group and all contained notes from database. User gets checked automatically.
 
 Receive:
+
 ```json
 {"DBResponse": "???"}
 ```
 
 ---
+
 ### Update Group
+
 URL: /notes/updategroup
 
 Send:
+
 ```json
 {"title": "string",
 "new_title": "string", //optional
 "new_color": "string (#ffffff)"} //optional
 ```
+
 Updates title and color of group if `new_*` parameters are set. User gets checked automatically.
 
 Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+## Habit-Tracker
+
+---
+
+### Add Habit
+
+URL: /habits/addhabit
+
+Send:
+
+```json
+{"create_date":"timestamp", "title":"string", "desc":"string"}
+```
+
+Adds a new habit to the database for the sending user.  
+Description (`desc`) is limited to 128 characters.  
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Delete Habit
+
+URL: /habits/deletehabit
+
+Send:
+
+```json
+{"id": "timestamp"}
+```
+
+`id` refers to the create_date (primary key) of the habit.
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Update Habit
+
+URL: /habits/updatehabit
+
+Send:
+
+```json
+{"id": "timestamp", "title": "string", "desc": "string"}
+```
+
+All fields of referred habit will be replaced by given values.
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Get Habits
+
+URL: /habits/gethabits
+
+Send:
+
+```json
+{}
+```
+
+Return list of all habits linked to the current user.
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Add Track
+
+URL: /habits/addtrack
+
+Send:
+
+```json
+{"habit_id": "timestamp", "date": "date"}
+```
+
+Adds a tracking success point for the by `habit_id` referenced habit. `date` references the current date.  
+`date` must be in the format: YYYYMMDD  
+YYYY => year, MM => Month with leading zero, DD => day of month with leading zero.  
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Delete Track
+
+URL: /habits/deletetrack
+
+Send:
+
+```json
+{"habit_id": "timestamp", "date": "date"}
+```
+
+Removes the tracking success point for habit referenced by `habit_id`. `date` references the wanted tracking point to remove.  
+`date` must be in the format: YYYYMMDD  
+YYYY => year, MM => Month with leading zero, DD => day of month with leading zero.  
+
+Receive:
+
+```json
+{"DBResponse": "???"}
+```
+
+---
+
+### Get Tracks
+
+URL: /habits/gettracks
+
+Send:
+
+```json
+{"habit_id": "timestamp"}
+```
+
+Gets all tracking points connected to the given habit.
+
+Receive:
+
 ```json
 {"DBResponse": "???"}
 ```

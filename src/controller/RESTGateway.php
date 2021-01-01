@@ -86,6 +86,10 @@ function RESTGateway() {
             Logger::info("Requesting note-manager! ->");
             echo NoteManager::checkRequest($url);
             break;
+        case "habits":
+            Logger::info("Requesting habit manager! ->");
+            echo HabitManager::checkRequest($url);
+            break;
         case "nexttheme":
             Logger::info("Setting new Theme!");
             echo $view->nextTheme();

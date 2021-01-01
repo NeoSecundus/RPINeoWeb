@@ -53,6 +53,13 @@ if (isset($_COOKIE["themeSetting"])) {
             </button>
 
             <button onclick="
+                requestPage('/habits.html');
+            ">
+                <img src="/resources/images/icons/habits.png" alt="Habits" />
+                Habits <span></span>
+            </button>
+
+            <button onclick="
             requestPage('/terminal.html');
             requestScript('/resources/js/terminal.js');
             beginExecution('getTerminalSrc')

@@ -152,7 +152,7 @@ WHERE title == ? and \"user\" == '$USER'",
         return $res;
     }
 
-    private static function sendDBRequest($query, $data = []): string {
+    public static function sendDBRequest($query, $data = []): string {
         $db = new SQLite3("data/sqdb.db");
         $db->busyTimeout(500);
         $db->query("PRAGMA foreign_keys = ON;");

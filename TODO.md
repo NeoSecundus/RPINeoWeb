@@ -28,16 +28,16 @@
 
 ### Current
 
-- [X] Year Monitoring
-    - [X] Add Tables and Views
-    - [X] Add Integration for monitoring Page
-    - [ ] Testing
-
 - [ ] Habit Tracker
     - [X] Create Database Tables
-    - [ ] Create Backend Integration
+    - [ ] Backend Integration
+        - [X] Interface Definition
+        - [ ] Model Documentation
+        - [ ] Backend Interface implementation
     - [ ] Create Page and Frontend Integration
-        - [ ] Create Logo
+        - [ ] JavaScript implementation
+        - [X] Create Page
+        - [X] Create Logo
 
 ---
 
