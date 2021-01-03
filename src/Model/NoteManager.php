@@ -50,7 +50,7 @@ class NoteManager {
             return json_encode(["status" => false, "msg" => "Group not set!"]);
         }
 
-        return self::sendDBRequest("SELECT * FROM raspi_notes 
+        return DBHelper::sendDBRequest("SELECT * FROM raspi_notes 
 WHERE group_title == ? and \"user\" == '$USER'",
             [$DATA['group']]);
     }
@@ -64,7 +64,7 @@ WHERE group_title == ? and \"user\" == '$USER'",
             return json_encode(["status" => false, "msg" => "Note-Data missing!"]);
         }
 
-        return self::sendDBRequest("INSERT INTO raspi_notes 
+        return DBHelper::sendDBRequest("INSERT INTO raspi_notes 
 VALUES('$DATA[title]', 
 '$USER', 
 '$DATA[group]', 
@@ -78,7 +78,7 @@ $DATA[create_date])");
             return json_encode(["status" => false, "msg" => "Group or title not set!"]);
         }
 
-        return self::sendDBRequest("DELETE FROM raspi_notes 
+        return DBHelper::sendDBRequest("DELETE FROM raspi_notes 
 WHERE title == ? and \"user\" == '$USER' and group_title == ?",
             [$DATA["title"], $DATA["group"]]);
     }
@@ -92,12 +92,12 @@ WHERE title == ? and \"user\" == '$USER' and group_title == ?",
         $res = '{"status":"false", "msg":"Notes: Nothing to update!"}';
 
         if (isset($DATA["new_text"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET \"text\" = ? 
+            $res = DBHelper::sendDBRequest("UPDATE raspi_notes SET \"text\" = ? 
             WHERE title == ? and \"user\" == '$USER' and group_title == ?",
                 [$DATA['new_text'], $DATA['title'], $DATA['group']]);
         }
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_notes SET title = ?
+            $res = DBHelper::sendDBRequest("UPDATE raspi_notes SET title = ?
 WHERE title == ? and \"user\" == '$USER' and group_title == ?",
                 [$DATA['new_title'], $DATA["title"], $DATA["group"]]);
         }
@@ -110,7 +110,7 @@ WHERE title == ? and \"user\" == '$USER' and group_title == ?",
             return json_encode(["status" => false, "msg" => "Title or color not set!"]);
         }
 
-        return self::sendDBRequest("INSERT INTO raspi_note_groups 
+        return DBHelper::sendDBRequest("INSERT INTO raspi_note_groups 
 VALUES('$DATA[title]', '$USER', '$DATA[color]')");
     }
 
@@ -120,14 +120,14 @@ VALUES('$DATA[title]', '$USER', '$DATA[color]')");
             return json_encode(["status" => false, "msg" => "Title not set!"]);
         }
 
-        return self::sendDBRequest("DELETE FROM raspi_note_groups 
+        return DBHelper::sendDBRequest("DELETE FROM raspi_note_groups 
 WHERE \"user\" == '$USER' and title == ?",
             [$DATA["title"]]);
     }
 
 
     private static function getGroups($DATA, $USER): string {
-        return self::sendDBRequest("SELECT * FROM raspi_note_group_view 
+        return DBHelper::sendDBRequest("SELECT * FROM raspi_note_group_view 
 WHERE \"user\" == '$USER'");
     }
 
@@ -140,34 +140,15 @@ WHERE \"user\" == '$USER'");
         $res = '{"status":"false", "msg":"Note-Groups: Nothing to update!"}';
 
         if (isset($DATA["new_color"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET color = ? 
+            $res = DBHelper::sendDBRequest("UPDATE raspi_note_groups SET color = ? 
             WHERE title == ? and \"user\" == '$USER'",
                 [$DATA["new_color"], $DATA["title"]]);
         }
         if (isset($DATA["new_title"])) {
-            $res = self::sendDBRequest("UPDATE raspi_note_groups SET title = ? 
+            $res = DBHelper::sendDBRequest("UPDATE raspi_note_groups SET title = ? 
 WHERE title == ? and \"user\" == '$USER'",
                 [$DATA["new_title"], $DATA["title"]]);
         }
         return $res;
-    }
-
-    public static function sendDBRequest($query, $data = []): string {
-        $db = new SQLite3("data/sqdb.db");
-        $db->busyTimeout(500);
-        $db->query("PRAGMA foreign_keys = ON;");
-        $stmt = $db->prepare($query);
-        for ($pos = 0; $pos < count($data); $pos++) {
-            $stmt->bindParam($pos+1,$data[$pos]);
-        }
-        $result = $stmt->execute();
-        $data = [];
-
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            array_push($data, $row);
-        };
-        $db->close();
-
-        return json_encode($data);
     }
 }

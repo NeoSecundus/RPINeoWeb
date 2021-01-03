@@ -1,0 +1,36 @@
+<?php
+
+class DBHelper {
+    public static function sendDBRequest($query, $data = []): string {
+        $db = new SQLite3("data/sqdb.db");
+        $db->busyTimeout(500);
+        $db->query("PRAGMA foreign_keys = ON;");
+        $stmt = $db->prepare($query);
+        for ($pos = 0; $pos < count($data); $pos++) {
+            $stmt->bindParam($pos+1,$data[$pos]);
+        }
+        $result = $stmt->execute();
+        $data = [];
+
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            array_push($data, $row);
+        };
+        $db->close();
+
+        return json_encode($data);
+    }
+
+    public static function checkDataFields($DATA, $keys): bool {
+        foreach ($keys as $key) {
+            if (!isset($DATA[$key])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static function createStatusJson($status, $msg): string {
+        return json_encode(["status" => $status, "msg" => $msg]);
+    }
+}

@@ -32,8 +32,8 @@
     - [X] Create Database Tables
     - [ ] Backend Integration
         - [X] Interface Definition
-        - [ ] Model Documentation
-        - [ ] Backend Interface implementation
+        - [X] Model Documentation
+        - [X] Backend Interface implementation
     - [ ] Create Page and Frontend Integration
         - [ ] JavaScript implementation
         - [X] Create Page

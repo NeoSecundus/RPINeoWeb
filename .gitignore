@@ -6,4 +6,5 @@
 *.directory
 *.css
 .vscode
+*.session.sql
 
