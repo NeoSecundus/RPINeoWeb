@@ -26,10 +26,3 @@ CREATE TABLE habit_track (
     date DATE NOT NULL,
     PRIMARY KEY (date, habit)
 );
-
-CREATE TRIGGER habitGarbageCollector
-    AFTER INSERT ON habit_track
-    BEGIN
-        DELETE FROM habit_track
-        WHERE date < strftime('%Y%m%d', 'now', '-1 years');
-    END;

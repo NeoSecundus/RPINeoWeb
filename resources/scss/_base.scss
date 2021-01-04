@@ -39,6 +39,27 @@ input {
     font-size: 0.9rem;
 }
 
+.habit-base {
+    background-color: $habit-bg;
+    color: $main-color;
+    border: 1px solid black;
+}
+
+.habit-field {
+    font-size: 100%; 
+    text-align: center;
+    margin: 0 -.1rem 0 0;
+    padding: .2rem 0;
+    border-left: .1rem solid black;
+    border-right: .1rem solid black;
+    color: $main-color;
+    background-color: $habit-bg;
+}
+
+strong {
+    font-size: inherit;
+}
+
 #banner {
     margin: 1% 2%;
     width: 96%;
@@ -367,14 +388,24 @@ button {
         text-shadow: none;
         display: inline;
         border-radius: 0.1rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         margin: 0.5% 0;
         padding-left: 0;
+        width: 24%;
 
         > img {
             position: relative;
             height: 1.2rem;
             padding: 0.3rem;
+        }
+
+        &:hover {
+            background-color: $button-hover-bg;
+            transition: 0;
+        }
+
+        > span {
+            display: none;
         }
     }
 

@@ -116,6 +116,13 @@ function createChart(canvasId, type, labels, colors, myOptions, infotext="") {
     }
 }
 
+function imageToBase64(imgdata, imagetype = "image/png") {
+    // imgdata must be integer array or arraybuffer!
+    let data = new Uint8Array(imgdata);
+    
+    return "data:" + imagetype + ";base64," + btoa(String.fromCharCode.apply(null, data));
+}
+
 function resetStatus(time = 3000) {
     setTimeout(() => {
         document.getElementById("status").innerHTML = "";

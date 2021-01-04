@@ -23,7 +23,7 @@ if (isset($_COOKIE["themeSetting"])) {
     <canvas id="bgCanvas" ></canvas>
     <header>
         <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
-        <button onclick="nextTheme();" style='position: relative; bottom: 3%; left: calc(100% - 8em); font-size: 0.5em;'>Switch Theme</button>
+        <button onclick="nextTheme();" style='position: relative; bottom: 1.5rem; left: calc(100% - 8em); font-size: 0.5em;'>Switch Theme</button>
     </header>
     <nav>
         <div id="stickynav">
@@ -54,6 +54,8 @@ if (isset($_COOKIE["themeSetting"])) {
 
             <button onclick="
                 requestPage('/habits.html');
+                requestScript('/resources/js/habits.js');
+                beginExecution('getHabits');
             ">
                 <img src="/resources/images/icons/habits.png" alt="Habits" />
                 Habits <span></span>

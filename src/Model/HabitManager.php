@@ -46,7 +46,7 @@ class HabitManager {
             return DBHelper::createStatusJson(false, "Add Habit: Missing Data fields!");
         }
         
-        return DBHelper::sendDBRequest("INSERT INTO habits VALUES(?, ?, ?, ?)", 
+        return DBHelper::sendDBRequest("INSERT INTO habit VALUES(?, ?, ?, ?)", 
         [$DATA["create_date"], $USER, $DATA["title"], $DATA["desc"]]);
     }
 
@@ -55,7 +55,7 @@ class HabitManager {
             return DBHelper::createStatusJson(false, "Delete Habit: Missing id in data!");
         }
 
-        return DBHelper::sendDBRequest("DELETE FROM habits WHERE id == ?", 
+        return DBHelper::sendDBRequest("DELETE FROM habit WHERE id == ?", 
         [$DATA["id"]]);
     }
 
