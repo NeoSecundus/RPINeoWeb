@@ -1,0 +1,10 @@
+<p style="margin: 0.5em;">
+    Color Selector: <select style="margin-bottom: 0.5vw;" id="napchart_colors" onclick="napchartChangeColor();"></select> 
+    <span id="napchart_color_showcase" style="margin-bottom: -0.2em; border-radius: 0.3em; width: 1em; height: 1em; background-color: red; display: inline-block;"></span>
+    <textarea id="napchart_desc" placeholder="short description..." cols="16" rows="1" style="margin-bottom: -0.3em; resize: none;"></textarea>
+    <button onclick="napchart_save()">Save</button>
+</p>
+
+<div style="width:100%;height:76vw;margin-bottom: 1vh;max-height:1040px;">
+	<canvas id="myNapchart"></canvas>
+</div>

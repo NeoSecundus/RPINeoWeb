@@ -12,9 +12,13 @@ class DBHelper {
         $result = $stmt->execute();
         $data = [];
 
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            array_push($data, $row);
-        };
+        try {
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                array_push($data, $row);
+            };
+        } catch (Exception $err) {
+            Logger::error($err);
+        }
         $db->close();
 
         return json_encode($data);

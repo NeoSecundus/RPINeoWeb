@@ -11,7 +11,8 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          '/notes.html' => 'Member',
          '/terminal.html' => 'Member',
          '/seafile.html' => 'Member',
-         '/habits.html' => 'Member'
+         '/habits.html' => 'Member',
+         '/napchart.html' => 'Guest'
      ],
      'resourceTypes' => [
          // Images
@@ -22,7 +23,7 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
 
          // Scripts
          'css' => 'text/css',
-         'js' => 'text/js'
+         'js' => 'text/javascript'
      ],
      'themes' => [
          "default",

@@ -19,7 +19,7 @@ function beginExecution(func) {
             window[func]();
             clearInterval(tryExec);
         } catch (re) {
-            console.log("Waiting for script...");
+            console.log("Waiting for script...\n" + re);
             tries++;
             if (tries >= 10)
                 clearInterval(tryExec);

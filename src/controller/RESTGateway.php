@@ -93,6 +93,11 @@ function RESTGateway() {
         case "nexttheme":
             Logger::info("Setting new Theme!");
             echo $view->nextTheme();
+            break;
+        case "napchart":
+            Logger::info("Requesting NapChart!");
+            echo NapChartManager::checkRequest($url);
+            break;
         default:
             Logger::info("Requesting page " . $url);
             $view->sendPage($url);

@@ -62,6 +62,16 @@ if (isset($_COOKIE["themeSetting"])) {
             </button>
 
             <button onclick="
+                requestScript('/resources/js/external/napchart/napchart.min.js');
+                requestPage('/napchart.html');
+                requestScript('/resources/js/napchart.js');
+                beginExecution('startNapChart');
+            ">
+                <img src="/resources/images/icons/napchart.png" alt="NapChart" />
+                NapChart <span></span>
+            </button>
+
+            <button onclick="
             requestPage('/terminal.html');
             requestScript('/resources/js/terminal.js');
             beginExecution('getTerminalSrc')
