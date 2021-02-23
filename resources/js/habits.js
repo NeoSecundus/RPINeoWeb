@@ -33,7 +33,6 @@ function getHabits() {
                         <hr style="border: 1px dashed gray; width: 92%;"/>
                         <div style="display: grid; grid-template-columns: 33% 65%">
                             <div style="font-size:.8rem; margin-top: .4em; line-height: 1.5rem;">
-                                <strong>Done today?</strong> <input id="habitDone${i}" onclick="updateHabitStatus(${json[i]["id"]}, ${i})" style="height: .75em; width: .75em; margin-bottom: -.25em;" type="checkbox"></input> <br/>
                                 <strong>Show timespan:</strong> <br/>
                                 From: <input class="habit-base" style="width:8em" id="habitFrom${i}" type="date" value="${last}" onchange="getTracks(${json[i]["id"]}, ${i})"></input> <br/>
                                 To: <input class="habit-base" style="width:8em" id="habitTo${i}" type="date" value="${now}" onchange="getTracks(${json[i]["id"]}, ${i})"></input> <br/>
@@ -136,13 +135,6 @@ function getTracks(id, pos, checkopen = false) {
 
                 let curDate = new Date();
                 let dateString = curDate.getFullYear() + ("0" + (curDate.getMonth() + 1)).slice(-2) + ("0" + curDate.getDate()).slice(-2);
-                for (let i in json) {
-                    if (dateString == json[i]["date"]) {
-                        document.getElementById(`habitDone${pos}`).checked = true;
-                        break;
-                    }
-                }
-
                 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
                 for (let i in days) {
                     insert += "<p class='habit-field' style='font-weight: bold; border: .1em solid black;'>" + days[i] + "</p>";
@@ -155,12 +147,17 @@ function getTracks(id, pos, checkopen = false) {
 
                 for (let i = 0; i < timespan; i++) {
                     let pic = "bad_track_pic";
+                    let checked = false;
                     curDate = new Date(from + 86400000*i);
+                    let dateid = curDate.getFullYear() + 
+                                ("0" + (curDate.getMonth() + 1)).slice(-2) + 
+                                ("0" + curDate.getDate()).slice(-2);
 
                     dateString = curDate.getFullYear() + ("0" + (curDate.getMonth() + 1)).slice(-2) + ("0" + curDate.getDate()).slice(-2);
                     for (let j in json) {
                         if (dateString == json[j]["date"]) {
                             pic = "good_track_pic";
+                            checked = true;
                             counter++;
                             break;
                         }
@@ -168,7 +165,7 @@ function getTracks(id, pos, checkopen = false) {
 
                     insert += "<p class='habit-field'>"
                     insert += curDate.toLocaleDateString("loc", {"day":"numeric", "month":"numeric"}) + "<br/>";
-                    insert += `<img style="width:0.9em;" src='${localStorage.getItem(pic)}' alt="track icon" />`;
+                    insert += `<img style="width:0.9em;" src='${localStorage.getItem(pic)}' alt="track icon" onclick="updateHabitStatus(${id}, ${pos}, ${checked}, ${dateid})"/>`;
                     insert += "</p>"
                 }
 
@@ -182,21 +179,17 @@ function getTracks(id, pos, checkopen = false) {
     });
 }
 
-function updateHabitStatus(id, pos) {
-    let checked = document.getElementById(`habitDone${pos}`).checked;
+function updateHabitStatus(id, pos, checked, dateid) {
     let url;
     if (checked) {
-        url = "habits/addtrack";
-    } else {
         url = "habits/deletetrack";
+    } else {
+        url = "habits/addtrack";
     }
-
-    let d = new Date();
-    let date = d.getFullYear() + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2);
 
     fetch(url, createHeader({
         "habit_id":id, 
-        "date":date})).then( () => {
+        "date":dateid})).then( () => {
             getTracks(id, pos);
         }).catch( err => {
             console.log(err);
