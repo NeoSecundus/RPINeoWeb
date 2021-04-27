@@ -10,6 +10,33 @@ function getNoteDocElements() {
     loadNotes.style.display = "none";
     loadGroups = document.getElementById("load_groups");
     loadGroups.style.display = "none";
+
+    showdown.setOption('parseImgDimensions', true);
+    showdown.setOption('simplifiedAutoLink', true);
+    showdown.setOption('strikethrough', true);
+    showdown.setOption('tables', true);
+    showdown.setOption('tasklists', true);
+    showdown.setOption('smoothLivePreview', true);
+    showdown.setFlavor('github');
+}
+
+function checkForMdPreviews() {
+    let tas = noteDiv.getElementsByTagName("textarea");
+    for (let i = 0; i < tas.length; i++) {
+        tas[i].addEventListener("keyup", (e) => {
+            let text = tas[i].value;
+            let div = tas[i].parentElement.getElementsByClassName("md-preview")[0];
+
+            let converter = new showdown.Converter();
+            div.innerHTML = converter.makeHtml(text);
+        });
+
+        let text = tas[i].value;
+        let div = tas[i].parentElement.getElementsByClassName("md-preview")[0];
+
+        let converter = new showdown.Converter();
+        div.innerHTML = converter.makeHtml(text);
+    }
 }
 
 function getNotes(group, color) {
@@ -25,6 +52,7 @@ function getNotes(group, color) {
                     <details style="background-color: ${color}">
                         <summary><input class="emoji-support" style="width: 92%; background-color: ${color}; border: none" value="${json[i]["title"]}"/></summary>
                         <textarea rows=8 class="emoji-support" style="width: 99%;  background-color: ${color}" >${json[i]["text"]}</textarea><br/>
+                        <div class="md-preview"></div>
                         <span style="font-size: 0.75rem;">Added: ${formatDate(json[i]["create_date"])}</span>
                         <span style="margin: 0 0 0 40%">
                             <button onclick="updateNote('${json[i]["title"].replace(/'/g, "\\'")}', '${json[i]["group_title"].replace(/'/g, "\\'")}', ${i}, '${color}');">Save</button>
@@ -39,6 +67,7 @@ function getNotes(group, color) {
             noteDiv.innerHTML = insert;
             loadNotes.style.display = "none";
             checkForEmojiClasses();
+            checkForMdPreviews();
         }).catch( (err) => {
             console.log(err)
         })
