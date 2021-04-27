@@ -12,6 +12,8 @@ lwCtx.strokeStyle = "#FFF";
 
 let lwNodes = [];
 lwNodeGen();
+let lwPlaying = true;
+lwUpdateHtml();
 
 function lwNodeGen() {
     lwNodes = [];
@@ -44,13 +46,36 @@ window.onresize = () => {
 
         if (window.innerWidth < widthLimit && lwOldWidth > widthLimit) {
             clearInterval(lwLoop);
-        } else if (window.innerWidth > widthLimit && lwOldWidth < widthLimit) {
+            lwUpdateHtml();
+        } else if (window.innerWidth > widthLimit && lwOldWidth < widthLimit && lwPlaying) {
             lwLoop = setInterval(lwStartLoop, 50);
+            lwUpdateHtml();
         }
 
         lwOldWidth = window.innerWidth;
     }
 };
 
+function lwUpdateHtml() {
+    let playImg = document.getElementById("lwPlay");
+    let pauseImg = document.getElementById("lwPause");
+    if (lwPlaying) {
+        playImg.style.display = "none";
+        pauseImg.style.display = "inline";
+    } else {
+        playImg.style.display = "inline";
+        pauseImg.style.display = "none";
+    }
+}
 
+function toggleLivingWeb() {
+    if (lwPlaying) {
+        clearInterval(lwLoop);
+        lwPlaying = false;
+    } else {
+        lwLoop = setInterval(lwStartLoop, 50);
+        lwPlaying = true;
+    }
+    lwUpdateHtml();
+}
 

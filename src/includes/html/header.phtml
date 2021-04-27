@@ -23,7 +23,11 @@ if (isset($_COOKIE["themeSetting"])) {
     <canvas id="bgCanvas" ></canvas>
     <header>
         <img src="/resources/images/Banner.png" alt="Banner" id="banner" />
-        <button onclick="nextTheme();" style='position: relative; bottom: 1.5rem; left: calc(100% - 8em); font-size: 0.5em;'>Switch Theme</button>
+        <button onclick="nextTheme();" style='position: relative; bottom: 1.5rem; left: calc(100% - 8em); font-size: 0.7em;'>Switch Theme</button>
+        <button id="lwToggle" onclick="toggleLivingWeb();">
+            <img id="lwPlay" src="/resources/images/icons/play.png" alt="Play"/>
+            <img id="lwPause" src="/resources/images/icons/pause.png" alt="Pause"/>
+        </button>
     </header>
     <nav>
         <div id="stickynav">
