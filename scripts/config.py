@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import logging
 
 #Current directory
 ROOTDIR = os.path.dirname(os.path.abspath(__file__))
@@ -21,5 +22,17 @@ LOOPTIME = 3
 # Scheduler Process Files
 # (Must implement a run method)
 SCHEDULEROOT = "NeoLogic"
-SCHEDULEPROCS = ["RaspiReadout"]
+SCHEDULEPROCS = ["RaspiReadout", "WSDataCollector"]
 
+# Global logger
+def _get_logger() -> logging.Logger:
+    formatter = logging.Formatter("%(asctime)s %(levelname)s: -- %(message)s")
+    handler = logging.FileHandler(ROOTDIR + "/../log/service.log")
+    handler.setFormatter(formatter)
+
+    logger = logging.getLogger("NWEB_SERVICE")
+    logger.addHandler(handler)
+    return logger
+
+GLOGGER = _get_logger()
+GLOGGER.setLevel(logging.WARN)

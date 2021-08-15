@@ -28,11 +28,15 @@
 
 ### Current
 
----
+- [ ] WaterSystem
+  - [X] Database Table and Triggers
+  - [ ] Addition to Python Data Collector
+  - [ ] Backend Integration
+  - [ ] Frontend Integration
 
 ### Backlog
 
 - Git Page
-    - Info about git repos
-    - Create new repos
-    - Delete old repos
+  - Info about git repos
+  - Create new repos
+  - Delete old repos

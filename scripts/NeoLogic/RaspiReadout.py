@@ -7,7 +7,7 @@ import busio
 import adafruit_bme280
 from time import time
 
-from config import DBFILE, BME_ADDRESS
+from config import DBFILE, BME_ADDRESS, GLOGGER
 
 
 def _insert(data: dict):
@@ -28,7 +28,7 @@ def _getTemp():
         with open("/sys/class/thermal/thermal_zone0/temp") as file:
             temp = int(file.read())/1000
     except FileNotFoundError:
-        print("Tmp File not found! Set to 0!")
+        GLOGGER.error("Tmp File not found! Set to 0!")
         temp = 0
 
     return temp
@@ -44,7 +44,7 @@ def _collect_bme_data(data: dict) -> None:
         data["room_hum"] = hum
         data["room_temp"] = temp
     else:
-        print("Could not read from BME280 Sensor! Vakues set to 0!")
+        GLOGGER.error("Could not read from BME280 Sensor! Values set to 0!")
         data["room_hum"] = 0
         data["room_temp"] = 0
 
