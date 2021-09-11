@@ -22,7 +22,7 @@ LOOPTIME = 3
 # Scheduler Process Files
 # (Must implement a run method)
 SCHEDULEROOT = "NeoLogic"
-SCHEDULEPROCS = ["RaspiReadout", "WSDataCollector"]
+SCHEDULEPROCS = ["WSDataCollector", "RaspiReadout"]
 
 # Global logger
 def _get_logger() -> logging.Logger:

@@ -1,4 +1,4 @@
-from scripts.config import LOOPTIME
+import logging
 import sqlite3 as sql
 from sqlite3 import Row
 from typing import Any
@@ -7,7 +7,7 @@ from urllib3.response import HTTPResponse
 import json
 import time
 
-from config import DBFILE, GLOGGER
+from config import DBFILE, GLOGGER, LOOPTIME
 
 
 _PUMP_JSON_KEYS = ["host", "highThresh", 
@@ -23,7 +23,7 @@ def _update_data(table_key: str, data: Any, pump_id: int):
     """
     dbconn = sql.connect(DBFILE)
     curse = dbconn.cursor()
-    curse.execute("UPDATE pump SET ? = ? WHERE id = ?", [table_key, data, pump_id])
+    curse.execute(f"UPDATE pump SET {table_key} = ? WHERE id = ?;", [data, pump_id])
     curse.close()
     dbconn.commit()
     dbconn.close()
@@ -35,6 +35,30 @@ def _check_pump_data(table_data, current_data):
         dkey = _PUMP_JSON_KEYS[i]
         if table_data[tkey] != current_data[dkey]:
             _update_data(tkey, current_data[dkey], table_data["id"])
+
+
+def _compact_pump_data(pump_id: int):
+    """Collects data from the wsData table and tries to compact the last hour
+    """
+    dbconn = sql.connect(DBFILE)
+    dbconn.row_factory = Row
+    curse = dbconn.cursor()
+    time_border = int(time.time()) - 1800
+    curse.execute("SELECT date, humidity FROM wsData WHERE pump_id = ? AND date > ?", [pump_id, time_border])
+    results = curse.fetchall()
+    
+    if results[0]["date"] < time_border + LOOPTIME + 1:
+        GLOGGER.info("Compacting pump data! Pump ID = %d", pump_id)
+        avg_hum = 0.0
+        for row in results:
+            avg_hum += row["humidity"]
+        avg_hum /= len(results)
+        curse.execute("DELETE FROM wsData WHERE pump_id = ? AND date > ?", [pump_id, time_border])
+        dbconn.commit()
+        curse.execute("INSERT INTO wsDATA VALUES(?, ?, ?)", [time_border, pump_id, avg_hum])
+        dbconn.commit()
+    curse.close()
+    dbconn.close()
 
 
 def _collect_pump_data():
@@ -50,8 +74,7 @@ def _collect_pump_data():
 
     for pump in results:
         pm = url3.PoolManager()
-        res: HTTPResponse = pm.request("GET", f"{pump['host']}:{pump['port']}/data")
-        
+        res: HTTPResponse = pm.request("GET", f"http://{pump['host']}:{pump['port']}/data")
         if res.status == 200:
             data = json.loads(res.data.decode("UTF-8"))
             dbconn = sql.connect(DBFILE)
@@ -62,35 +85,11 @@ def _collect_pump_data():
                 data["humidity"]
                 ]
             )
+            dbconn.commit()
             curse.close()
             dbconn.close()
-
             _check_pump_data(pump, data)
             _compact_pump_data(pump["id"])
-
-
-def _compact_pump_data(pump_id: int):
-    """Collects data from the wsData table and tries to compact the last hour
-    """
-    dbconn = sql.connect(DBFILE)
-    dbconn.row_factory = Row
-    curse = dbconn.cursor()
-    time_border = int(time.time()) - 1800
-    curse.execute("SELECT date, humidity FROM wsData WHERE pump_id = ? AND date > ?", [pump_id, time_border])
-    results = curse.fetchall()
-
-    if results[0]["date"] < time_border + LOOPTIME + 1:
-        GLOGGER.info("Compacting pump data! Pump ID = %d", pump_id)
-        avg_hum = 0.0
-        for row in results:
-            avg_hum += row["humidity"]
-        avg_hum /= len(results)
-        curse.execute("DELETE FROM wsData WHERE pump_id = ? AND date > ?", [pump_id, time_border])
-        dbconn.commit()
-        curse.execute("INSERT INTO wsDATA VALUES(?, ?, ?)", [time_border, pump_id, avg_hum])
-        dbconn.commit()
-    curse.close()
-    dbconn.close()
 
 
 def run():
@@ -98,3 +97,6 @@ def run():
         _collect_pump_data()
     except Exception as e:
         GLOGGER.error("Could not collect pump data! %s", type(e).__name__)
+
+if __name__ == "__main__":
+    run()
