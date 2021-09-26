@@ -15,7 +15,7 @@ CREATE TABLE pump (
 
 CREATE TABLE wsData (
     date TIMESTAMP NOT NULL,
-    pump_id INTEGER REFERENCES pump(id) NOT NULL ON DELETE CASCADE,
+    pump_id INTEGER NOT NULL REFERENCES pump(id) ON DELETE CASCADE,
     humidity FLOAT NOT NULL CHECK(0 <= humidity <= 1)
 );
 
