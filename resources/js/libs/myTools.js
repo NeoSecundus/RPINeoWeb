@@ -123,10 +123,16 @@ function imageToBase64(imgdata, imagetype = "image/png") {
     return "data:" + imagetype + ";base64," + btoa(String.fromCharCode.apply(null, data));
 }
 
+function writeStatus(msg = "", color = "limegreen") {
+    document.getElementById("status").innerHTML = msg;
+    document.getElementById("status").style.color = color;
+    resetStatus();
+}
+
 function resetStatus(time = 3000) {
     setTimeout(() => {
         document.getElementById("status").innerHTML = "";
-    }, time)
+    }, time);
 }
 
 function formatDate(date = Date.now()) {

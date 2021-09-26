@@ -1,10 +1,11 @@
 <?php
 
 class DBHelper {
-    public static function sendDBRequest($query, $data = []): string {
+    public static function sendDBRequest($query, $data = [], $is_select = true): string {
         $db = new SQLite3("data/sqdb.db");
         $db->busyTimeout(500);
         $db->query("PRAGMA foreign_keys = ON;");
+        $db->enableExceptions(true);
         $stmt = $db->prepare($query);
         for ($pos = 0; $pos < count($data); $pos++) {
             $stmt->bindParam($pos+1,$data[$pos]);
@@ -12,12 +13,14 @@ class DBHelper {
         $result = $stmt->execute();
         $data = [];
 
-        try {
-            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                array_push($data, $row);
-            };
-        } catch (Exception $err) {
-            Logger::error($err);
+        if ($is_select) {
+            try {
+                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                    array_push($data, $row);
+                };
+            } catch (Exception $err) {
+                Logger::error($err);
+            }
         }
         $db->close();
 

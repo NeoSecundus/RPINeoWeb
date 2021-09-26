@@ -73,6 +73,12 @@ input {
     background-color: $habit-bg;
 }
 
+.input-label {
+    width: 9rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
 strong {
     font-size: inherit;
 }

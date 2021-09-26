@@ -6,7 +6,7 @@
 <ul id="userList">
 </ul>
 <hr/>
-<label>User to edit: <input id="user" style="font-weight: bold"/></label><br/>
+<label class="input-label">User to edit: </label><input id="user" style="font-weight: bold"/><br/>
 <style>
     .ub {
         margin: 0.2rem 0 0.2rem 0.2rem;
@@ -18,10 +18,10 @@
 <button class="ub" onclick="resetPassword()">Reset Password</button>
 <button class="ub" onclick="getUserList()">Refresh</button>
 <hr/>
-<label>User privileges: <select id="privileges">
+<label class="input-label">User privileges: </label><select id="privileges">
     <option>Admin</option>
     <option>Member</option>
     <option>Guest</option>
-</select></label><br/>
+</select><br/>
 <button class="ub" onclick="changePrivileges()">Change Privileges</button>
 <p style="color: red" id="status"></p>

@@ -47,7 +47,7 @@ class HabitManager {
         }
         
         return DBHelper::sendDBRequest("INSERT INTO habit VALUES(?, ?, ?, ?)", 
-        [$DATA["create_date"], $USER, $DATA["title"], $DATA["desc"]]);
+        [$DATA["create_date"], $USER, $DATA["title"], $DATA["desc"]], false);
     }
 
     private static function deleteHabit($DATA): string {
@@ -77,7 +77,7 @@ class HabitManager {
         }
 
         return DBHelper::sendDBRequest("INSERT INTO habit_track VALUES(?, ?)", 
-        [$DATA["habit_id"], $DATA["date"]]);
+        [$DATA["habit_id"], $DATA["date"]], false);
     }
 
     private static function deleteTrack($DATA): string {

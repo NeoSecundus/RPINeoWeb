@@ -1,0 +1,26 @@
+<?php
+    include("./src/includes/html/pages/watersystem.html")
+?>
+<h2>Pump Control:</h2>
+<select style="width:18%; margin-left:30%" id="pumpSelection">
+    <option>Choose Pump</option>
+</select> <button onclick="getPumpData();">Select / Update</button>
+
+<hr/>
+<h3>Pump Attributes:</h3>
+<table style="margin: .4rem;">
+    <tr>
+        <td width="47.5%"><label class="input-label">Pump Host:</label><input style="width:30%" id="pump_host" type="text" maxlength="20" readonly></td>
+        <td><label class="input-label">Pump Port:</label><input style="width:30%" id="pump_port" type="number" min="1" max="65535" readonly></td>
+    </tr>
+    <tr>
+        <td width="47.5%"><label class="input-label">Low Threshold:</label><input style="width:30%" id="low_thresh" type="number" min="0" max="1" step="0.01"></td>
+        <td><label class="input-label">High Threshold:</label><input style="width:30%" id="high_thresh" type="number" min="0" max="1" step="0.01"></td>
+    </tr>
+    <tr>
+        <td width="47.5%"><label class="input-label">Watering Delay:</label><input style="width:30%" id="watering_delay" type="number" min="0" max="1" step="1"></td>
+        <td><label class="input-label">Watering Time:</label><input style="width:30%" id="watering_time" type="number" min="0" max="1" step="1"></td>
+    </tr>
+</table>
+<button style="margin: .3rem;"onclick="updatePump();">Update Pump</button><img style="display:none; width:2.4rem; margin-bottom: -0.8rem;" src="/resources/images/Load.gif" id="loading" alt="Loading..."><br/>
+<div id="status"></div>

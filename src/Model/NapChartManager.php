@@ -23,7 +23,7 @@ class NapChartManager {
         DBHelper::sendDBRequest("DELETE FROM nap_chart WHERE user LIKE ?;", 
             [$USER]);
         return DBHelper::sendDBRequest("INSERT INTO nap_chart VALUES(?, ?);", 
-            [$USER, json_encode($DATA)]);
+            [$USER, json_encode($DATA)], false);
     }
 
     private static function loadChart($USER): string {

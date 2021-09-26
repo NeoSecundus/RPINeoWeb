@@ -69,7 +69,7 @@ VALUES('$DATA[title]',
 '$USER', 
 '$DATA[group]', 
 '$DATA[text]', 
-$DATA[create_date])");
+$DATA[create_date])", [], false);
     }
 
 
@@ -111,7 +111,7 @@ WHERE title == ? and \"user\" == '$USER' and group_title == ?",
         }
 
         return DBHelper::sendDBRequest("INSERT INTO raspi_note_groups 
-VALUES('$DATA[title]', '$USER', '$DATA[color]')");
+VALUES('$DATA[title]', '$USER', '$DATA[color]')", [], false);
     }
 
 

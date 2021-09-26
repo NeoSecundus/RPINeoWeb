@@ -1,0 +1,23 @@
+<h1>Water System Control</h1>
+<hr/>
+
+<div>
+    <button style="width: 22%; margin-left:8%" onclick="
+        requestPage('/watersystem/add.phtml');
+    ">
+    Add Pump
+    </button>
+    <button style="width: 22%; margin-left:8%" onclick="
+        requestPage('/watersystem/control.phtml');
+        beginExecution('getPumpSelection');
+    ">
+    Pump Control
+    </button>
+    <button style="width: 22%; margin-left:8%" onclick="
+        requestPage('/watersystem/monitoring.phtml');
+        beginExecution('getWSData');
+    ">
+    Pump Monitoring
+    </button>
+</div>
+<hr/>

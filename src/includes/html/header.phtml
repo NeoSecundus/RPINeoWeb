@@ -47,6 +47,15 @@ if (isset($_COOKIE["themeSetting"])) {
             </button>
 
             <button onclick="
+                requestPage('/watersystem.html');
+                requestScript('/resources/js/external/chartjs/Chart.min.js');
+                requestScript('/resources/js/waterSystem.js');
+                ">
+                <img src="/resources/images/icons/watersystem.png" alt="WaterSystem"/>
+                W.S.C. <span></span>
+            </button>
+
+            <button onclick="
                 requestPage('/notes.html');
                 requestScript('/resources/js/external/showdown/showdown.min.js');
                 requestScript('/resources/js/notes/notes.js');

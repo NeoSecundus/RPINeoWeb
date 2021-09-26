@@ -28,12 +28,6 @@
 
 ### Current
 
-- [ ] WaterSystem
-  - [X] Database Table and Triggers
-  - [ ] Addition to Python Data Collector
-  - [ ] Backend Integration
-  - [ ] Frontend Integration
-
 ### Backlog
 
 - Git Page

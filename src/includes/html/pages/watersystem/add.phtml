@@ -1,0 +1,9 @@
+<?php
+    include("./src/includes/html/pages/watersystem.html")
+?>
+<h2>Add Pump:</h2>
+<label class="input-label">Pump ID: </label><input type="number" id="wsid" min="1" max="1000" required placeholder="1-1000" step="1"><br/>
+<label class="input-label">Pump Host: </label><input type="name" id="wshost" required placeholder="pump1"><br/>
+<label class="input-label">Pump Port: </label><input type="number" id="wsport" min="1" max="65535" step="1" required placeholder="12121"><br/>
+<button onclick="addPump();">ADD</button><br/>
+<div id="status"></div>

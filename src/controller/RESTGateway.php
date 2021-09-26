@@ -98,6 +98,10 @@ function RESTGateway() {
             Logger::info("Requesting NapChart!");
             echo NapChartManager::checkRequest($url);
             break;
+        case "wsc":
+            Logger::info("Requesting WaterSystem!");
+            echo WaterSystem::checkRequest($url);
+            break;
         default:
             Logger::info("Requesting page " . $url);
             $view->sendPage($url);

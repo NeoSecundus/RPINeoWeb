@@ -12,7 +12,11 @@ if (!defined("BASEPATH")) die("No direct access allowed!");
          '/terminal.html' => 'Member',
          '/seafile.html' => 'Member',
          '/habits.html' => 'Member',
-         '/napchart.html' => 'Guest'
+         '/napchart.html' => 'Guest',
+         '/watersystem.html' => 'Admin',
+         '/watersystem/add.phtml' => 'Admin',
+         '/watersystem/control.phtml' => 'Admin',
+         '/watersystem/monitoring.phtml' => 'Admin',
      ],
      'resourceTypes' => [
          // Images
