@@ -6,8 +6,13 @@
 ENDMSG=""
 
 if [[ $UID -ne "0" ]]; then
-    echo "Please run script with root permissions!"
+    echo -e "\e[33mPlease run script with root permissions!\e[0m"
     exit 2
+fi
+
+if [[ ! "$(pwd)" =~ .*setup.* ]]; then
+    echo -e "\e[33mPlease start script from setup folder!\e[0m"
+    exit 3
 fi
 
 #
@@ -16,7 +21,8 @@ fi
 
 checkForPackage() {
     if [[ $# != "1" ]]; then
-        return -1
+        echo "Could not check Package!"
+        return 2
     fi
 
     echo -n "Checking $1 installation..."
@@ -33,7 +39,8 @@ checkForPackage() {
 
 activateService() {
     if [[ $# != "1" ]]; then
-        return -1
+        echo "Could not activate Service!"
+        return 2
     fi
 
     echo -n "Installing $1 service..."
@@ -71,7 +78,7 @@ if [[ $? -ne "0" ]]; then
 fi
 
 #
-# Apache Dependencies
+# Dependencies
 #
 echo "Installing dependencies..."
 
@@ -125,6 +132,10 @@ echo -e "${PHP_TEMP/;extension=sqlite3/extension=sqlite3}" > /etc/php/?.?/apache
 
 # ssl
 echo "Enabling ssl..."
+mkdir ssl
+cd ssl || exit 5
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+cd .. || exit 5
 cp -r ./ssl /etc/apache2/
 a2enmod ssl 1>> setup.log 2>> error.log
 a2enmod rewrite 1>> setup.log 2>> error.log
@@ -146,7 +157,7 @@ apt-get -y install build-essential cmake git libjson-c-dev libwebsockets-dev 1>>
 git clone https://github.com/tsl0922/ttyd.git 1>> setup.log 2>> error.log
 
 if [[ $? -eq "0" ]]; then
-    cd ttyd && mkdir build && cd build
+    cd ttyd && mkdir build && cd build || exit 5
     cmake .. 1>> setup.log 2>> error.log
     make && make install 1>> setup.log 2>> error.log
     cd ../..
